@@ -1,0 +1,12 @@
+.cls-1 {
+  transition: fill 0.2s ease-in, transform 0.2s ease-in;
+  transform-origin: center center;
+  stroke-width: 2px;
+  cursor: pointer;
+  stroke: #fff;
+}
+
+.cls-1:hover {
+  transform: scale(1.009);
+  fill: #3384a9;
+}
