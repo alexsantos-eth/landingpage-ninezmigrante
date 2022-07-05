@@ -14,10 +14,12 @@ import {
   Textarea,
   FormLabel,
   FormControl,
+  useToast,
 } from "@chakra-ui/react";
 import sendContactEmail from "../../utils/email";
 
 const ContactPage = () => {
+  const toast = useToast();
   const [form, setForm] = useState({
     email: "",
     name: "",
@@ -29,7 +31,15 @@ const ContactPage = () => {
 
   const sendForm = () => {
     if (form.captcha) {
-      sendContactEmail(form);
+      sendContactEmail({
+        ...form,
+        callBack: () => {
+          toast({
+            title: "Correo enviado.",
+            status: "success",
+          });
+        },
+      });
     }
   };
 

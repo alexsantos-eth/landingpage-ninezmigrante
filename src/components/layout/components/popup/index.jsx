@@ -1,5 +1,6 @@
 // REACT
 import React, { useEffect, useState } from "react";
+import { useToast } from "@chakra-ui/react";
 
 // GOOGLE RECAPTCHA
 import ReCAPTCHA from "react-google-recaptcha";
@@ -23,6 +24,7 @@ import "./index.css";
 import sendContactEmail from "../../../../utils/email";
 
 const Popup = () => {
+  const toast = useToast();
   const [popup, setPopup] = useState(false);
   const [form, setForm] = useState({
     email: "",
@@ -36,7 +38,15 @@ const Popup = () => {
 
   const sendForm = () => {
     if (form.captcha) {
-      sendContactEmail(form);
+      sendContactEmail({
+        ...form,
+        callBack: () => {
+          toast({
+            title: "Correo enviado.",
+            status: "success",
+          });
+        },
+      });
       closePopup();
     }
   };

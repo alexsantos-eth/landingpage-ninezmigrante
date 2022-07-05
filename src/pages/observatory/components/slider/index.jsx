@@ -2,47 +2,34 @@ import React from "react";
 
 const Slider = () => {
   return (
-    <div
-      className="container-wrapper-genially"
-      style={{
-        position: "relative",
-        minHeight: "400px",
-        maxWidth: "100%",
-        width: "100%",
-      }}
-    >
-      <video
-        loop
-        autoPlay
-        playsInline
-        muted="muted"
-        className="loader-genially"
-        width="80px"
-        height="80px"
+    <div style={{ width: "100%" }}>
+      <div
         style={{
-          top: "45%",
-          left: "50%",
-          marginBottom: "10%",
-          position: "absolute",
-          transform: "translate(-50%, -50%)",
+          position: "relative",
+          paddingBottom: "56.25%",
+          paddingTop: 0,
+          height: 0,
         }}
       >
-        <source
-          src="https://static.genial.ly/resources/panel-loader-low.mp4"
-          type="video/mp4"
-        />
-        Your browser does not support the video tag.
-      </video>
-      <div
-        id="62c3340c611be00018bfaa73"
-        className="genially-embed"
-        style={{
-          width: "100%",
-          height: "auto",
-          margin: "0px auto",
-          position: "relative",
-        }}
-      ></div>
+        <iframe
+          frameBorder="0"
+          width="1200"
+          height="675"
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+          }}
+          src="https://view.genial.ly/62c3340c611be00018bfaa73"
+          type="text/html"
+          allowscriptaccess="always"
+          scrolling="yes"
+          allowFullScreen
+          allownetworking="all"
+        ></iframe>
+      </div>
     </div>
   );
 };
