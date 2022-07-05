@@ -42,7 +42,7 @@ const Popup = () => {
         ...form,
         callBack: () => {
           toast({
-            title: "Correo enviado.",
+            title: "Hemos recibido tu información correctamente.",
             status: "success",
           });
         },
