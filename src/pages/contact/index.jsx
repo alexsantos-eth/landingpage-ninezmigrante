@@ -55,7 +55,7 @@ const ContactPage = () => {
   }, []);
 
   return (
-    <Box padding={{ base: "40px 24px", md: "80px 40px" }} bgColor="blue.500">
+    <Box padding={{ base: "24px", md: "40px" }} bgColor="blue.500">
       <Stack
         spacing="40px"
         margin="0 auto"
