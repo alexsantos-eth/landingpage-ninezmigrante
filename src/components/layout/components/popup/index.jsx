@@ -21,7 +21,7 @@ import {
 import { CloseIcon } from "@chakra-ui/icons";
 
 import "./index.css";
-import sendContactEmail from "../../../../utils/email";
+import sendContactEmail, { validateEmail } from "../../../../utils/email";
 
 const Popup = () => {
   const toast = useToast();
@@ -37,18 +37,35 @@ const Popup = () => {
   });
 
   const sendForm = () => {
-    if (form.captcha) {
-      sendContactEmail({
-        ...form,
-        callBack: () => {
-          toast({
-            title: "Hemos recibido tu información correctamente.",
-            status: "success",
-          });
-        },
+    // VALIDAR CAPTCHA
+    if (!form.captcha) {
+      toast({
+        title: "Por favor completa el reCAPTCHA",
+        status: "error",
       });
-      closePopup();
+      return;
     }
+
+    //  VALIDAR EMAIL
+    if (!validateEmail(form.email)) {
+      toast({
+        title: "Correo electrónico incorrecto.",
+        status: "error",
+      });
+      return;
+    }
+
+    // ENVIAR
+    sendContactEmail({
+      ...form,
+      callBack: (msg) => {
+        toast({
+          title: "Hemos recibido tu información correctamente.",
+          status: "success",
+        });
+      },
+    });
+    closePopup();
   };
 
   const handleInputs = (ev) =>

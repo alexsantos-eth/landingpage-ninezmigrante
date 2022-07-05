@@ -30,17 +30,33 @@ const ContactPage = () => {
   });
 
   const sendForm = () => {
-    if (form.captcha) {
-      sendContactEmail({
-        ...form,
-        callBack: () => {
-          toast({
-            title: "Hemos recibido tu información correctamente.",
-            status: "success",
-          });
-        },
+    // VALIDAR CAPTCHA
+    if (!form.captcha) {
+      toast({
+        title: "Por favor completa el reCAPTCHA.",
+        status: "error",
       });
+      return;
     }
+
+    //  VALIDAR EMAIL
+    if (!validateEmail(form.email)) {
+      toast({
+        title: "Correo electrónico incorrecto.",
+        status: "error",
+      });
+      return;
+    }
+
+    sendContactEmail({
+      ...form,
+      callBack: () => {
+        toast({
+          title: "Hemos recibido tu información correctamente.",
+          status: "success",
+        });
+      },
+    });
   };
 
   const handleInputs = (ev) =>
