@@ -49,7 +49,7 @@ const Popup = () => {
     //  VALIDAR EMAIL
     if (!validateEmail(form.email)) {
       toast({
-        title: "Correo electrónico incorrecto.",
+        title: "Tu correo electrónico no es válido.",
         status: "error",
       });
       return;
