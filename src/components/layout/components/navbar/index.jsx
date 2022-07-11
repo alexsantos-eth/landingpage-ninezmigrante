@@ -21,7 +21,7 @@ import {
 } from "@chakra-ui/react";
 
 // ICONS
-import { ChevronRightIcon, ChevronDownIcon } from "@chakra-ui/icons";
+import { ChevronRightIcon, Search2Icon } from "@chakra-ui/icons";
 
 // COMPONENTS
 import MobileNavbar from "./components/mobileNavbar";
@@ -56,15 +56,22 @@ const Navbar = () => {
 
         {/* TITLE AND SUBTITLE */}
         <Stack spacing="16px">
-          <Heading
-            as="h1"
-            size={{ base: "xl", md: "4xl" }}
-            color="white"
-            fontWeight="400"
-            fontFamily="Oswald"
-          >
-            NiñezMigrante.org
-          </Heading>
+          <Stack direction="row" alignItems="center">
+            <Icon
+              color="white"
+              as={Search2Icon}
+              boxSize={{ base: "1.2em", md: "3.8em" }}
+            />
+            <Heading
+              as="h1"
+              size={{ base: "xl", md: "4xl" }}
+              color="white"
+              fontWeight="400"
+              fontFamily="Oswald"
+            >
+              NiñezMigrante.org
+            </Heading>
+          </Stack>
           <Heading
             as="h2"
             color="white"
@@ -74,7 +81,7 @@ const Navbar = () => {
             display={{ base: "none", md: "block" }}
           >
             Observatorio binacional de niñez migrante retornada -
-            Guatemala-Honduras
+            Honduras-Guatemala
           </Heading>
         </Stack>
 
