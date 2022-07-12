@@ -9,27 +9,22 @@ import Family from "../../../../assets/family.png";
 
 // UTILS
 import { year } from "../../../../utils/year";
+import useFetch from "../../../../hooks/fetch";
 
 const TotalByTravelCondition = () => {
   const [total, setTotal] = useState({ acm: 0, noAcm: 0 });
 
-  useEffect(() => {
-    fetch(
-      `${
-        import.meta.env.VITE_APP_API_URL
-      }consultas/totalnnaporcondiciondeviajeporanioactual`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        let totals = { noAcm: 0, acm: 0 };
-        data?.data.forEach((stats) => {
-          if (stats._id === "Acompañado") totals.acm += stats.total;
-          if (stats._id === "No acompañado") totals.noAcm += stats.total;
-        });
-        setTotal(totals);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  useFetch({
+    url: "/consultas/totalnnaporcondiciondeviajeporanioactual",
+    resolve: (data) => {
+      let totals = { noAcm: 0, acm: 0 };
+      data?.data.forEach((stats) => {
+        if (stats._id === "Acompañado") totals.acm += stats.total;
+        if (stats._id === "No acompañado") totals.noAcm += stats.total;
+      });
+      setTotal(totals);
+    },
+  });
 
   return (
     <Box bg="blue.500" p={{ base: "40px 24px", md: "80px 40px" }}>

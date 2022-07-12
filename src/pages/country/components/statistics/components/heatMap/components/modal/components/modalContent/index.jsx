@@ -7,61 +7,41 @@ import { Stack, Text, Image } from "@chakra-ui/react";
 import Male from "../../../../../../../../../../assets/male.png";
 import Femenine from "../../../../../../../../../../assets/femenine.png";
 
-const quads = {
-  q1: "enero - abril",
-  q2: "mayo - agosto",
-  q3: "septiembre - diciembre",
-};
+import useFetch from "../../../../../../../../../../hooks/fetch";
 
 const ModalContent = ({ period, year, dep, country }) => {
   const countryID = useParams().countryID || country;
   const [total, setTotal] = useState(0);
   const [genders, setGenders] = useState({ female: 0, male: 0 });
 
-  useEffect(() => {
-    if (period.length > 0 && year.length > 0 && dep.length > 0) {
-      fetch(
-        `${
-          import.meta.env.VITE_APP_API_URL
-        }consultas/totalgeneropordepartamento/${year}/${encodeURI(
-          quads[period]
-        )}/${countryID}/${encodeURI(dep)}`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          let depGenderTotals = { male: 0, female: 0 };
-          data?.data.forEach((stats) => {
-            if (stats._id === "Femenino") {
-              depGenderTotals.female += stats.total;
-            }
-            if (stats._id === "Masculino") {
-              depGenderTotals.male += stats.total;
-            }
-          });
-          setGenders(depGenderTotals);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [period, year, dep, countryID]);
+  useFetch({
+    url: "/consultas/totalgeneropordepartamento/year/quarter/country/department",
+    year,
+    period,
+    department: dep,
+    country: countryID,
+    resolve: (data) => {
+      let depGenderTotals = { male: 0, female: 0 };
+      data?.data.forEach((stats) => {
+        if (stats._id === "Femenino") depGenderTotals.female += stats.total;
+        if (stats._id === "Masculino") depGenderTotals.male += stats.total;
+      });
+      setGenders(depGenderTotals);
+    },
+  });
 
-  useEffect(() => {
-    if (period.length > 0 && year.length > 0) {
-      fetch(
-        `${
-          import.meta.env.VITE_APP_API_URL
-        }consultas/totalpordepartamento/${year}/${encodeURI(
-          quads[period]
-        )}/${countryID}/${encodeURI(dep)}`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          let total = 0;
-          data?.data.forEach((stats) => (total += stats.total));
-          setTotal(total);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [period, year, dep, countryID]);
+  useFetch({
+    url: "/consultas/totalpordepartamento/year/quarter/country/department",
+    year,
+    period,
+    department: dep,
+    country: countryID,
+    resolve: (data) => {
+      let total = 0;
+      data?.data.forEach((stats) => (total += stats.total));
+      setTotal(total);
+    },
+  });
 
   return (
     <Stack

@@ -11,23 +11,22 @@ import Honduras from "../../../../assets/honduras.png";
 
 // UTILS
 import { year } from "../../../../utils/year";
+import useFetch from "../../../../hooks/fetch";
 
 const TotalReturns = () => {
   const [total, setTotal] = useState({ gt: 0, hn: 0 });
 
-  useEffect(() => {
-    fetch(`${import.meta.env.VITE_APP_API_URL}consultas/totalnnaporpaisyanio`)
-      .then((res) => res.json())
-      .then((data) => {
-        let totals = { gt: 0, hn: 0 };
-        data?.data.forEach((stats) => {
-          if (stats._id?.pais === "Guatemala") totals.gt += stats.total;
-          if (stats._id?.pais === "Honduras") totals.hn += stats.total;
-        });
-        setTotal(totals);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  useFetch({
+    url: "/consultas/totalnnaporpaisyanio",
+    resolve: (data) => {
+      let totals = { gt: 0, hn: 0 };
+      data?.data.forEach((stats) => {
+        if (stats._id?.pais === "Guatemala") totals.gt += stats.total;
+        if (stats._id?.pais === "Honduras") totals.hn += stats.total;
+      });
+      setTotal(totals);
+    },
+  });
 
   return (
     <Box bg="red.500" p={{ base: "40px 24px", md: "80px 40px" }}>

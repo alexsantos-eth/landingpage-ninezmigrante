@@ -9,36 +9,26 @@ import { Box, Stack, Text, Image, Tooltip } from "@chakra-ui/react";
 import Male from "../../../../../../assets/male.png";
 import Femenine from "../../../../../../assets/femenine.png";
 
+import useFetch from "../../../../../../hooks/fetch";
+
 const Gender = ({ period, year, country }) => {
   const countryID = useParams().countryID || country;
   const [total, setTotal] = useState({ male: 0, female: 0 });
 
-  useEffect(() => {
-    if (period.length > 0 && year.length > 0) {
-      const quads = {
-        q1: "enero - abril",
-        q2: "mayo - agosto",
-        q3: "septiembre - diciembre",
-      };
-      fetch(
-        `${
-          import.meta.env.VITE_APP_API_URL
-        }consultas/totalporgenero/${countryID}/${year}/${encodeURI(
-          quads[period]
-        )}`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          let totals = { male: 0, female: 0 };
-          data?.data.forEach((stats) => {
-            if (stats._id === "Femenino") totals.female += stats.total;
-            if (stats._id === "Masculino") totals.male += stats.total;
-          });
-          setTotal(totals);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [period, year, countryID]);
+  useFetch({
+    url: "/consultas/totalporgenero/country/year/quarter",
+    year,
+    period,
+    country: countryID,
+    resolve: (data) => {
+      let totals = { male: 0, female: 0 };
+      data?.data.forEach((stats) => {
+        if (stats._id === "Femenino") totals.female += stats.total;
+        if (stats._id === "Masculino") totals.male += stats.total;
+      });
+      setTotal(totals);
+    },
+  });
 
   return (
     <Box width="100%">

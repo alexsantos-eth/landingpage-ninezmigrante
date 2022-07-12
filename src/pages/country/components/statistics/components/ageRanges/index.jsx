@@ -15,6 +15,8 @@ import { Bar } from "react-chartjs-2";
 import { Box, Stack, Text } from "@chakra-ui/react";
 import { colors } from "../../../../../../utils/theme";
 
+import useFetch from "../../../../../../hooks/fetch";
+
 export const options = {
   responsive: true,
   plugins: {
@@ -30,33 +32,21 @@ const AgeRanges = ({ period, year, country }) => {
   const countryID = useParams().countryID || country;
   const [total, setTotal] = useState({ f1: 0, f2: 0, f3: 0 });
 
-  useEffect(() => {
-    if (period.length > 0 && year.length > 0) {
-      const quads = {
-        q1: "enero - abril",
-        q2: "mayo - agosto",
-        q3: "septiembre - diciembre",
-      };
-      fetch(
-        `${
-          import.meta.env.VITE_APP_API_URL
-        }consultas/totalporrangoetario/${countryID}/${year}/${encodeURI(
-          quads[period]
-        )}`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          let totals = { f1: 0, f2: 0, f3: 0 };
-          data?.data.forEach((stats) => {
-            if (stats._id === "0-6 años") totals.f1 += stats.total;
-            if (stats._id === "7-12 años") totals.f2 += stats.total;
-            if (stats._id === "13-17 años") totals.f3 += stats.total;
-          });
-          setTotal(totals);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [period, year, countryID]);
+  useFetch({
+    url: "/consultas/totalporrangoetario/country/year/quarter",
+    year,
+    period,
+    country: countryID,
+    resolve: (data) => {
+      let totals = { f1: 0, f2: 0, f3: 0 };
+      data?.data.forEach((stats) => {
+        if (stats._id === "0-6 años") totals.f1 += stats.total;
+        if (stats._id === "7-12 años") totals.f2 += stats.total;
+        if (stats._id === "13-17 años") totals.f3 += stats.total;
+      });
+      setTotal(totals);
+    },
+  });
 
   const data = {
     labels,

@@ -13,6 +13,8 @@ import Belice from "./components/polygons/belice";
 import Guatemala from "./components/polygons/guatemala";
 import ElSalvador from "./components/polygons/elsalvador";
 
+import useFetch from "../../../../../../hooks/fetch";
+
 const countryImages = {
   eu: { color: "", image: <EEUU /> },
   mx: { color: "", image: <Mexico /> },
@@ -22,73 +24,55 @@ const countryImages = {
   es: { color: "", image: <ElSalvador /> },
 };
 
+const defaultTotals = {
+  eu: { name: "", total: 0 },
+  mx: { name: "", total: 0 },
+  cd: { name: "", total: 0 },
+  gt: { name: "", total: 0 },
+  bz: { name: "", total: 0 },
+  es: { name: "", total: 0 },
+};
+
 const ReturnCountry = ({ period, year, country }) => {
   const countryID = useParams().countryID || country;
-  const [total, setTotal] = useState({
-    eu: { name: "", total: 0 },
-    mx: { name: "", total: 0 },
-    cd: { name: "", total: 0 },
-    gt: { name: "", total: 0 },
-    bz: { name: "", total: 0 },
-    es: { name: "", total: 0 },
+  const [total, setTotal] = useState(() => ({ ...defaultTotals }));
+
+  useFetch({
+    url: "/consultas/totalporpaisdeproveniencia/country/year/quarter",
+    year,
+    period,
+    country: countryID,
+    resolve: (data) => {
+      let totals = { ...defaultTotals };
+      data?.data.forEach((stats) => {
+        if (stats._id?.nombre === "Estados Unidos") {
+          totals.eu.total += stats.total;
+          totals.eu.name = "EE.UU.";
+        }
+        if (stats._id?.nombre === "México") {
+          totals.mx.total += stats.total;
+          totals.mx.name = stats._id?.nombre;
+        }
+        if (stats._id?.nombre === "Canadá") {
+          totals.cd.total += stats.total;
+          totals.cd.name = stats._id?.nombre;
+        }
+        if (stats._id?.nombre === "Guatemala") {
+          totals.gt.total += stats.total;
+          totals.gt.name = stats._id?.nombre;
+        }
+        if (stats._id?.nombre === "Belice") {
+          totals.bz.total += stats.total;
+          totals.bz.name = stats._id?.nombre;
+        }
+        if (stats._id?.nombre === "El Salvador") {
+          totals.es.total += stats.total;
+          totals.es.name = stats._id?.nombre;
+        }
+      });
+      setTotal(totals);
+    },
   });
-
-  useEffect(() => {
-    if (period.length > 0 && year.length > 0) {
-      const quads = {
-        q1: "enero - abril",
-        q2: "mayo - agosto",
-        q3: "septiembre - diciembre",
-      };
-      fetch(
-        `${
-          import.meta.env.VITE_APP_API_URL
-        }consultas/totalporpaisdeproveniencia/${countryID}/${year}/${encodeURI(
-          quads[period]
-        )}`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          let totals = {
-            eu: { name: "", total: 0 },
-            mx: { name: "", total: 0 },
-            cd: { name: "", total: 0 },
-            gt: { name: "", total: 0 },
-            bz: { name: "", total: 0 },
-            es: { name: "", total: 0 },
-          };
-
-          data?.data.forEach((stats) => {
-            if (stats._id?.nombre === "Estados Unidos") {
-              totals.eu.total += stats.total;
-              totals.eu.name = "EE.UU.";
-            }
-            if (stats._id?.nombre === "México") {
-              totals.mx.total += stats.total;
-              totals.mx.name = stats._id?.nombre;
-            }
-            if (stats._id?.nombre === "Canadá") {
-              totals.cd.total += stats.total;
-              totals.cd.name = stats._id?.nombre;
-            }
-            if (stats._id?.nombre === "Guatemala") {
-              totals.gt.total += stats.total;
-              totals.gt.name = stats._id?.nombre;
-            }
-            if (stats._id?.nombre === "Belice") {
-              totals.bz.total += stats.total;
-              totals.bz.name = stats._id?.nombre;
-            }
-            if (stats._id?.nombre === "El Salvador") {
-              totals.es.total += stats.total;
-              totals.es.name = stats._id?.nombre;
-            }
-          });
-          setTotal(totals);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [period, year, country]);
 
   return (
     <Box width="100%">

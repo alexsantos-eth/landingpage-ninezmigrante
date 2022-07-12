@@ -9,35 +9,21 @@ import ReturnPath from "../../../country/components/statistics/components/return
 import ReturnCountry from "../../../country/components/statistics/components/returnCountry";
 import HeatMap from "../../../country/components/statistics/components/heatMap";
 
-const quarters = {
-  q1: "Primer cuatrimestre",
-  q2: "Segundo cuatrimestre",
-  q3: "Tercer cuatrimestre",
-};
+import useFetch, { quarters } from "../../../../hooks/fetch";
 
 const Statistics = ({ data }) => {
   const [total, setTotal] = useState(0);
 
-  useEffect(() => {
-    if (data.period.length > 0 && data.year.length > 0) {
-      const quads = {
-        q1: "enero - abril",
-        q2: "mayo - agosto",
-        q3: "septiembre - diciembre",
-      };
-      fetch(
-        `${import.meta.env.VITE_APP_API_URL}consultas/totalporpaisanioperiodo/${
-          data.country
-        }/${data.year}/${encodeURI(quads[data.period])}`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          const periodData = data?.data?.[0];
-          setTotal(periodData?.totalRegistros ?? 0);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [data.period, data.year, data.country]);
+  useFetch({
+    url: "/consultas/totalporpaisanioperiodo/country/year/quarter",
+    year: data.year,
+    country: data.country,
+    period: data.period,
+    resolve: (data) => {
+      const periodData = data?.data?.[0];
+      setTotal(periodData?.totalRegistros ?? 0);
+    },
+  });
 
   return (
     <Stack spacing="40px">
