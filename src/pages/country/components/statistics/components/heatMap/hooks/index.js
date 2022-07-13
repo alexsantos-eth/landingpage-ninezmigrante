@@ -1,7 +1,7 @@
 // REACT
 import { useContext, useEffect } from "react";
 import HeatMapContext from "../context";
-import { quarters } from "../../../../../../../hooks/fetch";
+import { quarterId } from "../../../../../../../hooks/fetch";
 
 // COLORS
 import { colors } from "../../../../../../../utils/theme";
@@ -23,7 +23,7 @@ export const useHeatColors = (setColorScales, countryID, period, year) => {
         `${
           import.meta.env.VITE_APP_API_URL
         }/consultas/totalpordepartamento/${countryID}/${year}/${encodeURI(
-          quarters[period]
+          quarterId[period]
         )}`
       )
         .then((req) => req.json())

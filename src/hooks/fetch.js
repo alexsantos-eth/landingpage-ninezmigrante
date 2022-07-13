@@ -6,6 +6,12 @@ export const quarters = {
   q3: "Tercer cuatrimestre",
 };
 
+export const quarterId = {
+  q1: "enero - abril",
+  q2: "mayo - agosto",
+  q3: "septiembre - diciembre",
+};
+
 const useFetch = ({
   url = "",
   year = "",
@@ -32,7 +38,7 @@ const useFetch = ({
               .replaceAll("country", country)
               .replaceAll("year", year)
               .replaceAll("department", encodeURI(department))
-              .replaceAll("quarter", encodeURI(quarters[period]))
+              .replaceAll("quarter", encodeURI(quarterId[period]))
           );
           const json = await response.json();
           resolve(json);
