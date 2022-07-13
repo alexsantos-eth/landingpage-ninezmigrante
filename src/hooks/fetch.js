@@ -7,7 +7,7 @@ export const quarters = {
 };
 
 const useFetch = ({
-  url,
+  url = "",
   year = "",
   period = "",
   country = "",
