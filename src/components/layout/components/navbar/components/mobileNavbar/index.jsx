@@ -80,11 +80,20 @@ const MobileNavbar = () => {
                 </Stack>
               </Link>
 
+              <Link to="/personalize">
+                <Stack direction="row" alignItems="center">
+                  <Icon as={ChevronRightIcon} color="gray.600" />
+                  <Text fontFamily="Montserrat Medium" color="gray.600">
+                    Personalizar
+                  </Text>
+                </Stack>
+              </Link>
+
               <Link to="/compare">
                 <Stack direction="row" alignItems="center">
                   <Icon as={ChevronRightIcon} color="gray.600" />
                   <Text fontFamily="Montserrat Medium" color="gray.600">
-                    Comparar datos
+                    Comparar
                   </Text>
                 </Stack>
               </Link>

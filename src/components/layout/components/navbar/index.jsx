@@ -56,11 +56,15 @@ const Navbar = () => {
 
         {/* TITLE AND SUBTITLE */}
         <Stack spacing="16px">
-          <Stack direction="row" alignItems="center">
+          <Stack
+            direction="row"
+            alignItems="center"
+            gap={{ base: "0px", md: "8px" }}
+          >
             <Icon
               color="white"
               as={Search2Icon}
-              boxSize={{ base: "1.2em", md: "3.8em" }}
+              boxSize={{ base: "1.2em", md: "3.2em" }}
             />
             <Heading
               as="h1"
@@ -146,6 +150,15 @@ const Navbar = () => {
                   _hover={{ bgColor: "blue.700", color: "white" }}
                 >
                   Honduras
+                </MenuItem>
+              </Link>
+              <Link to="/personalize">
+                <MenuItem
+                  color="gray.600"
+                  fontFamily="Montserrat Medium"
+                  _hover={{ bgColor: "blue.700", color: "white" }}
+                >
+                  Personalizar
                 </MenuItem>
               </Link>
               <Link to="/compare">

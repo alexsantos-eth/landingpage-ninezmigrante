@@ -49,9 +49,15 @@ const Footer = () => {
               </Text>
             </Link>
 
+            <Link to="/personalize">
+              <Text fontFamily="Montserrat Medium" color="gray.600">
+                Personalizar
+              </Text>
+            </Link>
+
             <Link to="/compare">
               <Text fontFamily="Montserrat Medium" color="gray.600">
-                Comparar datos
+                Comparar
               </Text>
             </Link>
 
@@ -76,7 +82,7 @@ const Footer = () => {
 
           {/* DIVIDER */}
           <Divider
-            height="300px"
+            height="360px"
             borderWidth="1px"
             orientation="vertical"
             borderColor="yellow.700"
