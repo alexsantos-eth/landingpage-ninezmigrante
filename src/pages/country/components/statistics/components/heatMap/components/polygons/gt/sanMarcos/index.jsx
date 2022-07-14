@@ -4,8 +4,9 @@ import useHeatmap from "../../../../hooks";
 // CHAKRA
 import { Tooltip } from "@chakra-ui/react";
 
-const SanMarcos = () => {
-  const { color, onClick } = useHeatmap("sanmarcos");
+const SanMarcos = ({ customColor = "", disableHeat = false }) => {
+  let { color, onClick } = useHeatmap("sanmarcos", disableHeat);
+  color = customColor || color;
 
   return (
     <Tooltip label="San Marcos" placement="auto">

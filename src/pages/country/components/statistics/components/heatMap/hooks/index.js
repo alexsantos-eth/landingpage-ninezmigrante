@@ -6,14 +6,17 @@ import { quarterId } from "../../../../../../../hooks/fetch";
 // COLORS
 import { colors } from "../../../../../../../utils/theme";
 
-const useHeatmap = (id) => {
-  const heatmap = useContext(HeatMapContext);
-  const heatmapDefault = {
-    ...heatmap,
-    color: heatmap.colorScales[id] ?? colors.heatMin[100],
-    onClick: heatmap.onClick(id),
-  };
-  return heatmapDefault;
+const useHeatmap = (id, disableHeat) => {
+  if (!disableHeat) {
+    const heatmap = useContext(HeatMapContext);
+    const heatmapDefault = {
+      ...heatmap,
+      color: heatmap.colorScales[id] ?? colors.heatMin[100],
+      onClick: heatmap.onClick(id),
+    };
+    return heatmapDefault;
+  }
+  return { color: colors.heatMin[100], onClick: () => {} };
 };
 
 export const useHeatColors = (setColorScales, countryID, period, year) => {

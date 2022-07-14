@@ -4,8 +4,9 @@ import useHeatmap from "../../../../hooks";
 // CHAKRA
 import { Tooltip } from "@chakra-ui/react";
 
-const Copan = () => {
-  const { color, onClick } = useHeatmap("copan");
+const Copan = ({ customColor = "", disableHeat = false }) => {
+  let { color, onClick } = useHeatmap("copan", disableHeat);
+  color = customColor || color;
 
   return (
     <Tooltip label="Copán" placement="auto">

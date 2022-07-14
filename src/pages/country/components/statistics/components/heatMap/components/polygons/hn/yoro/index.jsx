@@ -4,8 +4,9 @@ import useHeatmap from "../../../../hooks";
 // CHAKRA
 import { Tooltip } from "@chakra-ui/react";
 
-const Yoro = () => {
-  const { color, onClick } = useHeatmap("yoro");
+const Yoro = ({ customColor = "", disableHeat = false }) => {
+  let { color, onClick } = useHeatmap("yoro", disableHeat);
+  color = customColor || color;
 
   return (
     <Tooltip label="Yoro" placement="auto">

@@ -4,8 +4,9 @@ import useHeatmap from "../../../../hooks";
 // CHAKRA
 import { Tooltip } from "@chakra-ui/react";
 
-const Atlantida = () => {
-  const { color, onClick } = useHeatmap("atlantida");
+const Atlantida = ({ customColor = "", disableHeat = false }) => {
+  let { color, onClick } = useHeatmap("atlantida", disableHeat);
+  color = customColor || color;
 
   return (
     <Tooltip label="Atlántida" placement="auto">

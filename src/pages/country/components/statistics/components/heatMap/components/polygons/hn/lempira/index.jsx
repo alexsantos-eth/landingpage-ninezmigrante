@@ -4,8 +4,9 @@ import useHeatmap from "../../../../hooks";
 // CHAKRA
 import { Tooltip } from "@chakra-ui/react";
 
-const Lempira = () => {
-  const { color, onClick } = useHeatmap("lempira");
+const Lempira = ({ customColor = "", disableHeat = false }) => {
+  let { color, onClick } = useHeatmap("lempira", disableHeat);
+  color = customColor || color;
 
   return (
     <Tooltip label="Lempira" placement="auto">

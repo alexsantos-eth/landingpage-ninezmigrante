@@ -4,8 +4,9 @@ import useHeatmap from "../../../../hooks";
 // CHAKRA
 import { Tooltip } from "@chakra-ui/react";
 
-const Totonicapan = () => {
-  const { color, onClick } = useHeatmap("totonicapan");
+const Totonicapan = ({ customColor = "", disableHeat = false }) => {
+  let { color, onClick } = useHeatmap("totonicapan", disableHeat);
+  color = customColor || color;
 
   return (
     <Tooltip label="Totonicapán" placement="auto">
