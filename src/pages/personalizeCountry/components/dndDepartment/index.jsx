@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { reorder } from "../../utils/tools";
-import { year } from "../../utils/year";
-import { quarterId } from "../../hooks/fetch";
-import depName from "../../pages/country/components/statistics/components/heatMap/components/modal/utils";
+import { reorder } from "../../../../utils/tools";
+import { year } from "../../../../utils/year";
+import { quarterId } from "../../../../hooks/fetch";
+import depName from "../../../country/components/statistics/components/heatMap/components/modal/utils";
 
 import { Select, Text } from "@chakra-ui/react";
 
@@ -11,7 +11,7 @@ import { useParams } from "react-router-dom";
 
 import countryDeps from "./utils";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { colors } from "../../utils/theme";
+import { colors } from "../../../../utils/theme";
 
 const grid = 8;
 const getItemStyle = (isDragging, draggableStyle) => ({
@@ -33,12 +33,12 @@ const depColors = [colors.red[700], colors.yellow[700], colors.blue[700]];
 const DnDDepartment = ({ country = "guatemala" }) => {
   const countryID = useParams().countryID || country;
   const [depList, setDepList] = useState(countryDeps[countryID]);
+  const [period, setPeriod] = useState("");
   const [depDataList, setDepDataList] = useState([
     { reload: true },
     { reload: true },
     { reload: true },
   ]);
-  const [period, setPeriod] = useState("");
 
   // PERIOD
   const handlePeriod = (ev) => {
