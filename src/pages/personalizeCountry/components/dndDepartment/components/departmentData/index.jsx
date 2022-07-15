@@ -9,7 +9,7 @@ import { Text, Stack, Image, CloseButton, Box } from "@chakra-ui/react";
 import MaleIcon from "../../../../../../assets/male.png";
 import FemaleIcon from "../../../../../../assets/femenine.png";
 
-const DepartmentData = ({ item, index, setDepDataList }) => {
+const DepartmentData = ({ item, index, setDepDataList, isDragOver }) => {
   // REMOVE
   const removeData = () =>
     setDepDataList((prev) =>
@@ -23,7 +23,9 @@ const DepartmentData = ({ item, index, setDepDataList }) => {
       alignItems="center"
       justifyContent="center"
     >
-      <Text>Sin datos cargados</Text>
+      <Text>
+        {isDragOver ? "Soltar departamento aquí" : "Sin datos cargados"}
+      </Text>
     </Stack>
   ) : (
     <Box style={{ position: "relative" }}>
@@ -31,7 +33,12 @@ const DepartmentData = ({ item, index, setDepDataList }) => {
         onClick={removeData}
         style={{ position: "absolute", right: 8 }}
       />
-      <Stack direction="column" alignItems="center" p={4}>
+      <Stack
+        p={4}
+        direction="column"
+        alignItems="center"
+        style={{ pointerEvents: "none" }}
+      >
         {/* IMAGEN DE DEPARTAMENTO */}
         <svg
           x="0px"

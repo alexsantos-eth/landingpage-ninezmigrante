@@ -88,8 +88,8 @@ const DnDDepartment = ({ country = "guatemala" }) => {
                   {depList.map((item, index) => (
                     <Draggable
                       key={item.id}
-                      draggableId={item.id}
                       index={index}
+                      draggableId={item.id}
                     >
                       {(provided, snapshot) => (
                         <div
@@ -159,6 +159,7 @@ const DnDDepartment = ({ country = "guatemala" }) => {
                     index={0}
                     item={item}
                     setDepDataList={setDepDataList}
+                    isDragOver={snapshot.isDraggingOver}
                   />
                   {provided.placeholder}
                 </div>
@@ -180,6 +181,7 @@ const DnDDepartment = ({ country = "guatemala" }) => {
                     index={1}
                     item={item}
                     setDepDataList={setDepDataList}
+                    isDragOver={snapshot.isDraggingOver}
                   />
                   {provided.placeholder}
                 </div>
@@ -201,6 +203,7 @@ const DnDDepartment = ({ country = "guatemala" }) => {
                     index={2}
                     item={item}
                     setDepDataList={setDepDataList}
+                    isDragOver={snapshot.isDraggingOver}
                   />
                   {provided.placeholder}
                 </div>
