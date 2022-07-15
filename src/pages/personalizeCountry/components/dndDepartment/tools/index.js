@@ -26,8 +26,8 @@ export const getDataItemStyle = (isDragging) => ({
   height: 305,
   display: "flex",
   width: "33.33%",
-  borderRadius: "5px",
   flexDirection: "column",
+  borderRadius: isDragging ? "5px" : "0",
   transition: "background 0.2s ease-in-out",
   background: isDragging ? "rgba(0,0,0,0.1)" : "transparent",
 });

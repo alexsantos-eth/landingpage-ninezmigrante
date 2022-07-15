@@ -174,7 +174,11 @@ const DnDDepartment = ({ country = "guatemala" }) => {
               return (
                 <div
                   ref={provided.innerRef}
-                  style={getDataItemStyle(snapshot.isDraggingOver)}
+                  style={{
+                    ...getDataItemStyle(snapshot.isDraggingOver),
+                    borderRight: "1px solid #333",
+                    borderLeft: "1px solid #333",
+                  }}
                   {...provided.droppableProps}
                 >
                   <DepartmentData
