@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import Header from "./components/header";
 import DnDDepartment from "./components/dndDepartment";
 
-const PersonalizeCountryPage = () => {
+const CustomizeDataByCountry = () => {
   const { countryID } = useParams();
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
@@ -20,4 +20,4 @@ const PersonalizeCountryPage = () => {
   );
 };
 
-export default PersonalizeCountryPage;
+export default CustomizeDataByCountry;

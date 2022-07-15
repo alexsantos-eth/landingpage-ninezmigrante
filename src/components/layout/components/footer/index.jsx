@@ -49,7 +49,7 @@ const Footer = () => {
               </Text>
             </Link>
 
-            <Link to="/personalize">
+            <Link to="/customize">
               <Text fontFamily="Montserrat Medium" color="gray.600">
                 Personalizar
               </Text>

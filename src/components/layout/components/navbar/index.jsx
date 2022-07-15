@@ -152,7 +152,7 @@ const Navbar = () => {
                   Honduras
                 </MenuItem>
               </Link>
-              <Link to="/personalize">
+              <Link to="/customize">
                 <MenuItem
                   color="gray.600"
                   fontFamily="Montserrat Medium"

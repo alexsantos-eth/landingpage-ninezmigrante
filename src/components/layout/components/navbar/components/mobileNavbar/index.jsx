@@ -80,7 +80,7 @@ const MobileNavbar = () => {
                 </Stack>
               </Link>
 
-              <Link to="/personalize">
+              <Link to="/customize">
                 <Stack direction="row" alignItems="center">
                   <Icon as={ChevronRightIcon} color="gray.600" />
                   <Text fontFamily="Montserrat Medium" color="gray.600">

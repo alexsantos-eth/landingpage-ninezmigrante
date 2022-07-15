@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import CountrySelect from "./components/countrySelect";
 
-const PersonalizePage = () => {
+const CustomizePage = () => {
   const { countryID } = useParams();
 
   useEffect(() => {
@@ -12,4 +12,4 @@ const PersonalizePage = () => {
   return <CountrySelect />;
 };
 
-export default PersonalizePage;
+export default CustomizePage;
