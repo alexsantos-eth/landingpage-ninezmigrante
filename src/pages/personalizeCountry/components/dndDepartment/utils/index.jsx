@@ -93,4 +93,10 @@ const countryDeps = {
   ],
 };
 
+export const depColors = [
+  colors.red[700],
+  colors.yellow[700],
+  colors.blue[700],
+];
+
 export default countryDeps;
