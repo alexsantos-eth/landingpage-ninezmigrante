@@ -12,9 +12,9 @@ export const getItemStyle = (isDragging, draggableStyle) => ({
   height: 60,
   margin: `0 8px 0 0`,
   borderRadius: "5px",
-  ...draggableStyle,
   transition: "background 0.2s ease-in-out",
   background: isDragging ? "transparent" : "lightgrey",
+  ...draggableStyle,
 });
 
 export const getListStyle = () => ({
