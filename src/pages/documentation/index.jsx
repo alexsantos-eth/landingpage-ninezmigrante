@@ -35,7 +35,7 @@ const DocumentationPage = () => {
 
         <Stack justifyContent="center" alignItems="center" maxWidth="340px">
           <Text textAlign="center" fontFamily="Montserrat Medium">
-            Protocola Nacional para la Recepción y Atención de Niñez y
+            Protocolo Nacional para la Recepción y Atención de Niñez y
             Adolescencia
           </Text>
           <iframe

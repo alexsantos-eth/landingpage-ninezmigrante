@@ -4,7 +4,9 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import Header from "./components/header";
-import DnDDepartment from "./components/dndDepartment";
+import Trends from "./components/trends";
+import Department from "./components/department";
+import Returns from "./components/returns";
 
 const CustomizeDataByCountry = () => {
   const { countryID } = useParams();
@@ -15,7 +17,9 @@ const CustomizeDataByCountry = () => {
   return (
     <>
       <Header />
-      <DnDDepartment />
+      <Trends />
+      <Department />
+      <Returns />
     </>
   );
 };

@@ -1,10 +1,10 @@
 // TOOLS
-import depName from "../../../../country/components/statistics/components/heatMap/components/modal/utils";
-import { quarterId } from "../../../../../hooks/fetch";
-import { reorder } from "../../../../../utils/tools";
-import { colors } from "../../../../../utils/theme";
+import depName from "../../../../../../country/components/statistics/components/heatMap/components/modal/utils";
+import { quarterId } from "../../../../../../../hooks/fetch";
+import { reorder } from "../../../../../../../utils/tools";
+import { colors } from "../../../../../../../utils/theme";
 import countryDeps, { depColors } from "../utils";
-import { year } from "../../../../../utils/year";
+import { year } from "../../../../../../../utils/year";
 
 export const getItemStyle = (isDragging, draggableStyle) => ({
   userSelect: "none",

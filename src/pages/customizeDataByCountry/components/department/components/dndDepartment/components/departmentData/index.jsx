@@ -6,8 +6,8 @@ import { depColors } from "../../utils";
 // CHACKRA
 import { Text, Stack, Image, CloseButton, Box } from "@chakra-ui/react";
 
-import MaleIcon from "../../../../../../assets/male.png";
-import FemaleIcon from "../../../../../../assets/femenine.png";
+import MaleIcon from "../../../../../../../../assets/male.png";
+import FemaleIcon from "../../../../../../../../assets/femenine.png";
 
 const DepartmentData = ({ item, index, setDepDataList, isDragOver }) => {
   // REMOVE

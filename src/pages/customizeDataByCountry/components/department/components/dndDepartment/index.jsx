@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
 // TOOLS
-import { year } from "../../../../utils/year";
+import { year } from "../../../../../../utils/year";
 
 // COMPONENTES
 import DepartmentData from "./components/departmentData";
