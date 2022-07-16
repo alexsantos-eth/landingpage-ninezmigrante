@@ -1,10 +1,21 @@
 // REACT
-import React from "react";
+import React, { useState } from "react";
+
+// REACT ROUTER DOM
+import { useParams } from "react-router-dom";
 
 // CHAKRA UI COMONENTS
 import { Box, Stack, Text, Image } from "@chakra-ui/react";
 
-const Statistics = () => {
+// HOOKS
+import useSortedDepartments from "./hooks";
+
+const Statistics = ({ returns, handleChange }) => {
+  const { countryID } = useParams();
+  const [data, setData] = useState([]);
+  const { period, year, list } = returns;
+  console.log(data);
+  useSortedDepartments(setData, countryID, period, year, list);
   return (
     <Box>
       {/* CONTAINER */}
