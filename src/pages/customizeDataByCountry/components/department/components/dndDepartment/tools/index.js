@@ -112,12 +112,9 @@ export const onDragEnd = ({
   if (!result.destination) return;
 
   if (result.destination.droppableId === "droppableDeps") {
-    const newItems = reorder(
-      depList,
-      result.source.index,
-      result.destination.index
+    setDepList((depList) =>
+      reorder(depList, result.source.index, result.destination.index)
     );
-    setDepList(newItems);
   } else {
     // DATA
     const id = +result.destination.droppableId.substring(13) - 1;
