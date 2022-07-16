@@ -4,7 +4,7 @@ import React from "react";
 // CHAKRA UI COMONENTS
 import { Box, Stack, Text, Select } from "@chakra-ui/react";
 
-const Header = () => {
+const Header = ({ returns, handleChange }) => {
   return (
     <Box width="100%" padding="40px">
       {/* CONTAINER */}
@@ -43,7 +43,9 @@ const Header = () => {
           >
             {/* SELECT YEAR */}
             <Select
-              value="default"
+              name="year"
+              onChange={handleChange}
+              value={returns.year || "default"}
               fontSize="2xl"
               lineHeight="1.8"
               fontWeight="600"
@@ -59,7 +61,9 @@ const Header = () => {
 
             {/* SELECT PERIOD */}
             <Select
-              value="default"
+              name="period"
+              onChange={handleChange}
+              value={returns.period || "default"}
               fontSize="2xl"
               lineHeight="1.8"
               fontWeight="600"
@@ -73,9 +77,11 @@ const Header = () => {
               <option value="q3">Septiembre - Diciembre</option>
             </Select>
 
-            {/* SELECT PERIOD */}
+            {/* SELECT LIST */}
             <Select
-              value="default"
+              name="list"
+              onChange={handleChange}
+              value={returns.list || "default"}
               fontSize="2xl"
               lineHeight="1.8"
               fontWeight="600"
