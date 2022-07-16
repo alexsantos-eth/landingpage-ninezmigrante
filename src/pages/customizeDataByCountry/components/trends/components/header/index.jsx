@@ -17,14 +17,18 @@ const Header = () => {
       >
         {/* NUMBER */}
         <Stack>
-          <Text fontFamily="Oswald" fontSize="8em" lineHeight="1">
+          <Text
+            fontFamily="Oswald"
+            fontSize={{ base: "4em", md: "8em" }}
+            lineHeight="1"
+          >
             1
           </Text>
         </Stack>
 
         {/* TITLE AND INSTRUCTIONS */}
         <Stack spacing="0px">
-          <Text fontFamily="Oswald" fontSize="4xl">
+          <Text fontFamily="Oswald" fontSize={{ base: "2xl", md: "4xl" }}>
             TENDENCIAS
           </Text>
           <Text fontFamily="Arial" fontSize="sm">
