@@ -19,7 +19,7 @@ const CustomizeDataByCountry = () => {
       <Header />
       <Trends />
       <Department />
-      <Returns />
+      <Returxns />
     </>
   );
 };
