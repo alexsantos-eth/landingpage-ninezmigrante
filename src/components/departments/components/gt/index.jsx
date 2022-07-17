@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useRef } from "react";
 
 // POLYGONS
 import Quetzaltenango from "../polygons/gt/quetzaltenango";
@@ -26,12 +26,9 @@ import Peten from "../polygons/gt/peten";
 
 import useSVGResize from "../../hooks";
 
-const ModalContentGT = ({
-  modalDep,
-  customColor = "",
-  disableHeat = false,
-}) => {
-  useSVGResize();
+const ModalContentGT = ({ id, customColor = "", disableHeat = false }) => {
+  const svgRef = useRef(null);
+  useSVGResize(svgRef);
 
   return (
     <svg
@@ -39,77 +36,77 @@ const ModalContentGT = ({
       y="0px"
       version="1.2"
       width="100%"
+      ref={svgRef}
       height="100%"
-      id="departmentSVG"
       xmlSpace="preserve"
       viewBox="0 0 585.94 612"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
     >
-      {modalDep === "quetzaltenango" && (
+      {id === "quetzaltenango" && (
         <Quetzaltenango customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "huehuetenango" && (
+      {id === "huehuetenango" && (
         <Huehuetenango customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "chimaltenango" && (
+      {id === "chimaltenango" && (
         <Chimaltenango customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "suchitepequez" && (
+      {id === "suchitepequez" && (
         <Suchitepequez customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "sacatepequez" && (
+      {id === "sacatepequez" && (
         <Sacatepequez customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "altaverapaz" && (
+      {id === "altaverapaz" && (
         <AltaVerapaz customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "bajaverapaz" && (
+      {id === "bajaverapaz" && (
         <BajaVerapaz customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "totonicapan" && (
+      {id === "totonicapan" && (
         <Totonicapan customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "retalhuleu" && (
+      {id === "retalhuleu" && (
         <Retalhuleu customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "chiquimula" && (
+      {id === "chiquimula" && (
         <Chiquimula customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "guatemala" && (
+      {id === "guatemala" && (
         <Guatemala customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "santarosa" && (
+      {id === "santarosa" && (
         <SantaRosa customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "escuintla" && (
+      {id === "escuintla" && (
         <Escuintla customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "sanmarcos" && (
+      {id === "sanmarcos" && (
         <SanMarcos customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "elprogreso" && (
+      {id === "elprogreso" && (
         <Progreso customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "jutiapa" && (
+      {id === "jutiapa" && (
         <Jutiapa customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "zacapa" && (
+      {id === "zacapa" && (
         <Zacapa customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "jalapa" && (
+      {id === "jalapa" && (
         <Jalapa customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "quiche" && (
+      {id === "quiche" && (
         <Quiche customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "solola" && (
+      {id === "solola" && (
         <Solola customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "izabal" && (
+      {id === "izabal" && (
         <Izabal customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "peten" && (
+      {id === "peten" && (
         <Peten customColor={customColor} disableHeat={disableHeat} />
       )}
     </svg>

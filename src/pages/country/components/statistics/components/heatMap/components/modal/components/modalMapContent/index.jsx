@@ -10,8 +10,8 @@ const ModalMapContent = ({ modalDep, country }) => {
 
   return (
     <>
-      {countryID === "guatemala" && <ModalContentGT modalDep={modalDep} />}
-      {countryID === "honduras" && <ModalContentHN modalDep={modalDep} />}
+      {countryID === "guatemala" && <ModalContentGT id={modalDep} />}
+      {countryID === "honduras" && <ModalContentHN id={modalDep} />}
     </>
   );
 };

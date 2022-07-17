@@ -1,5 +1,5 @@
 import React from "react";
-import useHeatmap from "../../../../hooks";
+import useHeatmap from "../../../../../../pages/country/components/statistics/components/heatMap/hooks";
 
 // CHAKRA
 import { Tooltip } from "@chakra-ui/react";

@@ -1,4 +1,5 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 
 //  UTILS
 import { depColors } from "../../utils";
@@ -8,8 +9,19 @@ import { Text, Stack, Image, CloseButton, Box } from "@chakra-ui/react";
 
 import MaleIcon from "../../../../../../../../assets/male.png";
 import FemaleIcon from "../../../../../../../../assets/femenine.png";
+import ModalContentGT from "../../../../../../../../components/departments/components/gt";
+import ModalContentHN from "../../../../../../../../components/departments/components/hn";
 
-const DepartmentData = ({ item, index, setDepDataList, isDragOver }) => {
+const DepartmentData = ({
+  country = "guatemala",
+  item,
+  index,
+  setDepDataList,
+  isDragOver,
+}) => {
+  // PROPS DE DEPARTAMENTOS
+  const countryID = useParams().countryID || country;
+
   // REMOVE
   const removeData = () =>
     setDepDataList((prev) =>
@@ -53,7 +65,19 @@ const DepartmentData = ({ item, index, setDepDataList, isDragOver }) => {
           xmlns="http://www.w3.org/2000/svg"
           xmlnsXlink="http://www.w3.org/1999/xlink"
         >
-          <item.Content customColor={depColors[index]} disableHeat />
+          {countryID === "guatemala" ? (
+            <ModalContentGT
+              id={item.id}
+              customColor={depColors[index]}
+              disableHeat
+            />
+          ) : (
+            <ModalContentHN
+              id={item.id}
+              customColor={depColors[index]}
+              disableHeat
+            />
+          )}
         </svg>
 
         {/* NOMBRE */}

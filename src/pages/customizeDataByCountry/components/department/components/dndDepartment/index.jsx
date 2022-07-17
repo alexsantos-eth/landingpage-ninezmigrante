@@ -117,11 +117,13 @@ const DnDDepartment = ({ country = "guatemala" }) => {
                             {countryID === "guatemala" ? (
                               <ModalContentGT
                                 customColor={item.color}
+                                id={item.id}
                                 disableHeat
                               />
                             ) : (
                               <ModalContentHN
                                 customColor={item.color}
+                                id={item.id}
                                 disableHeat
                               />
                             )}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 
 // POLYGONS
 import Atlantida from "../polygons/hn/atlantida";
@@ -22,13 +22,9 @@ import Yoro from "../polygons/hn/yoro";
 
 import useSVGResize from "../../hooks";
 
-const ModalContentHN = ({
-  modalDep,
-  deps = [],
-  customColor = "",
-  disableHeat = false,
-}) => {
-  useSVGResize([...modalDep, ...deps]);
+const ModalContentHN = ({ id, customColor = "", disableHeat = false }) => {
+  const svgRef = useRef(null);
+  useSVGResize(svgRef);
 
   return (
     <svg
@@ -42,58 +38,58 @@ const ModalContentHN = ({
       height="100%"
       id="departmentSVG"
     >
-      {modalDep === "atlantida" && (
+      {id === "atlantida" && (
         <Atlantida customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "choluteca" && (
+      {id === "choluteca" && (
         <Choluteca customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "colon" && (
+      {id === "colon" && (
         <Colon customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "comayagua" && (
+      {id === "comayagua" && (
         <Comayagua customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "copan" && (
+      {id === "copan" && (
         <Copan customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "cortes" && (
+      {id === "cortes" && (
         <Cortes customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "elparaiso" && (
+      {id === "elparaiso" && (
         <ElParaiso customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "francis" && (
+      {id === "francis" && (
         <Francis customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "gracias" && (
+      {id === "gracias" && (
         <Gracias customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "intibuca" && (
+      {id === "intibuca" && (
         <Intibuca customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "islasbahia" && (
+      {id === "islasbahia" && (
         <IslasBahia customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "lapaz" && (
+      {id === "lapaz" && (
         <LaPaz customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "lempira" && (
+      {id === "lempira" && (
         <Lempira customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "ocotepeque" && (
+      {id === "ocotepeque" && (
         <Ocotepeque customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "olancho" && (
+      {id === "olancho" && (
         <Olancho customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "santabarbara" && (
+      {id === "santabarbara" && (
         <SantaBarbara customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "valle" && (
+      {id === "valle" && (
         <Valle customColor={customColor} disableHeat={disableHeat} />
       )}
-      {modalDep === "yoro" && (
+      {id === "yoro" && (
         <Yoro customColor={customColor} disableHeat={disableHeat} />
       )}
     </svg>
