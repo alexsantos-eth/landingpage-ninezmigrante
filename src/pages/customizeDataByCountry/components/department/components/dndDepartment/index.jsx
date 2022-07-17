@@ -16,8 +16,10 @@ import {
   getDataItemStyle,
   onDragEnd,
 } from "./tools";
-import { useSvgPaths, usePeriodReload } from "./hooks";
+import { usePeriodReload } from "./hooks";
 import countryDeps from "./utils";
+import ModalContentGT from "../../../../../../components/departments/components/gt";
+import ModalContentHN from "../../../../../../components/departments/components/hn";
 
 // CHACKRA
 import { Select, Text, Stack, Box } from "@chakra-ui/react";
@@ -46,7 +48,6 @@ const DnDDepartment = ({ country = "guatemala" }) => {
     onDragEnd({ result, period, countryID, setDepList, setDepDataList });
 
   // HOOKS
-  useSvgPaths(countryID, depDataList);
   usePeriodReload({
     period,
     countryID,
@@ -113,10 +114,17 @@ const DnDDepartment = ({ country = "guatemala" }) => {
                             xmlns="http://www.w3.org/2000/svg"
                             xmlnsXlink="http://www.w3.org/1999/xlink"
                           >
-                            <item.Content
-                              customColor={item.color}
-                              disableHeat
-                            />
+                            {countryID === "guatemala" ? (
+                              <ModalContentGT
+                                customColor={item.color}
+                                disableHeat
+                              />
+                            ) : (
+                              <ModalContentHN
+                                customColor={item.color}
+                                disableHeat
+                              />
+                            )}
                           </svg>
                         </div>
                       )}

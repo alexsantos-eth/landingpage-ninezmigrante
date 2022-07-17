@@ -1,21 +1,12 @@
 // REACT
-import React, { useEffect } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 
-import ModalContentGT from "./components/gt";
-import ModalContentHN from "./components/hn";
+import ModalContentGT from "../../../../../../../../../../components/departments/components/gt";
+import ModalContentHN from "../../../../../../../../../../components/departments/components/hn";
 
 const ModalMapContent = ({ modalDep, country }) => {
   const countryID = useParams().countryID || country;
-
-  useEffect(() => {
-    const svg = document.getElementById("modalSVG");
-    if (svg) {
-      const bbox = svg.getBBox();
-      const viewBox = [bbox.x, bbox.y, bbox.width, bbox.height].join(" ");
-      svg.setAttribute("viewBox", viewBox);
-    }
-  }, [modalDep, countryID]);
 
   return (
     <>

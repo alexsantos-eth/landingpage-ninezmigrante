@@ -16,7 +16,7 @@ const Returns = () => {
   return (
     <>
       <Header returns={returns} handleChange={handleChange} />
-      <Statistics returns={returns} handleChange={handleChange} />
+      <Statistics returns={returns} />
     </>
   );
 };

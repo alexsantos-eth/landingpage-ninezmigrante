@@ -1,28 +1,28 @@
 import React from "react";
 
 // POLYGONS
-import Quetzaltenango from "../polygons/gt/quetzaltenango";
-import Huehuetenango from "../polygons/gt/huehuetenango";
-import Chimaltenango from "../polygons/gt/chimaltenango";
-import Suchitepequez from "../polygons/gt/suchitepequez";
-import Sacatepequez from "../polygons/gt/sacatepequez";
-import AltaVerapaz from "../polygons/gt/altaVerapaz";
-import BajaVerapaz from "../polygons/gt/bajaVerapaz";
-import Totonicapan from "../polygons/gt/totonicapan";
-import Retalhuleu from "../polygons/gt/retalhuleu";
-import Chiquimula from "../polygons/gt/chiquimula";
-import Guatemala from "../polygons/gt/guatemala";
-import SantaRosa from "../polygons/gt/santaRosa";
-import Escuintla from "../polygons/gt/escuintla";
-import SanMarcos from "../polygons/gt/sanMarcos";
-import Progreso from "../polygons/gt/progreso";
-import Jutiapa from "../polygons/gt/jutiapa";
-import Zacapa from "../polygons/gt/zacapa";
-import Jalapa from "../polygons/gt/jalapa";
-import Quiche from "../polygons/gt/quiche";
-import Solola from "../polygons/gt/solola";
-import Izabal from "../polygons/gt/izabal";
-import Peten from "../polygons/gt/peten";
+import Quetzaltenango from "../../../../../../../../components/departments/components/polygons/gt/quetzaltenango";
+import Huehuetenango from "../../../../../../../../components/departments/components/polygons/gt/huehuetenango";
+import Chimaltenango from "../../../../../../../../components/departments/components/polygons/gt/chimaltenango";
+import Suchitepequez from "../../../../../../../../components/departments/components/polygons/gt/suchitepequez";
+import Sacatepequez from "../../../../../../../../components/departments/components/polygons/gt/sacatepequez";
+import AltaVerapaz from "../../../../../../../../components/departments/components/polygons/gt/altaVerapaz";
+import BajaVerapaz from "../../../../../../../../components/departments/components/polygons/gt/bajaVerapaz";
+import Totonicapan from "../../../../../../../../components/departments/components/polygons/gt/totonicapan";
+import Retalhuleu from "../../../../../../../../components/departments/components/polygons/gt/retalhuleu";
+import Chiquimula from "../../../../../../../../components/departments/components/polygons/gt/chiquimula";
+import Guatemala from "../../../../../../../../components/departments/components/polygons/gt/guatemala";
+import SantaRosa from "../../../../../../../../components/departments/components/polygons/gt/santaRosa";
+import Escuintla from "../../../../../../../../components/departments/components/polygons/gt/escuintla";
+import SanMarcos from "../../../../../../../../components/departments/components/polygons/gt/sanMarcos";
+import Progreso from "../../../../../../../../components/departments/components/polygons/gt/progreso";
+import Jutiapa from "../../../../../../../../components/departments/components/polygons/gt/jutiapa";
+import Zacapa from "../../../../../../../../components/departments/components/polygons/gt/zacapa";
+import Jalapa from "../../../../../../../../components/departments/components/polygons/gt/jalapa";
+import Quiche from "../../../../../../../../components/departments/components/polygons/gt/quiche";
+import Solola from "../../../../../../../../components/departments/components/polygons/gt/solola";
+import Izabal from "../../../../../../../../components/departments/components/polygons/gt/izabal";
+import Peten from "../../../../../../../../components/departments/components/polygons/gt/peten";
 
 const HeatMapGT = () => {
   return (
