@@ -29,7 +29,7 @@ export const useSortedDepartments = (setData, countryID, period, year, list) => 
             };
             return dep;
           });
-            if(list === "asc"){
+            if(list === "asc" || list === "default" || list.length === 0 ){
                 filteredData = filteredData.sort((a, b) => {
                 return b.total - a.total;
                 });
@@ -38,6 +38,9 @@ export const useSortedDepartments = (setData, countryID, period, year, list) => 
                 filteredData = filteredData.sort((a, b) => {
                 return a.total - b.total;
                 });
+            }
+            if(filteredData.length > 5 ) {
+              filteredData.length = 5;
             }
             setData(filteredData);
         });

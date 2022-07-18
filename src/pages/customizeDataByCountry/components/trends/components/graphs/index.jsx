@@ -48,11 +48,11 @@ ChartJS.register(
 );
 
 const graphDataTypes = {
-  condition: "Condicion de viaje",
-  return: "Pais de retorno",
-  via: "Via de retorno",
-  age: "Rango etario",
-  gender: "Genero",
+  condition: "Condicion de Viaje",
+  return: "Pais de Retorno",
+  via: "Via de Retorno",
+  age: "Rango Etario",
+  gender: "Género",
 };
 
 const customPeriods = ["Año en curso", "Ultimos 4 periodos", "Ultimos 3 años"];
@@ -414,15 +414,26 @@ const TrendsGraphs = ({ country }) => {
         </Stack>
 
         {/* TITULO DE CANVAS */}
-        <Stack direction="column" alignItems="center" marginY={8}>
+        <Stack
+          marginY={8}
+          spacing="16px"
+          direction="column"
+          alignItems="center"
+        >
           <Text
-            lineHeight={1}
-            fontSize="1.5em"
-            fontWeight={600}
-          >{`Total de niñez y adolescencia retornada - ${countryID.toUpperCase()}`}</Text>
-          <Text fontStyle="italic" lineHeight={1}>{`${
-            customPeriods[period] ?? ""
-          } - por ${graphDataTypes[graphType] ?? ""}`}</Text>
+            fontSize="2xl"
+            fontFamily="Oswald"
+            lineHeight={{ base: "1.5", md: "1" }}
+            textAlign={{ base: "center", md: "left" }}
+          >{`TOTAL DE NIÑEZ Y ADOLESCENCIA RETORNADA - ${countryID.toUpperCase()}`}</Text>
+          <Text
+            fontSize="2xl"
+            lineHeight="1"
+            fontWeight="600"
+            fontFamily="Times"
+          >{`${customPeriods[period] ?? "Tendencias"} - Por ${
+            graphDataTypes[graphType] ?? ""
+          }`}</Text>
         </Stack>
 
         <Box>

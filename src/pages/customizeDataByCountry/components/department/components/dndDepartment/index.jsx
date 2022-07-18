@@ -65,23 +65,8 @@ const DnDDepartment = ({ country = "guatemala" }) => {
     <div style={{ maxWidth: 800, margin: "0 auto" }}>
       <DragDropContext onDragEnd={onDepsDragEnd}>
         <Stack spacing={1} direction="row" alignItems="center">
-          {/* PERIODO */}
           <Stack spacing={1} direction="column">
-            <Select
-              value={period || "default"}
-              fontSize="2xl"
-              lineHeight="1.8"
-              fontWeight="600"
-              fontFamily="Times"
-              letterSpacing="1.2px"
-              onChange={handlePeriod}
-              bgColor="rgba(255,255,255,0.5)"
-            >
-              <option value="default">Elegir cuatrimestre</option>
-              <option value="q1">Enero - Abril</option>
-              <option value="q2">Mayo - Agosto</option>
-              <option value="q3">Septiembre - Diciembre</option>
-            </Select>
+            {/* YEAR */}
             <Select
               name="year"
               fontSize="2xl"
@@ -96,6 +81,22 @@ const DnDDepartment = ({ country = "guatemala" }) => {
               <option value="2020">2020</option>
               <option value="2021">2021</option>
               <option value="2022">2022</option>
+            </Select>
+            {/* PERIOD */}
+            <Select
+              value={period || "default"}
+              fontSize="2xl"
+              lineHeight="1.8"
+              fontWeight="600"
+              fontFamily="Times"
+              letterSpacing="1.2px"
+              onChange={handlePeriod}
+              bgColor="rgba(255,255,255,0.5)"
+            >
+              <option value="default">Elegir cuatrimestre</option>
+              <option value="q1">Enero - Abril</option>
+              <option value="q2">Mayo - Agosto</option>
+              <option value="q3">Septiembre - Diciembre</option>
             </Select>
           </Stack>
 
@@ -162,18 +163,26 @@ const DnDDepartment = ({ country = "guatemala" }) => {
         </Stack>
 
         {/* TITULO DE CANVAS */}
-        <Stack direction="column" alignItems="center" marginY={8}>
+        <Stack
+          marginY={8}
+          spacing="16px"
+          direction="column"
+          alignItems="center"
+        >
           <Text
-            lineHeight={1}
-            fontSize="1.5em"
-            fontWeight={600}
-          >{`Total de niñez y adolescencia retornada - ${countryID.toUpperCase()}`}</Text>
+            fontSize="2xl"
+            fontFamily="Oswald"
+            lineHeight={{ base: "1.5", md: "1" }}
+            textAlign={{ base: "center", md: "left" }}
+          >{`TOTAL DE NIÑEZ Y ADOLESCENCIA RETORNADA - ${countryID.toUpperCase()}`}</Text>
           <Text
-            fontStyle="italic"
-            lineHeight={1}
+            fontSize="2xl"
+            lineHeight="1"
+            fontWeight="600"
+            fontFamily="Times"
           >{`Cuatrimestre ${period.substring(
             1
-          )} ${currentYear} - Departamentos seleccionados`}</Text>
+          )} - ${currentYear} - Departamentos seleccionados`}</Text>
         </Stack>
 
         {/* SECCION 1 */}
