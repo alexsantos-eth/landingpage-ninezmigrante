@@ -13,7 +13,7 @@ export const getItemStyle = (isDragging, draggableStyle) => ({
   margin: `0 8px 0 0`,
   borderRadius: "5px",
   transition: "background 0.2s ease-in-out",
-  background: isDragging ? "transparent" : "lightgrey",
+  background: isDragging ? "transparent" : "rgba(0,0,0,.1)",
   ...draggableStyle,
 });
 
@@ -39,11 +39,12 @@ export const updateSection = ({
   countryID,
   setDepDataList,
   setDepList,
+  currentYear,
 }) => {
   // OBTENER TOTALES
   fetch(
     `${import.meta.env.VITE_APP_API_URL}/consultas/totalpordepartamento/${
-      "2020" ?? year
+      currentYear ?? year
     }/${quarterId[period]}/${countryID}/${depName[dep]}`
   )
     .then((res) => res.json())
@@ -51,7 +52,7 @@ export const updateSection = ({
       fetch(
         `${
           import.meta.env.VITE_APP_API_URL
-        }/consultas/totalgeneropordepartamento/${"2020" ?? year}/${
+        }/consultas/totalgeneropordepartamento/${currentYear ?? year}/${
           quarterId[period]
         }/${countryID}/${depName[dep]}`
       )

@@ -32,6 +32,7 @@ const DnDDepartment = ({ country = "guatemala" }) => {
   const countryID = useParams().countryID || country;
   const [depList, setDepList] = useState(countryDeps[countryID]);
   const [period, setPeriod] = useState("");
+  const [currentYear, setYear] = useState(year);
 
   // LISTA DE DATOS
   const [depDataList, setDepDataList] = useState([
@@ -42,6 +43,9 @@ const DnDDepartment = ({ country = "guatemala" }) => {
 
   // PERIOD
   const handlePeriod = (ev) => setPeriod(ev.target.value);
+
+  // AÑO
+  const handleChangeYear = (ev) => setYear(ev.target.value);
 
   // REORDENAR
   const onDepsDragEnd = (result) =>
@@ -54,6 +58,7 @@ const DnDDepartment = ({ country = "guatemala" }) => {
     setDepList,
     depDataList,
     setDepDataList,
+    currentYear,
   });
 
   return (
@@ -61,21 +66,38 @@ const DnDDepartment = ({ country = "guatemala" }) => {
       <DragDropContext onDragEnd={onDepsDragEnd}>
         <Stack spacing={1} direction="row" alignItems="center">
           {/* PERIODO */}
-          <Select
-            value={period || "default"}
-            fontSize="2xl"
-            lineHeight="1.8"
-            fontWeight="600"
-            fontFamily="Times"
-            letterSpacing="1.2px"
-            onChange={handlePeriod}
-            bgColor="rgba(255,255,255,0.5)"
-          >
-            <option value="default">Elegir cuatrimestre</option>
-            <option value="q1">Enero - Abril</option>
-            <option value="q2">Mayo - Agosto</option>
-            <option value="q3">Septiembre - Diciembre</option>
-          </Select>
+          <Stack spacing={1} direction="column">
+            <Select
+              value={period || "default"}
+              fontSize="2xl"
+              lineHeight="1.8"
+              fontWeight="600"
+              fontFamily="Times"
+              letterSpacing="1.2px"
+              onChange={handlePeriod}
+              bgColor="rgba(255,255,255,0.5)"
+            >
+              <option value="default">Elegir cuatrimestre</option>
+              <option value="q1">Enero - Abril</option>
+              <option value="q2">Mayo - Agosto</option>
+              <option value="q3">Septiembre - Diciembre</option>
+            </Select>
+            <Select
+              name="year"
+              fontSize="2xl"
+              lineHeight="1.8"
+              fontWeight="600"
+              fontFamily="Times"
+              letterSpacing="1.2px"
+              onChange={handleChangeYear}
+              bgColor="rgba(255,255,255,0.5)"
+            >
+              <option value="default">Elegir año</option>
+              <option value="2020">2020</option>
+              <option value="2021">2021</option>
+              <option value="2022">2022</option>
+            </Select>
+          </Stack>
 
           {/* LISTA DE DEPARTAMENTOS */}
           <Box style={{ maxWidth: "475px", overflowX: "auto" }}>
@@ -151,7 +173,7 @@ const DnDDepartment = ({ country = "guatemala" }) => {
             lineHeight={1}
           >{`Cuatrimestre ${period.substring(
             1
-          )} ${year} - Departamentos seleccionados`}</Text>
+          )} ${currentYear} - Departamentos seleccionados`}</Text>
         </Stack>
 
         {/* SECCION 1 */}

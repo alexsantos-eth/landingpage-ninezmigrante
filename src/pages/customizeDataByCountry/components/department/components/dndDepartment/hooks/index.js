@@ -7,6 +7,7 @@ export const usePeriodReload = ({
   setDepList,
   depDataList,
   setDepDataList,
+  currentYear,
 }) => {
   useEffect(() => {
     depDataList.forEach((data, index) => {
@@ -18,8 +19,9 @@ export const usePeriodReload = ({
           countryID,
           setDepDataList,
           setDepList,
+          currentYear,
         });
       }
     });
-  }, [period]);
+  }, [period, currentYear]);
 };

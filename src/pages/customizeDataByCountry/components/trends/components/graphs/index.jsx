@@ -15,8 +15,7 @@ import {
 // DND
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-import { Bar } from "react-chartjs-2";
-
+import { Bar, Line } from "react-chartjs-2";
 import FamilyIcon from "../../../../../../assets/family.png";
 import GenderIcon from "../../../../../../assets/male.png";
 import GroupIcon from "../../../../../../assets/group.png";
@@ -26,11 +25,33 @@ import { colors } from "../../../../../../utils/theme";
 import { getCurrentQuarter, year } from "../../../../../../utils/year";
 import { quarterId } from "../../../../../../hooks/fetch";
 
+import {
+  Chart as ChartJS,
+  PointElement,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  LineElement,
+  Legend,
+  Tooltip,
+  Filler,
+} from "chart.js";
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Legend,
+  Tooltip,
+  PointElement,
+  LineElement,
+  Filler
+);
+
 const graphDataTypes = {
   condition: "Condicion de viaje",
   return: "Pais de retorno",
   via: "Via de retorno",
-  ages: "Rango etario",
+  age: "Rango etario",
   gender: "Genero",
 };
 
@@ -57,11 +78,42 @@ const customDataTypes = [
     Content: <Image src={GroupIcon} height={30} />,
   },
 ];
+const customDataChart = [
+  {
+    id: "bar",
+    Content: <Text>Barras</Text>,
+  },
+  {
+    id: "area",
+    Content: <Text>Area</Text>,
+  },
+  {
+    id: "group",
+    Content: <Text>Agrupado</Text>,
+  },
+];
+
+const endpoints = {
+  gender: "totalporgenero",
+  age: "totalporrangoetario",
+  via: "totalporviaderetorno",
+  condition: "totalporcondiciondeviaje",
+  return: "totalporpaisdeproveniencia",
+};
+
+const datasetLabels = {
+  gender: ["Femenino", "Masculino"],
+  age: ["Primera infancia", "Niñez", "Adolescencia"],
+  via: ["Terrestre", "Aérea"],
+  condition: ["Acompañado", "No acompañado"],
+  return: ["Estados Unidos", "México", "Canada"],
+};
 
 const TrendsGraphs = ({ country }) => {
   const countryID = useParams().countryID || country;
   const [period, setPeriod] = useState("");
-  const [graphType, setGraphType] = useState("");
+  const [graphType, setGraphType] = useState("gender");
+  const [chartType, setChartType] = useState("bar");
   const [graphData, setGraphData] = useState({
     labels: [],
     datasets: [],
@@ -71,7 +123,12 @@ const TrendsGraphs = ({ country }) => {
   const handlePeriod = (ev) => setPeriod(ev.target.value);
 
   // DATA GRAPH
-  const handleGraphType = (ev) => setGraphType(ev.target.value);
+  const handleGraphType = (result) => {
+    if (!result.destination) return;
+    if (result.source.droppableId === "droppableGraphs")
+      setGraphType(result.draggableId);
+    else setChartType(result.draggableId);
+  };
 
   useEffect(() => {
     // CALCULAR TOTAL DE PERIODOS
@@ -132,15 +189,46 @@ const TrendsGraphs = ({ country }) => {
     // PETICIONES
     const requests = localData.map(async (label) => {
       const req = await fetch(
-        `${
-          import.meta.env.VITE_APP_API_URL
-        }/consultas/totalporpaisanioperiodo/${countryID}/${label.year}/${
-          quarterId[label.id]
-        }`
+        `${import.meta.env.VITE_APP_API_URL}/consultas/${
+          endpoints[graphType]
+        }/${countryID}/${label.year}/${quarterId[label.id]}`
       );
       const data = await req.json();
-      const total = data?.data?.[0]?.totalRegistros ?? 0;
-      return { ...label, total };
+      let totals = { total1: 0, total2: 0, total3: 0 };
+
+      data?.data.forEach((stats) => {
+        if (graphType === "gender") {
+          if (stats._id === "Femenino") totals.total1 += stats.total;
+          if (stats._id === "Masculino") totals.total2 += stats.total;
+        }
+
+        if (graphType === "via") {
+          if (stats._id.startsWith("Terrestre")) totals.total1 += stats.total;
+          if (stats._id.startsWith("Aérea")) totals.total2 += stats.total;
+        }
+
+        if (graphType === "condition") {
+          if (stats._id.condicion === "Acompañado")
+            totals.total1 += stats.total;
+          if (stats._id.condicion === "No acompañado")
+            totals.total2 += stats.total;
+        }
+
+        if (graphType === "return") {
+          if (stats._id?.nombre === "Estados Unidos")
+            totals.total1 += stats.total;
+          if (stats._id?.nombre === "México") totals.total2 += stats.total;
+          if (stats._id?.nombre === "Canadá") totals.total3 += stats.total;
+        }
+
+        if (graphType === "age") {
+          if (stats._id === "0-6 años") totals.total1 += stats.total;
+          if (stats._id === "7-12 años") totals.total2 += stats.total;
+          if (stats._id === "13-17 años") totals.total3 += stats.total;
+        }
+      });
+
+      return { ...label, ...totals };
     });
 
     // RESOLVER
@@ -153,10 +241,19 @@ const TrendsGraphs = ({ country }) => {
           let currentYear = year;
 
           data.forEach((totals) => {
-            const nextTotal = totals.total;
+            const nextTotal1 = totals.total1;
+            const nextTotal2 = totals.total2;
+            const nextTotal3 = totals.total3;
+
             if (totals.year === currentYear) {
-              if (totals.id === "q1") data[year - currentYear].total = 0;
-              data[year - currentYear].total += nextTotal;
+              if (totals.id === "q1") {
+                data[year - currentYear].total1 = 0;
+                data[year - currentYear].total2 = 0;
+                data[year - currentYear].total3 = 0;
+              }
+              data[year - currentYear].total1 += nextTotal1;
+              data[year - currentYear].total2 += nextTotal2;
+              data[year - currentYear].total3 += nextTotal3;
               data[year - currentYear].year = currentYear;
               data[year - currentYear].name = `Año ${currentYear}`;
             }
@@ -171,27 +268,33 @@ const TrendsGraphs = ({ country }) => {
           labels: data.map((totals) => totals.name),
           datasets: [
             {
-              label: "Dataset 1",
-              data: data.map((totals) => totals.total),
-              backgroundColor: "rgba(255, 99, 132, 0.5)",
+              fill: true,
+              label: datasetLabels[graphType][0],
+              data: data.map((totals) => totals.total1),
+              backgroundColor: colors.blue[700],
             },
             {
-              label: "Dataset 2",
-              data: data.map((totals) => totals.total),
-              backgroundColor: "rgba(53, 162, 235, 0.5)",
+              fill: true,
+              label: datasetLabels[graphType][1],
+              data: data.map((totals) => totals.total2),
+              backgroundColor: colors.red[700],
             },
-          ],
+            {
+              fill: true,
+              label: datasetLabels[graphType][2],
+              data: data.map((totals) => totals.total3),
+              backgroundColor: colors.heat[800],
+            },
+          ].flat(Boolean),
         };
         setGraphData(newGraphData);
       })
       .catch((err) => console.log(err));
-  }, [period]);
-
-  console.log(graphData);
+  }, [period, graphType]);
 
   return (
     <div style={{ maxWidth: 800, margin: "0 auto" }}>
-      <DragDropContext>
+      <DragDropContext onDragEnd={handleGraphType}>
         <Stack spacing={1} direction="row" alignItems="center">
           {/* PERIODO */}
           <Select
@@ -214,12 +317,15 @@ const TrendsGraphs = ({ country }) => {
           </Select>
 
           {/* LISTA DE DEPARTAMENTOS */}
-          <Box style={{ width: "100%", overflowX: "auto" }}>
+          <Box>
             <Droppable droppableId="droppableGraphs" direction="horizontal">
               {(provided, snapshot) => (
                 <div
                   ref={provided.innerRef}
-                  style={getListStyle(snapshot.isDraggingOver)}
+                  style={{
+                    ...getListStyle(snapshot.isDraggingOver),
+                    paddingRight: 0,
+                  }}
                   {...provided.droppableProps}
                 >
                   {customDataTypes.map((item, index) => (
@@ -233,12 +339,69 @@ const TrendsGraphs = ({ country }) => {
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
-                          style={getItemStyle(
-                            snapshot.isDragging,
-                            provided.draggableProps.style
-                          )}
+                          style={{
+                            ...getItemStyle(
+                              snapshot.isDragging,
+                              provided.draggableProps.style
+                            ),
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            marginRight: index === 4 ? "0" : "8px",
+                          }}
                         >
-                          {item.Content}
+                          <Box
+                            style={{ filter: "brightness(0) saturate(100%)" }}
+                          >
+                            {item.Content}
+                          </Box>
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </Box>
+          <Box>
+            <Droppable droppableId="droppableCharts" direction="horizontal">
+              {(provided, snapshot) => (
+                <div
+                  ref={provided.innerRef}
+                  style={{
+                    ...getListStyle(snapshot.isDraggingOver),
+                    paddingRight: 0,
+                  }}
+                  {...provided.droppableProps}
+                >
+                  {customDataChart.map((item, index) => (
+                    <Draggable
+                      key={item.id}
+                      index={index}
+                      draggableId={item.id}
+                    >
+                      {(provided, snapshot) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          style={{
+                            ...getItemStyle(
+                              snapshot.isDragging,
+                              provided.draggableProps.style
+                            ),
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            marginRight: index === 2 ? "0" : "8px",
+                          }}
+                        >
+                          <Box
+                            style={{ filter: "brightness(0) saturate(100%)" }}
+                          >
+                            {item.Content}
+                          </Box>
                         </div>
                       )}
                     </Draggable>
@@ -275,20 +438,48 @@ const TrendsGraphs = ({ country }) => {
                   }}
                   {...provided.droppableProps}
                 >
-                  <Box style={{ pointerEvents: "none" }}>
-                    <Bar
-                      width={800}
-                      height={300}
-                      options={{
-                        responsive: true,
-                        plugins: {
-                          legend: {
-                            display: false,
+                  <Box>
+                    {(chartType === "bar" || chartType === "group") && (
+                      <Bar
+                        width={800}
+                        height={300}
+                        options={{
+                          responsive: true,
+                          plugins: {
+                            legend: {
+                              display: false,
+                            },
                           },
-                        },
-                      }}
-                      data={graphData}
-                    />
+                          scales:
+                            chartType === "group"
+                              ? {
+                                  x: {
+                                    stacked: true,
+                                  },
+                                  y: {
+                                    stacked: true,
+                                  },
+                                }
+                              : undefined,
+                        }}
+                        data={graphData}
+                      />
+                    )}
+                    {chartType === "area" && (
+                      <Line
+                        width={800}
+                        height={300}
+                        options={{
+                          responsive: true,
+                          plugins: {
+                            legend: {
+                              display: false,
+                            },
+                          },
+                        }}
+                        data={graphData}
+                      />
+                    )}
                   </Box>
                   {provided.placeholder}
                 </div>
