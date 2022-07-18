@@ -23,6 +23,8 @@ import GroupIcon from "../../../../../../assets/group.png";
 import BusIcon from "../../../../../../assets/bus.png";
 import UsaIcon from "../../../../../../assets/usa.svg";
 import { colors } from "../../../../../../utils/theme";
+import { getCurrentQuarter, year } from "../../../../../../utils/year";
+import { quarterId } from "../../../../../../hooks/fetch";
 
 const graphDataTypes = {
   condition: "Condicion de viaje",
@@ -59,49 +61,133 @@ const customDataTypes = [
 const TrendsGraphs = ({ country }) => {
   const countryID = useParams().countryID || country;
   const [period, setPeriod] = useState("");
-  const [dataGraph, setGraph] = useState("");
-  const [labels, setLabels] = useState([]);
+  const [graphType, setGraphType] = useState("");
+  const [graphData, setGraphData] = useState({
+    labels: [],
+    datasets: [],
+  });
 
   // PERIOD
   const handlePeriod = (ev) => setPeriod(ev.target.value);
 
   // DATA GRAPH
-  const handleDataGraph = (ev) => setGraph(ev.target.value);
-
-  const graphData = {
-    labels,
-    datasets: [
-      {
-        label: "Dataset 1",
-        data: [1, 2, 3, 4],
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-      },
-      {
-        label: "Dataset 2",
-        data: [4, 5, 6, 7],
-        backgroundColor: "rgba(53, 162, 235, 0.5)",
-      },
-    ],
-  };
+  const handleGraphType = (ev) => setGraphType(ev.target.value);
 
   useEffect(() => {
     // CALCULAR TOTAL DE PERIODOS
-    let periodsLength = 0;
-    let labels = [];
+    let barLengths = 0;
+    let currentYear = year;
+    let localData = [];
 
-    if (period === 0) {
-      periodsLength = 3;
-      labels = ["Cuatrimestre 1", "Cuatrimestre 2", "Cuatrimestre 3"];
+    if (period === "0") {
+      barLengths = 3;
+      for (let i = 0; i < barLengths; i++) {
+        localData.push({
+          id: `q${i + 1}`,
+          year,
+          name: `Cuatrimestre ${i + 1} - ${year}`,
+        });
+      }
     }
-    if (period === 1) {
-      periodsLength = 4;
-      labels = ["Cuatrimestre 1", "Cuatrimestre 2", "Cuatrimestre 3"];
+    if (period === "1") {
+      barLengths = 4;
+      let currentQuarter = getCurrentQuarter();
+
+      while (currentQuarter > 0 && localData.length < 4) {
+        localData.push({
+          id: `q${currentQuarter}`,
+          year: currentYear,
+          name: `Cuatrimestre ${currentQuarter} - ${currentYear}`,
+        });
+
+        currentQuarter--;
+        if (currentQuarter === 0 && currentYear !== year - 1) {
+          currentQuarter = 3;
+          currentYear--;
+        }
+      }
     }
-    if (period === 2) {
-      periodsLength = 3 * 3;
-      labels = ["Cuatrimestre 1", "Cuatrimestre 2", "Cuatrimestre 3"];
+    if (period === "2") {
+      barLengths = 3;
+      while (currentYear > year - 3) {
+        localData.push({
+          id: `q1`,
+          year: currentYear,
+          name: `Cuatrimestre 1`,
+        });
+        localData.push({
+          id: `q2`,
+          year: currentYear,
+          name: `Cuatrimestre 2`,
+        });
+        localData.push({
+          id: `q3`,
+          year: currentYear,
+          name: `Cuatrimestre 3`,
+        });
+        currentYear--;
+      }
     }
+
+    // PETICIONES
+    const requests = localData.map(async (label) => {
+      const req = await fetch(
+        `${
+          import.meta.env.VITE_APP_API_URL
+        }/consultas/totalporpaisanioperiodo/${countryID}/${label.year}/${
+          quarterId[label.id]
+        }`
+      );
+      const data = await req.json();
+      const total = data?.data?.[0]?.totalRegistros ?? 0;
+      return { ...label, total };
+    });
+
+    // RESOLVER
+    Promise.allSettled(requests)
+      .then((res) => {
+        let data = res.map((r) => r.value);
+
+        // AGRUPAR POR AÑOS
+        if (period === "2") {
+          let currentYear = year;
+
+          data.forEach((totals) => {
+            const nextTotal = totals.total;
+            if (totals.year === currentYear) {
+              if (totals.id === "q1") data[year - currentYear].total = 0;
+              data[year - currentYear].total += nextTotal;
+              data[year - currentYear].year = currentYear;
+              data[year - currentYear].name = `Año ${currentYear}`;
+            }
+
+            if (totals.id === "q3") currentYear--;
+          });
+
+          data.length = 3;
+        }
+
+        const newGraphData = {
+          labels: data.map((totals) => totals.name),
+          datasets: [
+            {
+              label: "Dataset 1",
+              data: data.map((totals) => totals.total),
+              backgroundColor: "rgba(255, 99, 132, 0.5)",
+            },
+            {
+              label: "Dataset 2",
+              data: data.map((totals) => totals.total),
+              backgroundColor: "rgba(53, 162, 235, 0.5)",
+            },
+          ],
+        };
+        setGraphData(newGraphData);
+      })
+      .catch((err) => console.log(err));
   }, [period]);
+
+  console.log(graphData);
 
   return (
     <div style={{ maxWidth: 800, margin: "0 auto" }}>
@@ -173,7 +259,7 @@ const TrendsGraphs = ({ country }) => {
           >{`Total de niñez y adolescencia retornada - ${countryID.toUpperCase()}`}</Text>
           <Text fontStyle="italic" lineHeight={1}>{`${
             customPeriods[period] ?? ""
-          } - por ${graphDataTypes[dataGraph] ?? ""}`}</Text>
+          } - por ${graphDataTypes[graphType] ?? ""}`}</Text>
         </Stack>
 
         <Box>
