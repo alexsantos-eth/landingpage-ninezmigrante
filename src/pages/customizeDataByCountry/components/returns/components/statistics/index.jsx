@@ -65,20 +65,20 @@ const Statistics = ({ returns }) => {
 
         {/* DEPARTMENTS */}
         <Stack
-          gap="16px"
+          alignItems="center"
           justifyContent="center"
-          alignItems={{ base: "flex-start", md: "center" }}
+          gap={{ base: "40px", md: "80px" }}
           direction={{ base: "column", md: "row" }}
         >
           {/* DEPARMENT BOX */}
           {data.map((department, index) => (
             <Stack
               key={index}
-              direction="row"
+              direction="column"
               alignItems="center"
               justifyContent="center"
             >
-              <Stack width="40px">
+              <Stack height="80px">
                 {countryID === "guatemala" ? (
                   <ModalContentGT
                     disableHeat
@@ -94,11 +94,15 @@ const Statistics = ({ returns }) => {
                 )}
               </Stack>
 
-              <Stack direction="column">
+              <Stack
+                direction="column"
+                justifyContent="center"
+                alignItems={{ base: "center", md: "flex-start" }}
+              >
                 <Text fontFamily="Oswald" fontSize="xl" lineHeight="1">
                   {department?._id.replace("Department", "")}
                 </Text>
-                <Text fontFamily="Oswald" fontSize="2xl" lineHeight="1">
+                <Text fontFamily="Oswald" fontSize="4xl" lineHeight="1">
                   {department?.total}
                 </Text>
               </Stack>
