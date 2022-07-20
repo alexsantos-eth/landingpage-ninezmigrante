@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef } from "react";
 
 // REACT ROUTER DOM
 import { useParams } from "react-router-dom";
@@ -7,7 +7,6 @@ import { useParams } from "react-router-dom";
 import {
   Select,
   Text,
-  Image,
   Stack,
   Box,
   Tooltip as ChackraTooltip,
@@ -15,29 +14,26 @@ import {
 
 // DND
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-
 import { Bar, Line } from "react-chartjs-2";
 
-// ASSETS
-import MaleIcon from "../../../../../../assets/male.png";
-import FemaleIcon from "../../../../../../assets/femenine.png";
-import Airplane from "../../../../../../assets/airplane.png";
-import BusIcon from "../../../../../../assets/bus.png";
-import FamilyIcon from "../../../../../../assets/family.png";
-import GroupIcon from "../../../../../../assets/group.png";
-
-import MexIcon from "../../../../../../assets/mexico.svg";
-import UsaIcon from "../../../../../../assets/usa.svg";
-import { colors } from "../../../../../../utils/theme";
+//  COMPONENTES
+import DownloadImage from "../../../../../../components/downloadImage";
 
 //UTILS
-import { getCurrentQuarter, year } from "../../../../../../utils/year";
-import { quarterId } from "../../../../../../hooks/fetch";
 import {
   getListStyle,
   getItemStyle,
   getDataItemStyle,
 } from "../../../department/components/dndDepartment/tools";
+import useGraphData from "./hooks";
+import {
+  itemColors,
+  graphDataTypes,
+  customPeriods,
+  customDataTypes,
+  customDataChart,
+  datasetLabels,
+} from "./utils";
 
 import {
   Chart as ChartJS,
@@ -50,6 +46,8 @@ import {
   Tooltip,
   Filler,
 } from "chart.js";
+import handleGraphType from "./utils/events";
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -61,338 +59,43 @@ ChartJS.register(
   Filler
 );
 
-const itemColors = [colors.blue[700], colors.red[700], colors.heat[800]];
-
-const graphDataTypes = {
-  condition: "Condicion de Viaje",
-  return: "Pais de Retorno",
-  via: "Via de Retorno",
-  age: "Rango Etario",
-  gender: "Género",
-};
-
-const customPeriods = ["Año en curso", "Ultimos 4 periodos", "Ultimos 3 años"];
-const customDataTypes = [
-  {
-    id: "gender",
-    name: "Género",
-    Content: (
-      <Stack
-        height="100%"
-        direction="column"
-        alignItems="center"
-        justifyContent="center"
-        style={{ filter: "brightness(0) saturate(100%)" }}
-      >
-        <Image src={MaleIcon} height="23px" />
-        <Image src={FemaleIcon} height="23px" />
-      </Stack>
-    ),
-  },
-  {
-    id: "via",
-    name: "Via de retorno",
-    Content: (
-      <Stack
-        height="100%"
-        direction="column"
-        alignItems="center"
-        justifyContent="center"
-        style={{ filter: "brightness(0) saturate(100%)" }}
-      >
-        <Image src={BusIcon} height="23px" />
-        <Image src={Airplane} height="23px" />
-      </Stack>
-    ),
-  },
-  {
-    id: "condition",
-    name: "Condicion de viaje",
-    Content: (
-      <Stack
-        height="100%"
-        direction="column"
-        alignItems="center"
-        justifyContent="center"
-        style={{ filter: "brightness(0) saturate(100%)" }}
-      >
-        <Image src={FamilyIcon} height="23px" />
-        <Image src={GroupIcon} height="23px" />
-      </Stack>
-    ),
-  },
-  {
-    id: "return",
-    name: "Pais de retorno",
-    Content: (
-      <Stack
-        height="100%"
-        direction="column"
-        alignItems="center"
-        justifyContent="center"
-        style={{ filter: "brightness(0) saturate(100%)" }}
-      >
-        <Image src={UsaIcon} height="23px" />
-        <Image src={MexIcon} height="23px" />
-      </Stack>
-    ),
-  },
-  {
-    id: "age",
-    name: "Rango etario",
-    Content: (
-      <Stack
-        height="100%"
-        direction="column"
-        alignItems="center"
-        justifyContent="center"
-        style={{ filter: "brightness(0) saturate(100%)" }}
-      >
-        <Image src={GroupIcon} height="23px" />
-      </Stack>
-    ),
-  },
-];
-
-const customDataChart = [
-  {
-    id: "bar",
-    name: "Barras",
-    Content: <Text>Barras</Text>,
-  },
-  {
-    id: "area",
-    name: "Área",
-    Content: <Text>Area</Text>,
-  },
-  {
-    id: "group",
-    name: "Agrupado",
-    Content: <Text>Agrupado</Text>,
-  },
-];
-
-const endpoints = {
-  gender: "totalporgenero",
-  age: "totalporrangoetario",
-  via: "totalporviaderetorno",
-  condition: "totalporcondiciondeviaje",
-  return: "totalporpaisdeproveniencia",
-};
-
-const datasetLabels = {
-  gender: ["Femenino", "Masculino"],
-  age: ["Primera infancia", "Niñez", "Adolescencia"],
-  via: ["Terrestre", "Aérea"],
-  condition: ["Acompañado", "No acompañado"],
-  return: ["Estados Unidos", "México", "Canada"],
-};
-
-const TrendsGraphs = ({ country }) => {
+const TrendsGraphs = ({ country = "guatemala" }) => {
+  // IDS
   const countryID = useParams().countryID || country;
 
+  // STATES
   const [graphType, setGraphType] = useState("");
   const [chartType, setChartType] = useState("");
   const [period, setPeriod] = useState("");
 
-  const [graphData, setGraphData] = useState({
-    labels: [],
-    datasets: [],
-  });
+  // REF
+  const containerRef = useRef(null);
 
   // PERIOD
   const handlePeriod = (ev) => setPeriod(ev.target.value);
 
   // DATA GRAPH
-  const handleGraphType = (result) => {
-    if (!result.destination) return;
-    if (result.source.droppableId === "droppableGraphs")
-      setGraphType(result.draggableId);
-    else setChartType(result.draggableId);
-  };
+  const handleDnD = (result) =>
+    handleGraphType(result, setGraphType, setChartType);
 
-  useEffect(() => {
-    if (period.length && graphType.length && chartType.length) {
-      // CALCULAR TOTAL DE PERIODOS
-      let barLengths = 0;
-      let currentYear = year;
-      let localData = [];
-
-      if (period === "0") {
-        barLengths = 3;
-        for (let i = 0; i < barLengths; i++) {
-          localData.push({
-            id: `q${i + 1}`,
-            year,
-            name: `Cuatrimestre ${i + 1} - ${year}`,
-          });
-        }
-      }
-      if (period === "1") {
-        barLengths = 4;
-        let currentQuarter = getCurrentQuarter();
-
-        while (currentQuarter > 0 && localData.length < 4) {
-          localData.push({
-            id: `q${currentQuarter}`,
-            year: currentYear,
-            name: `Cuatrimestre ${currentQuarter} - ${currentYear}`,
-          });
-
-          currentQuarter--;
-          if (currentQuarter === 0 && currentYear !== year - 1) {
-            currentQuarter = 3;
-            currentYear--;
-          }
-        }
-      }
-      if (period === "2") {
-        barLengths = 3;
-        while (currentYear > year - 3) {
-          localData.push({
-            id: `q1`,
-            year: currentYear,
-            name: `Cuatrimestre 1`,
-          });
-          localData.push({
-            id: `q2`,
-            year: currentYear,
-            name: `Cuatrimestre 2`,
-          });
-          localData.push({
-            id: `q3`,
-            year: currentYear,
-            name: `Cuatrimestre 3`,
-          });
-          currentYear--;
-        }
-      }
-
-      // PETICIONES
-      const requests = localData.map(async (label) => {
-        const req = await fetch(
-          `${import.meta.env.VITE_APP_API_URL}/consultas/${
-            endpoints[graphType]
-          }/${countryID}/${label.year}/${quarterId[label.id]}`
-        );
-        const data = await req.json();
-        let totals = { total1: 0, total2: 0, total3: 0 };
-
-        data?.data.forEach((stats) => {
-          if (graphType === "gender") {
-            if (stats._id === "Femenino") totals.total1 += stats.total;
-            if (stats._id === "Masculino") totals.total2 += stats.total;
-          }
-
-          if (graphType === "via") {
-            if (stats._id.startsWith("Terrestre")) totals.total1 += stats.total;
-            if (stats._id.startsWith("Aérea")) totals.total2 += stats.total;
-          }
-
-          if (graphType === "condition") {
-            if (stats._id.condicion === "Acompañado")
-              totals.total1 += stats.total;
-            if (stats._id.condicion === "No acompañado")
-              totals.total2 += stats.total;
-          }
-
-          if (graphType === "return") {
-            if (stats._id?.nombre === "Estados Unidos")
-              totals.total1 += stats.total;
-            if (stats._id?.nombre === "México") totals.total2 += stats.total;
-            if (stats._id?.nombre === "Canadá") totals.total3 += stats.total;
-          }
-
-          if (graphType === "age") {
-            if (stats._id === "0-6 años") totals.total1 += stats.total;
-            if (stats._id === "7-12 años") totals.total2 += stats.total;
-            if (stats._id === "13-17 años") totals.total3 += stats.total;
-          }
-        });
-
-        return { ...label, ...totals };
-      });
-
-      // RESOLVER
-      Promise.allSettled(requests)
-        .then((res) => {
-          let data = res.map((r) => r.value);
-
-          // REVERSE PARA PERIODO 1
-          if (period === "1") data = data.reverse();
-
-          // AGRUPAR POR AÑOS
-          if (period === "2") {
-            let currentYear = year;
-
-            data.forEach((totals) => {
-              const nextTotal1 = totals.total1;
-              const nextTotal2 = totals.total2;
-              const nextTotal3 = totals.total3;
-
-              if (totals.year === currentYear) {
-                if (totals.id === "q1") {
-                  data[year - currentYear].total1 = 0;
-                  data[year - currentYear].total2 = 0;
-                  data[year - currentYear].total3 = 0;
-                }
-                data[year - currentYear].total1 += nextTotal1;
-                data[year - currentYear].total2 += nextTotal2;
-                data[year - currentYear].total3 += nextTotal3;
-                data[year - currentYear].year = currentYear;
-                data[year - currentYear].name = `Año ${currentYear}`;
-              }
-
-              if (totals.id === "q3") currentYear--;
-            });
-
-            data.length = 3;
-            data = data.reverse();
-          }
-
-          const newGraphData = {
-            labels: data.map((totals) => totals.name),
-            datasets: [
-              {
-                fill: true,
-                label: datasetLabels[graphType][0],
-                data: data.map((totals) => totals.total1),
-                backgroundColor: itemColors[0],
-              },
-              {
-                fill: true,
-                label: datasetLabels[graphType][1],
-                data: data.map((totals) => totals.total2),
-                backgroundColor: itemColors[1],
-              },
-              {
-                fill: true,
-                label: datasetLabels[graphType][2],
-                data: data.map((totals) => totals.total3),
-                backgroundColor: itemColors[2],
-              },
-            ].flat(Boolean),
-          };
-          setGraphData(newGraphData);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [period, graphType, chartType]);
+  // DATOS
+  const graphData = useGraphData(period, graphType, chartType);
 
   return (
     <Box
+      ref={containerRef}
       paddingBottom="40px"
       style={{ margin: "0 auto" }}
       maxWidth={{ base: "100%", md: 800 }}
       paddingLeft={{ base: "40px", md: 0 }}
       paddingRight={{ base: "40px", md: 0 }}
     >
-      <DragDropContext onDragEnd={handleGraphType}>
+      <DragDropContext onDragEnd={handleDnD}>
         <Stack
           spacing={1}
-          direction={{ base: "column", md: "row" }}
-          alignItems="center"
+          alignItems={{ base: "center", md: "flex-end" }}
           justifyContent="space-between"
+          direction={{ base: "column", md: "row" }}
         >
           {/* PERIODO */}
           <Select
@@ -551,8 +254,10 @@ const TrendsGraphs = ({ country }) => {
                 lineHeight="1"
                 fontWeight="600"
                 fontFamily="Times"
-              >{`${customPeriods[period] ?? "Tendencias"} - Por ${
-                graphDataTypes[graphType] ?? ""
+              >{`${customPeriods[period] ?? "Tendencias"}${
+                graphDataTypes[graphType]
+                  ? ` - Por ${graphDataTypes[graphType]}`
+                  : ""
               }`}</Text>
             </Stack>
 
@@ -629,6 +334,10 @@ const TrendsGraphs = ({ country }) => {
               }}
             </Droppable>
           </Box>
+          <DownloadImage
+            containerRef={containerRef}
+            label="Descargar imagen de tendencias"
+          />
         </Box>
       </DragDropContext>
     </Box>

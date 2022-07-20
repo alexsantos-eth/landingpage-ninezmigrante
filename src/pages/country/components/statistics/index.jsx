@@ -16,37 +16,7 @@ import useFetch, { quarters } from "../../../../hooks/fetch";
 const Statistics = ({ period, year, satisticsRef }) => {
   const { countryID } = useParams();
   const [total, setTotal] = useState(0);
-  const [screenshot, setScreenshot] = useState(false);
   const [periodId, setPeriodId] = useState("");
-
-  const handleDownloadImage = async () => setScreenshot(true);
-
-  useEffect(() => {
-    if (screenshot) {
-      const take = async () => {
-        const element = satisticsRef.current;
-        const html2canvas = (await import("html2canvas")).default;
-        const canvas = await html2canvas(element);
-
-        const data = canvas.toDataURL("image/png");
-        const link = document.createElement("a");
-
-        if (typeof link.download === "string") {
-          link.href = data;
-          link.download = "infografia.png";
-
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-        } else {
-          window.open(data);
-        }
-
-        setScreenshot(false);
-      };
-      take();
-    }
-  }, [screenshot]);
 
   useFetch({
     url: "/consultas/totalporpaisanioperiodo/country/year/quarter",
@@ -149,13 +119,11 @@ const Statistics = ({ period, year, satisticsRef }) => {
           </Text>
         </Stack>
 
-        {!screenshot && (
-          <DownloadTable
-            handleDownloadImage={handleDownloadImage}
-            periodId={periodId}
-            tableState
-          />
-        )}
+        <DownloadTable
+          satisticsRef={satisticsRef}
+          periodId={periodId}
+          tableState
+        />
       </Box>
     </>
   );

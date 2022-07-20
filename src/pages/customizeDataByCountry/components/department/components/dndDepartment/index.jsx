@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 // REACT ROUTER DOM
 import { useParams } from "react-router-dom";
@@ -26,6 +26,7 @@ import { Select, Text, Stack, Box } from "@chakra-ui/react";
 
 // DND
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import DownloadImage from "../../../../../../components/downloadImage";
 
 const DnDDepartment = ({ country = "guatemala" }) => {
   // PROPS DE DEPARTAMENTOS
@@ -33,6 +34,9 @@ const DnDDepartment = ({ country = "guatemala" }) => {
   const [depList, setDepList] = useState(countryDeps[countryID]);
   const [period, setPeriod] = useState("");
   const [currentYear, setYear] = useState(year);
+
+  // REF
+  const containerRef = useRef(null);
 
   // LISTA DE DATOS
   const [depDataList, setDepDataList] = useState([
@@ -62,9 +66,21 @@ const DnDDepartment = ({ country = "guatemala" }) => {
   });
 
   return (
-    <div style={{ maxWidth: 800, margin: "0 auto" }}>
+    <Box
+      ref={containerRef}
+      paddingBottom="40px"
+      style={{ margin: "0 auto" }}
+      maxWidth={{ base: "100%", md: 800 }}
+      paddingLeft={{ base: "40px", md: 0 }}
+      paddingRight={{ base: "40px", md: 0 }}
+    >
       <DragDropContext onDragEnd={onDepsDragEnd}>
-        <Stack spacing={1} direction="row" alignItems="center">
+        <Stack
+          spacing={1}
+          direction={{ base: "column", md: "row" }}
+          alignItems="center"
+          justifyContent="space-between"
+        >
           <Stack spacing={1} direction="column">
             {/* YEAR */}
             <Select
@@ -75,7 +91,7 @@ const DnDDepartment = ({ country = "guatemala" }) => {
               fontFamily="Times"
               letterSpacing="1.2px"
               onChange={handleChangeYear}
-              bgColor="rgba(255,255,255,0.5)"
+              bgColor="#bcd6d6"
             >
               <option value="default">Elegir año</option>
               <option value="2020">2020</option>
@@ -91,7 +107,7 @@ const DnDDepartment = ({ country = "guatemala" }) => {
               fontFamily="Times"
               letterSpacing="1.2px"
               onChange={handlePeriod}
-              bgColor="rgba(255,255,255,0.5)"
+              bgColor="#bcd6d6"
             >
               <option value="default">Elegir cuatrimestre</option>
               <option value="q1">Enero - Abril</option>
@@ -101,7 +117,10 @@ const DnDDepartment = ({ country = "guatemala" }) => {
           </Stack>
 
           {/* LISTA DE DEPARTAMENTOS */}
-          <Box style={{ maxWidth: "475px", overflowX: "auto" }}>
+          <Box
+            maxWidth={{ base: "100%", md: "475px" }}
+            style={{ overflowX: "auto" }}
+          >
             <Droppable droppableId="droppableDeps" direction="horizontal">
               {(provided, snapshot) => (
                 <div
@@ -162,102 +181,109 @@ const DnDDepartment = ({ country = "guatemala" }) => {
           </Box>
         </Stack>
 
-        {/* TITULO DE CANVAS */}
-        <Stack
-          marginY={8}
-          spacing="16px"
-          direction="column"
-          alignItems="center"
-        >
-          <Text
-            fontSize="2xl"
-            fontFamily="Oswald"
-            lineHeight={{ base: "1.5", md: "1" }}
-            textAlign={{ base: "center", md: "left" }}
-          >{`TOTAL DE NIÑEZ Y ADOLESCENCIA RETORNADA - ${countryID.toUpperCase()}`}</Text>
-          <Text
-            fontSize="2xl"
-            lineHeight="1"
-            fontWeight="600"
-            fontFamily="Times"
-          >{`Cuatrimestre ${period.substring(
-            1
-          )} - ${currentYear} - Departamentos seleccionados`}</Text>
-        </Stack>
+        <Box bgColor="#fff" borderRadius="20px" p={8} mt={4}>
+          {/* TITULO DE CANVAS */}
+          <Stack
+            marginY={8}
+            spacing="16px"
+            direction="column"
+            alignItems="center"
+          >
+            <Text
+              fontSize="2xl"
+              fontFamily="Oswald"
+              lineHeight={{ base: "1.5", md: "1" }}
+              textAlign={{ base: "center", md: "left" }}
+            >{`TOTAL DE NIÑEZ Y ADOLESCENCIA RETORNADA - ${countryID.toUpperCase()}`}</Text>
+            <Text
+              fontSize="2xl"
+              lineHeight="1"
+              fontWeight="600"
+              fontFamily="Times"
+            >{`Cuatrimestre ${period.substring(
+              1
+            )} - ${currentYear} - Departamentos seleccionados`}</Text>
+          </Stack>
 
-        {/* SECCION 1 */}
-        <Stack direction="row" spacing={0}>
-          <Droppable droppableId="droppableData1">
-            {(provided, snapshot) => {
-              const item = depDataList[0];
-              return (
-                <div
-                  ref={provided.innerRef}
-                  style={getDataItemStyle(snapshot.isDraggingOver)}
-                  {...provided.droppableProps}
-                >
-                  <DepartmentData
-                    index={0}
-                    item={item}
-                    setDepDataList={setDepDataList}
-                    isDragOver={snapshot.isDraggingOver}
-                  />
-                  {provided.placeholder}
-                </div>
-              );
-            }}
-          </Droppable>
+          {/* SECCION 1 */}
+          <Stack direction="row" spacing={0} mb={8}>
+            <Droppable droppableId="droppableData1">
+              {(provided, snapshot) => {
+                const item = depDataList[0];
+                return (
+                  <div
+                    ref={provided.innerRef}
+                    style={getDataItemStyle(snapshot.isDraggingOver)}
+                    {...provided.droppableProps}
+                  >
+                    <DepartmentData
+                      index={0}
+                      item={item}
+                      setDepDataList={setDepDataList}
+                      isDragOver={snapshot.isDraggingOver}
+                    />
+                    {provided.placeholder}
+                  </div>
+                );
+              }}
+            </Droppable>
 
-          {/* SECCION 2 */}
-          <Droppable droppableId="droppableData2">
-            {(provided, snapshot) => {
-              const item = depDataList[1];
-              return (
-                <div
-                  ref={provided.innerRef}
-                  style={{
-                    ...getDataItemStyle(snapshot.isDraggingOver),
-                    borderRight: "1px solid #333",
-                    borderLeft: "1px solid #333",
-                  }}
-                  {...provided.droppableProps}
-                >
-                  <DepartmentData
-                    index={1}
-                    item={item}
-                    setDepDataList={setDepDataList}
-                    isDragOver={snapshot.isDraggingOver}
-                  />
-                  {provided.placeholder}
-                </div>
-              );
-            }}
-          </Droppable>
+            {/* SECCION 2 */}
+            <Droppable droppableId="droppableData2">
+              {(provided, snapshot) => {
+                const item = depDataList[1];
+                return (
+                  <div
+                    ref={provided.innerRef}
+                    style={{
+                      ...getDataItemStyle(snapshot.isDraggingOver),
+                      borderRight: "1px solid #333",
+                      borderLeft: "1px solid #333",
+                    }}
+                    {...provided.droppableProps}
+                  >
+                    <DepartmentData
+                      index={1}
+                      item={item}
+                      setDepDataList={setDepDataList}
+                      isDragOver={snapshot.isDraggingOver}
+                    />
+                    {provided.placeholder}
+                  </div>
+                );
+              }}
+            </Droppable>
 
-          {/* SECCION 3 */}
-          <Droppable droppableId="droppableData3">
-            {(provided, snapshot) => {
-              const item = depDataList[2];
-              return (
-                <div
-                  ref={provided.innerRef}
-                  style={getDataItemStyle(snapshot.isDraggingOver)}
-                  {...provided.droppableProps}
-                >
-                  <DepartmentData
-                    index={2}
-                    item={item}
-                    setDepDataList={setDepDataList}
-                    isDragOver={snapshot.isDraggingOver}
-                  />
-                  {provided.placeholder}
-                </div>
-              );
-            }}
-          </Droppable>
-        </Stack>
+            {/* SECCION 3 */}
+            <Droppable droppableId="droppableData3">
+              {(provided, snapshot) => {
+                const item = depDataList[2];
+                return (
+                  <div
+                    ref={provided.innerRef}
+                    style={getDataItemStyle(snapshot.isDraggingOver)}
+                    {...provided.droppableProps}
+                  >
+                    <DepartmentData
+                      index={2}
+                      item={item}
+                      setDepDataList={setDepDataList}
+                      isDragOver={snapshot.isDraggingOver}
+                    />
+                    {provided.placeholder}
+                  </div>
+                );
+              }}
+            </Droppable>
+          </Stack>
+
+          <DownloadImage
+            containerRef={containerRef}
+            label="Descargar imagen de comparacion"
+          />
+        </Box>
       </DragDropContext>
-    </div>
+    </Box>
   );
 };
 
