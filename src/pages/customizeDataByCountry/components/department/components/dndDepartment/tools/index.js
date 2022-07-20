@@ -25,7 +25,6 @@ export const getListStyle = () => ({
 export const getDataItemStyle = (isDragging) => ({
   height: 305,
   display: "flex",
-  width: "33.33%",
   flexDirection: "column",
   borderRadius: isDragging ? "5px" : "0",
   transition: "background 0.2s ease-in-out",

@@ -206,14 +206,15 @@ const DnDDepartment = ({ country = "guatemala" }) => {
           </Stack>
 
           {/* SECCION 1 */}
-          <Stack direction="row" spacing={0} mb={8}>
+          <Stack direction={{ base: "column", md: "row" }} spacing={0} mb={8}>
             <Droppable droppableId="droppableData1">
               {(provided, snapshot) => {
                 const item = depDataList[0];
                 return (
-                  <div
+                  <Box
                     ref={provided.innerRef}
                     style={getDataItemStyle(snapshot.isDraggingOver)}
+                    width={{ base: "100%", md: "33.33%" }}
                     {...provided.droppableProps}
                   >
                     <DepartmentData
@@ -223,7 +224,7 @@ const DnDDepartment = ({ country = "guatemala" }) => {
                       isDragOver={snapshot.isDraggingOver}
                     />
                     {provided.placeholder}
-                  </div>
+                  </Box>
                 );
               }}
             </Droppable>
@@ -233,13 +234,14 @@ const DnDDepartment = ({ country = "guatemala" }) => {
               {(provided, snapshot) => {
                 const item = depDataList[1];
                 return (
-                  <div
+                  <Box
                     ref={provided.innerRef}
-                    style={{
-                      ...getDataItemStyle(snapshot.isDraggingOver),
-                      borderRight: "1px solid #333",
-                      borderLeft: "1px solid #333",
-                    }}
+                    style={getDataItemStyle(snapshot.isDraggingOver)}
+                    borderRight={{ base: "none", md: "1px solid #333" }}
+                    borderLeft={{ base: "none", md: "1px solid #333" }}
+                    borderTop={{ md: "none", base: "1px solid #333" }}
+                    borderBottom={{ md: "none", base: "1px solid #333" }}
+                    width={{ base: "100%", md: "33.33%" }}
                     {...provided.droppableProps}
                   >
                     <DepartmentData
@@ -249,7 +251,7 @@ const DnDDepartment = ({ country = "guatemala" }) => {
                       isDragOver={snapshot.isDraggingOver}
                     />
                     {provided.placeholder}
-                  </div>
+                  </Box>
                 );
               }}
             </Droppable>
@@ -259,9 +261,10 @@ const DnDDepartment = ({ country = "guatemala" }) => {
               {(provided, snapshot) => {
                 const item = depDataList[2];
                 return (
-                  <div
+                  <Box
                     ref={provided.innerRef}
                     style={getDataItemStyle(snapshot.isDraggingOver)}
+                    width={{ base: "100%", md: "33.33%" }}
                     {...provided.droppableProps}
                   >
                     <DepartmentData
@@ -271,7 +274,7 @@ const DnDDepartment = ({ country = "guatemala" }) => {
                       isDragOver={snapshot.isDraggingOver}
                     />
                     {provided.placeholder}
-                  </div>
+                  </Box>
                 );
               }}
             </Droppable>

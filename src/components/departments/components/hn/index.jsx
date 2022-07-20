@@ -28,16 +28,11 @@ const ModalContentHN = ({ id, customColor = "", disableHeat = false }) => {
 
   return (
     <svg
-      xmlnsMapsvg="http://mapsvg.com"
-      xmlnsDc="http://purl.org/dc/elements/1.1/"
-      xmlnsRdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-      xmlnsSvg="http://www.w3.org/2000/svg"
-      xmlns="http://www.w3.org/2000/svg"
-      mapsvgGeoViewBox="-89.351340 17.418870 -83.127223 12.984061"
+      ref={svgRef}
       width="100%"
       height="100%"
-      ref={svgRef}
       id="departmentSVG"
+      xmlns="http://www.w3.org/2000/svg"
     >
       {id === "atlantida" && (
         <Atlantida customColor={customColor} disableHeat={disableHeat} />
@@ -60,10 +55,10 @@ const ModalContentHN = ({ id, customColor = "", disableHeat = false }) => {
       {id === "elparaiso" && (
         <ElParaiso customColor={customColor} disableHeat={disableHeat} />
       )}
-      {id === "francis" && (
+      {id === "franciscomorazan" && (
         <Francis customColor={customColor} disableHeat={disableHeat} />
       )}
-      {id === "gracias" && (
+      {id === "graciasadios" && (
         <Gracias customColor={customColor} disableHeat={disableHeat} />
       )}
       {id === "intibuca" && (

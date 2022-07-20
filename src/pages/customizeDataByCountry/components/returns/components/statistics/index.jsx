@@ -13,7 +13,7 @@ import DownloadImage from "../../../../../../components/downloadImage";
 import useSortedDepartments from "./hooks";
 
 import ModalContentGT from "../../../../../../components/departments/components/gt";
-import ModalContentHN from "../../../../../../components/departments/components/gt";
+import ModalContentHN from "../../../../../../components/departments/components/hn";
 import { colors } from "../../../../../../utils/theme";
 import { year as currentYear } from "../../../../../../utils/year";
 

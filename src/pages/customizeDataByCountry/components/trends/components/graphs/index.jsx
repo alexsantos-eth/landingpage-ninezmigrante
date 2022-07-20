@@ -238,9 +238,9 @@ const TrendsGraphs = ({ country = "guatemala" }) => {
           <Stack
             marginY={8}
             spacing={8}
-            direction="row"
             alignItems="center"
             justifyContent="center"
+            direction={{ base: "column", md: "row" }}
           >
             <Stack spacing="16px" direction="column" alignItems="center">
               <Text
@@ -261,16 +261,22 @@ const TrendsGraphs = ({ country = "guatemala" }) => {
               }`}</Text>
             </Stack>
 
-            <Stack direction="column">
-              {datasetLabels[graphType]?.map((label, index) => (
-                <Stack direction="row" alignItems="center" key={label}>
-                  <Box bgColor={itemColors[index]} width="18px" height="18px" />
-                  <Text fontFamily="Oswald" fontSize="md">
-                    {label}
-                  </Text>
-                </Stack>
-              ))}
-            </Stack>
+            {graphType.length > 0 && (
+              <Stack direction="column">
+                {datasetLabels[graphType]?.map((label, index) => (
+                  <Stack direction="row" alignItems="center" key={label}>
+                    <Box
+                      bgColor={itemColors[index]}
+                      width="18px"
+                      height="18px"
+                    />
+                    <Text fontFamily="Oswald" fontSize="md">
+                      {label}
+                    </Text>
+                  </Stack>
+                ))}
+              </Stack>
+            )}
           </Stack>
 
           <Box>

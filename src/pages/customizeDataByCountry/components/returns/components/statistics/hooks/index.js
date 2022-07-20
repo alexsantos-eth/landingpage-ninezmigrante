@@ -2,7 +2,13 @@
 import { useEffect } from "react";
 import { quarterId } from "../../../../../../../hooks/fetch";
 
-export const useSortedDepartments = (setData, countryID, period, year, list) => {
+export const useSortedDepartments = (
+  setData,
+  countryID,
+  period,
+  year,
+  list
+) => {
   useEffect(() => {
     if (period?.length > 0 && year?.length > 0) {
       fetch(
@@ -29,20 +35,20 @@ export const useSortedDepartments = (setData, countryID, period, year, list) => 
             };
             return dep;
           });
-            if(list === "asc" || list === "default" || list.length === 0 ){
-                filteredData = filteredData.sort((a, b) => {
-                return b.total - a.total;
-                });
-            }
-            if(list === "desc"){
-                filteredData = filteredData.sort((a, b) => {
-                return a.total - b.total;
-                });
-            }
-            if(filteredData.length > 5 ) {
-              filteredData.length = 5;
-            }
-            setData(filteredData);
+          if (list === "asc" || list === "default" || list?.length === 0) {
+            filteredData = filteredData.sort((a, b) => {
+              return b.total - a.total;
+            });
+          }
+          if (list === "desc") {
+            filteredData = filteredData.sort((a, b) => {
+              return a.total - b.total;
+            });
+          }
+          if (filteredData.length > 5) {
+            filteredData.length = 5;
+          }
+          setData(filteredData);
         });
     }
   }, [countryID, period, year, list]);
