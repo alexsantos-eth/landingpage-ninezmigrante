@@ -378,11 +378,17 @@ const TrendsGraphs = ({ country }) => {
   }, [period, graphType, chartType]);
 
   return (
-    <Box style={{ maxWidth: 800, margin: "0 auto" }} paddingBottom="40px">
+    <Box
+      paddingBottom="40px"
+      style={{ margin: "0 auto" }}
+      paddingLeft={{ base: "40px", md: 0 }}
+      paddingRight={{ base: "40px", md: 0 }}
+      maxWidth={{ base: "100%", md: 800 }}
+    >
       <DragDropContext onDragEnd={handleGraphType}>
         <Stack
           spacing={1}
-          direction="row"
+          direction={{ base: "column", md: "row" }}
           alignItems="center"
           justifyContent="space-between"
         >
@@ -406,7 +412,11 @@ const TrendsGraphs = ({ country }) => {
             ))}
           </Select>
 
-          <Stack spacing={1} direction="row" alignItems="center">
+          <Stack
+            spacing={1}
+            direction={{ base: "column", md: "row" }}
+            alignItems="center"
+          >
             {/* LISTA DE VARIABLES */}
             <Box p={1}>
               <Text fontFamily="Oswald" fontSize="1em" mb={2}>
@@ -438,7 +448,10 @@ const TrendsGraphs = ({ country }) => {
                                 snapshot.isDragging,
                                 provided.draggableProps.style
                               ),
-
+                              filter:
+                                graphType === item.id
+                                  ? "invert(21%) sepia(96%) saturate(1831%) hue-rotate(354deg) brightness(93%) contrast(89%)"
+                                  : "none",
                               marginRight: index === 4 ? "0" : "8px",
                             }}
                           >
@@ -456,7 +469,11 @@ const TrendsGraphs = ({ country }) => {
             </Box>
 
             {/* LISTA DE TIPOS */}
-            <Box p={1} pl={2} style={{ borderLeft: "1px solid #555" }}>
+            <Box
+              p={1}
+              pl={{ base: 0, md: 2 }}
+              borderLeft={{ base: "none", md: "1px solid #555" }}
+            >
               <Text fontFamily="Oswald" fontSize="1em" mb={2}>
                 Tipo de grafica
               </Text>
@@ -492,7 +509,7 @@ const TrendsGraphs = ({ country }) => {
                               marginRight: index === 2 ? "0" : "8px",
                               filter:
                                 chartType === item.id
-                                  ? "filter: invert(46%) sepia(74%) saturate(353%) hue-rotate(154deg) brightness(86%) contrast(102%)"
+                                  ? "invert(46%) sepia(74%) saturate(353%) hue-rotate(154deg) brightness(86%) contrast(102%)"
                                   : "none",
                             }}
                           >
