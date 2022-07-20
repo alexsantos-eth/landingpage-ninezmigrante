@@ -1,11 +1,13 @@
 // REACT
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 // REACT ROUTER DOM
 import { useParams } from "react-router-dom";
 
 // CHAKRA UI COMONENTS
 import { Box, Stack, Text } from "@chakra-ui/react";
+
+import DownloadImage from "../../../../../../components/downloadImage";
 
 // HOOKS
 import useSortedDepartments from "./hooks";
@@ -19,10 +21,11 @@ const Statistics = ({ returns }) => {
   const { countryID } = useParams();
   const [data, setData] = useState([]);
   const { period, year, list } = returns;
+  const containerRef = useRef(null);
   useSortedDepartments(setData, countryID, period, year, list);
 
   return (
-    <Box width="100%" padding="0px 40px 80px 40px">
+    <Box ref={containerRef} width="100%" padding="0px 40px 80px 40px">
       {/* CONTAINER */}
       <Stack
         margin="auto"
@@ -113,7 +116,10 @@ const Statistics = ({ returns }) => {
           ))}
         </Stack>
 
-        <Stack>{/* DOWLOAD TABLE */}</Stack>
+        <DownloadImage
+          containerRef={containerRef}
+          label="Descargar imagen de comparacion"
+        />
       </Stack>
     </Box>
   );
