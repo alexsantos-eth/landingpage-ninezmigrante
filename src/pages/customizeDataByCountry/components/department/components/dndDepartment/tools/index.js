@@ -8,8 +8,8 @@ import { year } from "../../../../../../../utils/year";
 
 export const getItemStyle = (isDragging, draggableStyle) => ({
   userSelect: "none",
-  minWidth: 60,
-  height: 60,
+  minWidth: 55,
+  height: 55,
   margin: `0 8px 0 0`,
   borderRadius: "5px",
   transition: "background 0.2s ease-in-out",

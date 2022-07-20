@@ -36,6 +36,7 @@ const ModalContentHN = ({ id, customColor = "", disableHeat = false }) => {
       mapsvgGeoViewBox="-89.351340 17.418870 -83.127223 12.984061"
       width="100%"
       height="100%"
+      ref={svgRef}
       id="departmentSVG"
     >
       {id === "atlantida" && (
