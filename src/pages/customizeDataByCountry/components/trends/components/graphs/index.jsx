@@ -556,7 +556,7 @@ const TrendsGraphs = ({ country }) => {
 
             <Stack direction="column">
               {datasetLabels[graphType]?.map((label, index) => (
-                <Stack direction="row" alignItems="center">
+                <Stack direction="row" alignItems="center" key={label}>
                   <Box bgColor={itemColors[index]} width="18px" height="18px" />
                   <Text fontFamily="Oswald" fontSize="md">
                     {label}
