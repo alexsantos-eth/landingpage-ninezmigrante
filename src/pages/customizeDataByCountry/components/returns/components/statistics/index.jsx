@@ -22,12 +22,16 @@ const Statistics = ({ returns }) => {
   useSortedDepartments(setData, countryID, period, year, list);
 
   return (
-    <Box width="100%" padding="0px 40px">
+    <Box width="100%" padding="0px 40px 80px 40px">
       {/* CONTAINER */}
       <Stack
         margin="auto"
+        borderRadius="20px"
         spacing="40px"
         maxWidth="800px"
+        height="100%"
+        padding="60px 40px"
+        bgColor="white"
         direction="column"
         alignItems="center"
         justifyContent="center"
@@ -36,8 +40,8 @@ const Statistics = ({ returns }) => {
         <Stack
           spacing="16px"
           direction="column"
-          justifyContent="center"
           alignItems="center"
+          justifyContent="center"
         >
           <Text
             fontSize="2xl"
@@ -67,7 +71,7 @@ const Statistics = ({ returns }) => {
         <Stack
           alignItems="center"
           justifyContent="center"
-          gap={{ base: "40px", md: "80px" }}
+          gap={{ base: "40px", md: "60px" }}
           direction={{ base: "column", md: "row" }}
         >
           {/* DEPARMENT BOX */}
