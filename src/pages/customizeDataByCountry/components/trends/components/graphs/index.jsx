@@ -551,7 +551,9 @@ const TrendsGraphs = ({ country }) => {
                 lineHeight="1"
                 fontWeight="600"
                 fontFamily="Times"
-              >{`Tendencias - Por ${graphDataTypes[graphType] ?? ""}`}</Text>
+              >{`${customPeriods[period] ?? "Tendencias"} - Por ${
+                graphDataTypes[graphType] ?? ""
+              }`}</Text>
             </Stack>
 
             <Stack direction="column">
