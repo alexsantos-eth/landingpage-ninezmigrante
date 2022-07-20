@@ -61,6 +61,8 @@ ChartJS.register(
   Filler
 );
 
+const itemColors = [colors.blue[700], colors.red[700], colors.heat[800]];
+
 const graphDataTypes = {
   condition: "Condicion de Viaje",
   return: "Pais de Retorno",
@@ -355,19 +357,19 @@ const TrendsGraphs = ({ country }) => {
                 fill: true,
                 label: datasetLabels[graphType][0],
                 data: data.map((totals) => totals.total1),
-                backgroundColor: colors.blue[700],
+                backgroundColor: itemColors[0],
               },
               {
                 fill: true,
                 label: datasetLabels[graphType][1],
                 data: data.map((totals) => totals.total2),
-                backgroundColor: colors.red[700],
+                backgroundColor: itemColors[1],
               },
               {
                 fill: true,
                 label: datasetLabels[graphType][2],
                 data: data.map((totals) => totals.total3),
-                backgroundColor: colors.heat[800],
+                backgroundColor: itemColors[2],
               },
             ].flat(Boolean),
           };
@@ -381,9 +383,9 @@ const TrendsGraphs = ({ country }) => {
     <Box
       paddingBottom="40px"
       style={{ margin: "0 auto" }}
+      maxWidth={{ base: "100%", md: 800 }}
       paddingLeft={{ base: "40px", md: 0 }}
       paddingRight={{ base: "40px", md: 0 }}
-      maxWidth={{ base: "100%", md: 800 }}
     >
       <DragDropContext onDragEnd={handleGraphType}>
         <Stack
@@ -532,22 +534,36 @@ const TrendsGraphs = ({ country }) => {
         <Box bgColor="#fff" borderRadius="20px" p={8} mt={4}>
           <Stack
             marginY={8}
-            spacing="16px"
-            direction="column"
+            spacing={8}
+            direction="row"
             alignItems="center"
+            justifyContent="center"
           >
-            <Text
-              fontSize="2xl"
-              fontFamily="Oswald"
-              lineHeight={{ base: "1.5", md: "1" }}
-              textAlign={{ base: "center", md: "left" }}
-            >{`TOTAL DE NIÑEZ Y ADOLESCENCIA RETORNADA - ${countryID.toUpperCase()}`}</Text>
-            <Text
-              fontSize="2xl"
-              lineHeight="1"
-              fontWeight="600"
-              fontFamily="Times"
-            >{`Tendencias - Por ${graphDataTypes[graphType] ?? ""}`}</Text>
+            <Stack spacing="16px" direction="column" alignItems="center">
+              <Text
+                fontSize="2xl"
+                fontFamily="Oswald"
+                lineHeight={{ base: "1.5", md: "1" }}
+                textAlign={{ base: "center", md: "left" }}
+              >{`TOTAL DE NIÑEZ Y ADOLESCENCIA RETORNADA - ${countryID.toUpperCase()}`}</Text>
+              <Text
+                fontSize="2xl"
+                lineHeight="1"
+                fontWeight="600"
+                fontFamily="Times"
+              >{`Tendencias - Por ${graphDataTypes[graphType] ?? ""}`}</Text>
+            </Stack>
+
+            <Stack direction="column">
+              {datasetLabels[graphType]?.map((label, index) => (
+                <Stack direction="row" alignItems="center">
+                  <Box bgColor={itemColors[index]} width="18px" height="18px" />
+                  <Text fontFamily="Oswald" fontSize="md">
+                    {label}
+                  </Text>
+                </Stack>
+              ))}
+            </Stack>
           </Stack>
 
           <Box>
