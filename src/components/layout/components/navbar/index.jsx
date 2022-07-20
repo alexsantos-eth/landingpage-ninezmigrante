@@ -170,6 +170,15 @@ const Navbar = () => {
                   Comparar
                 </MenuItem>
               </Link>
+              <Link to="/borders">
+                <MenuItem
+                  color="gray.600"
+                  fontFamily="Montserrat Medium"
+                  _hover={{ bgColor: "blue.700", color: "white" }}
+                >
+                  Detenidos en fronteras
+                </MenuItem>
+              </Link>
             </MenuList>
           </Menu>
         </HStack>

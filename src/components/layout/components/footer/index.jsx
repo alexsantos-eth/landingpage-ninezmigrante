@@ -61,6 +61,12 @@ const Footer = () => {
               </Text>
             </Link>
 
+            <Link to="/compare">
+              <Text fontFamily="Montserrat Medium" color="gray.600">
+                Detenidos
+              </Text>
+            </Link>
+
             <Link to="/organizations">
               <Text fontFamily="Montserrat Medium" color="gray.600">
                 Organizaciones
