@@ -18,7 +18,11 @@ import GroupedChartIcon from "../../../../../../../assets/chart-stacked.png";
 import MexIcon from "../../../../../../../assets/mexico.svg";
 import UsaIcon from "../../../../../../../assets/usa.svg";
 
-export const itemColors = [colors.blue[700], colors.red[700], colors.heat[800]];
+export const itemColors = [
+  colors.blue[700],
+  colors.red[700],
+  colors.yellow[700],
+];
 
 export const graphDataTypes = {
   condition: "Condicion de Viaje",
