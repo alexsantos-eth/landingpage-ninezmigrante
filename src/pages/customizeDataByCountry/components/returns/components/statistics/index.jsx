@@ -26,14 +26,13 @@ const Statistics = ({ returns }) => {
       {/* CONTAINER */}
       <Stack
         margin="auto"
-        borderRadius="20px"
         spacing="40px"
-        maxWidth="800px"
-        height="100%"
-        padding="60px 40px"
         bgColor="white"
+        maxWidth="800px"
         direction="column"
         alignItems="center"
+        borderRadius="20px"
+        padding="60px 40px"
         justifyContent="center"
       >
         {/* TITLE AND SELECTED DATA */}
