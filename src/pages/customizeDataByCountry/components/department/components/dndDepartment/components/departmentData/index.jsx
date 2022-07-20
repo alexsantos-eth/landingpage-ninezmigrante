@@ -81,25 +81,30 @@ const DepartmentData = ({
         </svg>
 
         {/* NOMBRE */}
-        <Text fontSize="1.2em" fontWeight="500">
+        <Text fontFamily="Oswald" fontSize="1.2em" fontWeight="500">
           {item.name}
         </Text>
 
         {/* TOTAL */}
-        <Text fontSize="2em" fontWeight="500">
+        <Text fontFamily="Oswald" fontSize="2em" fontWeight="500">
           {item.total}
         </Text>
 
         {/* TOTAL MUJERES */}
         <Stack direction="row" alignItems="center">
           <Image src={FemaleIcon} height={5} />
-          <Text fontWeight="500"> {item.female} Femenino</Text>
+          <Text fontFamily="Oswald" fontWeight="500">
+            {" "}
+            {item.female} Femenino
+          </Text>
         </Stack>
 
         {/* TOTAL HOMBRES */}
         <Stack direction="row" alignItems="center">
           <Image src={MaleIcon} height={5} />
-          <Text fontWeight="500">{item.male} Masculino</Text>
+          <Text fontFamily="Oswald" fontWeight="500">
+            {item.male} Masculino
+          </Text>
         </Stack>
       </Stack>
     </Box>
