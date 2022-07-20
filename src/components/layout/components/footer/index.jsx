@@ -88,7 +88,7 @@ const Footer = () => {
 
           {/* DIVIDER */}
           <Divider
-            height="360px"
+            height="400px"
             borderWidth="1px"
             orientation="vertical"
             borderColor="yellow.700"
