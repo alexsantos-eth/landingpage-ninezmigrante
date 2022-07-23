@@ -63,14 +63,27 @@ const EEUU = () => {
             <option value="ene">Enero</option>
             <option value="feb">Febrero</option>
             <option value="mar">Marzo</option>
+            <option value="abr">Abril</option>
+            <option value="may">Mayo</option>
+            <option value="jun">Junio</option>
+            <option value="jul">Julio</option>
+            <option value="ago">Agosto</option>
+            <option value="sep">Septiembre</option>
+            <option value="oct">Octubre</option>
+            <option value="nov">Noviembre</option>
+            <option value="dic">Diciembre</option>
           </Select>
 
           <Stack padding="8px" bgColor="#fff" borderRadius="10px">
-            <Text fontFamily="Oswald" fontSize="2xl" lineHeight="1">
-              Julio 1 500
+            <Text fontFamily="Oswald" fontSize="3xl" lineHeight="1">
+              Julio
+            </Text>
+            <Text fontFamily="Oswald" fontSize="4xl" lineHeight="1">
+              1 500
             </Text>
 
             <Stack
+              padding="8px 32px"
               direction="row"
               alignItems="center"
               justifyContent="space-between"
