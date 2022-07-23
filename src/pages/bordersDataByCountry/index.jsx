@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 // REACT ROUTER DOM
 import { useParams } from "react-router-dom";
 
+import Statistics from "./components/statistics";
 import Header from "./components/header";
 import Statistics from "./components/statistics";
 import Compare from "./components/compare";

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+/* Una constante que se utiliza para traducir la identificación del trimestre a un nombre de trimestre. */
 export const quarters = {
   q1: "Primer cuatrimestre",
   q2: "Segundo cuatrimestre",
@@ -12,6 +13,10 @@ export const quarterId = {
   q3: "septiembre - diciembre",
 };
 
+/**
+ * Obtiene datos de una API y devuelve un estado de carga y un estado de error
+ * @returns un objeto con dos propiedades: carga y error.
+ */
 const useFetch = ({
   url = "",
   year = "",
