@@ -5,6 +5,8 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import Header from "./components/header";
+import Statistics from "./components/statistics";
+import Compare from "./components/compare";
 
 const BordersDataByCountry = () => {
   const { countryID } = useParams();
@@ -12,7 +14,13 @@ const BordersDataByCountry = () => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, [countryID]);
 
-  return <Header />;
+  return (
+    <>
+      <Header />
+      <Statistics />
+      <Compare />
+    </>
+  );
 };
 
 export default BordersDataByCountry;
