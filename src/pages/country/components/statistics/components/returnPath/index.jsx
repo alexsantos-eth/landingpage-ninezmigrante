@@ -22,7 +22,7 @@ const ReturnPath = ({ period, year, country }) => {
     country: countryID,
     resolve: (data) => {
       let totals = { tr: 0, air: 0 };
-      data?.data.forEach((stats) => {
+      data?.data?.forEach((stats) => {
         if (stats._id.startsWith("Terrestre")) totals.tr += stats.total;
         if (stats._id.startsWith("Aérea")) totals.air += stats.total;
       });

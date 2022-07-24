@@ -11,10 +11,9 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Legend, Tooltip);
 import { useParams } from "react-router-dom";
 
 import { Bar } from "react-chartjs-2";
-
-import { Box, Stack, Text } from "@chakra-ui/react";
 import { colors } from "../../../../../../utils/theme";
 
+import { Box, Stack, Text } from "@chakra-ui/react";
 import useFetch from "../../../../../../hooks/fetch";
 
 export const options = {
@@ -26,20 +25,30 @@ export const options = {
   },
 };
 
-const labels = ["0-6 años", "7-12 años", "13-17 años"];
+const AgeRanges = ({
+  period,
+  year,
+  country,
+  disableFirstAge = false,
+  defData: { f1 = undefined, f2 = undefined, f3 = undefined },
+}) => {
+  let labels = ["0-6 años", "7-12 años", "13-17 años"];
+  let chartColors = [colors.yellow[700], colors.blue[700], colors.red[700]];
+  let agesLabels = ["Primera infancia", "Niñez", "Adolescencia"];
 
-const AgeRanges = ({ period, year, country, defData: { f1 = 0, f2 = 0 } }) => {
   const countryID = useParams().countryID || country;
-  const [total, setTotal] = useState({ f1: 0, f2: 0, f3: 0 });
+  const [total, setTotal] = useState({ f1: f1 ?? 0, f2: f2 ?? 0, f3: f3 ?? 0 });
 
   useFetch({
     url: "/consultas/totalporrangoetario/country/year/quarter",
     year,
     period,
     country: countryID,
+    disableFetch: f1 !== undefined || f2 !== undefined || f3 !== undefined,
     resolve: (data) => {
+      console.log(data);
       let totals = { f1: 0, f2: 0, f3: 0 };
-      data?.data.forEach((stats) => {
+      data?.data?.forEach((stats) => {
         if (stats._id === "0-6 años") totals.f1 += stats.total;
         if (stats._id === "7-12 años") totals.f2 += stats.total;
         if (stats._id === "13-17 años") totals.f3 += stats.total;
@@ -48,16 +57,19 @@ const AgeRanges = ({ period, year, country, defData: { f1 = 0, f2 = 0 } }) => {
     },
   });
 
+  let totals = [f1 ?? total.f1, f2 ?? total.f2, f3 ?? total.f3];
+  if (disableFirstAge) {
+    chartColors = chartColors.slice(1);
+    agesLabels = agesLabels.slice(1);
+    totals = totals.slice(1);
+  }
+
   const data = {
-    labels,
+    labels: disableFirstAge ? labels.slice(1) : labels,
     datasets: [
       {
-        data: [f1 ?? total.f1, f2 ?? total.f2, total.f3],
-        backgroundColor: [
-          colors.yellow[700],
-          colors.blue[700],
-          colors.red[700],
-        ],
+        data: totals,
+        backgroundColor: chartColors,
       },
     ],
   };
@@ -73,40 +85,26 @@ const AgeRanges = ({ period, year, country, defData: { f1 = 0, f2 = 0 } }) => {
         </Box>
 
         <Stack direction="column" spacing="-8px">
-          <Stack direction="row" alignItems="center">
-            <Box bgColor="yellow.700" width="18px" height="18px" />
-            <Text fontFamily="Oswald" fontSize="md">
-              Primera infancia
-            </Text>
-            <Text fontFamily="Oswald" fontSize="2xl">
-              {f1 ?? total.f1}
-            </Text>
-          </Stack>
-
-          {/* DATA ITEM */}
-          <Stack direction="row" alignItems="center">
-            <Box bgColor="blue.700" width="18px" height="18px" />
-            <Text fontFamily="Oswald" fontSize="md">
-              Niñez
-            </Text>
-            <Text fontFamily="Oswald" fontSize="2xl">
-              {f2 ?? total.f2}
-            </Text>
-          </Stack>
-
-          <Stack direction="row" alignItems="center">
-            <Box bgColor="red.700" width="18px" height="18px" />
-            <Text fontFamily="Oswald" fontSize="md">
-              Adolescencia
-            </Text>
-            <Text fontFamily="Oswald" fontSize="2xl">
-              {total.f3}
-            </Text>
-          </Stack>
+          {chartColors.map((color, index) => (
+            <Stack direction="row" alignItems="center" key={`age_${color}`}>
+              <Box bgColor={color} width="18px" height="18px" />
+              <Text fontFamily="Oswald" fontSize="md">
+                {agesLabels[index]}
+              </Text>
+              <Text fontFamily="Oswald" fontSize="2xl">
+                {totals[index]}
+              </Text>
+            </Stack>
+          ))}
         </Stack>
       </Stack>
     </Box>
   );
+};
+
+AgeRanges.defaultProps = {
+  disableFirstAge: false,
+  defData: { f1: undefined, f2: undefined, f3: undefined },
 };
 
 export default AgeRanges;

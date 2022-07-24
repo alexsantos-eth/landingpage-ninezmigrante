@@ -23,6 +23,7 @@ const useFetch = ({
   period = "",
   country = "",
   department = "",
+  disableFetch = false,
   resolve = () => {},
 }) => {
   const [loading, setLoading] = useState(false);
@@ -30,35 +31,42 @@ const useFetch = ({
 
   // EJECUTAR FETCH CUANDO EL COMPONENTE SE CARGA
   useEffect(() => {
-    // FETCH
-    const getData = async () => {
-      // CARGANDO
-      setLoading(true);
+    if (!disableFetch) {
+      if (year.length === 0 && url.includes("year")) return;
+      if (period.length === 0 && url.includes("period")) return;
+      if (country.length === 0 && url.includes("country")) return;
+      if (department.length === 0 && url.includes("department")) return;
 
-      try {
-        // RESPUESTA COMO JSON
-        if (url.length) {
-          const response = await fetch(
-            `${import.meta.env.VITE_APP_API_URL}${url}`
-              .replaceAll("country", country)
-              .replaceAll("year", year)
-              .replaceAll("department", encodeURI(department))
-              .replaceAll("quarter", encodeURI(quarterId[period]))
-          );
-          const json = await response.json();
-          resolve(json);
+      // FETCH
+      const getData = async () => {
+        // CARGANDO
+        setLoading(true);
+
+        try {
+          // RESPUESTA COMO JSON
+          if (url.length) {
+            const response = await fetch(
+              `${import.meta.env.VITE_APP_API_URL}${url}`
+                .replaceAll("country", country)
+                .replaceAll("year", year)
+                .replaceAll("department", encodeURI(department))
+                .replaceAll("quarter", encodeURI(quarterId[period]))
+            );
+            const json = await response.json();
+            resolve(json);
+          }
+        } catch (error) {
+          console.log(error);
+          setError(error);
         }
-      } catch (error) {
-        console.log(error);
-        setError(error);
-      }
 
-      // CARGA FINALIZADA
-      setLoading(false);
-    };
+        // CARGA FINALIZADA
+        setLoading(false);
+      };
 
-    getData();
-  }, [url, year, period, country, department]);
+      getData();
+    }
+  }, [url, year, period, country, department, disableFetch]);
 
   return { loading, error };
 };

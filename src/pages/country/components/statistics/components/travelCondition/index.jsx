@@ -25,19 +25,20 @@ const TravelCondition = ({
   period,
   year,
   country,
-  defData: { acd = 0, noAcd = 0 },
+  defData: { acd = undefined, noAcd = undefined },
 }) => {
   const countryID = useParams().countryID || country;
-  const [total, setTotal] = useState({ acd: 0, noAcd: 0 });
+  const [total, setTotal] = useState({ acd: acd ?? 0, noAcd: noAcd ?? 0 });
 
   useFetch({
     url: "/consultas/totalporcondiciondeviaje/country/year/quarter",
     year,
     period,
     country: countryID,
+    disableFetch: acd !== undefined || noAcd !== undefined,
     resolve: (data) => {
       let totals = { acd: 0, noAcd: 0 };
-      data?.data.forEach((stats) => {
+      data?.data?.forEach((stats) => {
         if (stats._id.condicion === "Acompañado") totals.acd += stats.total;
         if (stats._id.condicion === "No acompañado")
           totals.noAcd += stats.total;
@@ -97,6 +98,10 @@ const TravelCondition = ({
       </Stack>
     </Box>
   );
+};
+
+TravelCondition.defaultProps = {
+  defData: { acd: undefined, noAcd: undefined },
 };
 
 export default TravelCondition;

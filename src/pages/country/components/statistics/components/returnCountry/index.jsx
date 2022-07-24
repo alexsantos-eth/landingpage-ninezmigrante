@@ -16,12 +16,12 @@ import ElSalvador from "./components/polygons/elsalvador";
 import useFetch from "../../../../../../hooks/fetch";
 
 const countryImages = {
-  eu: { color: "", image: <EEUU /> },
-  mx: { color: "", image: <Mexico /> },
-  cd: { color: "", image: <Canada /> },
-  gt: { color: "", image: <Guatemala /> },
-  bz: { color: "", image: <Belice /> },
-  es: { color: "", image: <ElSalvador /> },
+  eu: { color: "", image: <EEUU key={`eeuu_1`} /> },
+  mx: { color: "", image: <Mexico key={`mexico_2`} /> },
+  cd: { color: "", image: <Canada key={`canada_3`} /> },
+  gt: { color: "", image: <Guatemala key={`guatemala_4`} /> },
+  bz: { color: "", image: <Belice key={`belice_5`} /> },
+  es: { color: "", image: <ElSalvador key={`elsalvador_6`} /> },
 };
 
 const defaultTotals = {
@@ -44,7 +44,7 @@ const ReturnCountry = ({ period, year, country }) => {
     country: countryID,
     resolve: (data) => {
       let totals = { ...defaultTotals };
-      data?.data.forEach((stats) => {
+      data?.data?.forEach((stats) => {
         if (stats._id?.nombre === "Estados Unidos") {
           totals.eu.total += stats.total;
           totals.eu.name = "EE.UU.";
@@ -82,12 +82,12 @@ const ReturnCountry = ({ period, year, country }) => {
         </Text>
         {Object.entries(total)
           .sort((a, b) => b[1].total - a[1].total)
-          .map((country) =>
+          .map((country, index) =>
             country[1].total > 0 ? (
               <Stack
-                key={country[0]}
                 gap="24px"
                 direction="row"
+                key={`${country[0]}-${index}`}
                 alignItems="center"
                 justifyContent="center"
               >
@@ -107,9 +107,7 @@ const ReturnCountry = ({ period, year, country }) => {
                   </Text>
                 </Stack>
               </Stack>
-            ) : (
-              <></>
-            )
+            ) : null
           )}
       </Stack>
     </Box>

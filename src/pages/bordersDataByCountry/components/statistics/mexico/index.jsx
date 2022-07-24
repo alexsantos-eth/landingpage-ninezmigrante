@@ -138,12 +138,12 @@ const Mexico = () => {
                 }}
               />
               <AgeRanges
+                disableFirstAge
                 period={"enero - abril"}
                 year={"2020"}
                 defData={{
-                  f1: dataPerMonth?.ninos,
-                  f2: dataPerMonth?.adolescentes,
-                  f3: 0,
+                  f2: dataPerMonth?.ninos,
+                  f3: dataPerMonth?.adolescentes,
                 }}
               />
             </Stack>

@@ -37,7 +37,7 @@ const MapModal = ({ modalDep, onCloseModal, year, period, country }) => {
     country: countryID,
     resolve: (data) => {
       let depLocalTotals = {};
-      data?.data.forEach((stats) => {
+      data?.data?.forEach((stats) => {
         depLocalTotals[stats._id] = stats.total;
       });
       setDepTotals(depLocalTotals);

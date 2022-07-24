@@ -15,19 +15,20 @@ const Gender = ({
   period,
   year,
   country,
-  defData: { female = 0, male = 0 },
+  defData: { female = undefined, male = undefined },
 }) => {
   const countryID = useParams().countryID || country;
-  const [total, setTotal] = useState({ male: 0, female: 0 });
+  const [total, setTotal] = useState({ male: male ?? 0, female: female ?? 0 });
 
   useFetch({
     url: "/consultas/totalporgenero/country/year/quarter",
     year,
     period,
     country: countryID,
+    disableFetch: female !== undefined || male !== undefined,
     resolve: (data) => {
       let totals = { male: 0, female: 0 };
-      data?.data.forEach((stats) => {
+      data?.data?.forEach((stats) => {
         if (stats._id === "Femenino") totals.female += stats.total;
         if (stats._id === "Masculino") totals.male += stats.total;
       });
@@ -88,6 +89,10 @@ const Gender = ({
       </Stack>
     </Box>
   );
+};
+
+Gender.defaultProps = {
+  defData: { female: undefined, male: undefined },
 };
 
 export default Gender;
