@@ -1,8 +1,16 @@
 import React from "react";
 
-import { Box, Stack, Text, Select } from "@chakra-ui/react";
+import { useParams } from "react-router-dom";
+
+import { Box, Stack, Text, Select, Image } from "@chakra-ui/react";
+
+import Guatemala from "../../../.../../../assets/MapaGuatemala.svg";
+import Honduras from "../../../.../../../assets/MapaHonduras.svg";
+import Mexico from "../../../.../../../assets/mexico.svg";
+import EEUU from "../../../.../../../assets/usa.svg";
 
 const Compare = () => {
+  const { countryID } = useParams();
   return (
     <Box width="100%" padding="40px" bgColor="#d9e8e8">
       <Stack
@@ -55,14 +63,25 @@ const Compare = () => {
         </Stack>
 
         <Stack gap="40px" direction="row">
-          <Stack>
+          <Stack justifyContent="center" alignItems="flex-end">
+            <Image src={Guatemala} height="200px" />
             <Text>TOTAL DE RETORNADOS A GUATEMALA</Text>
+            <Text>Cuatrimestre 1 - 2022</Text>
+            <Text>1 200</Text>
           </Stack>
-          <Stack>
+
+          <Stack justifyContent="center" alignItems="center">
+            <Image src={EEUU} height="120px" />
             <Text>Estados Unidos</Text>
+            <Text>Cuatrimestre 1 - 2022</Text>
+            <Text>1 200</Text>
           </Stack>
-          <Stack>
+
+          <Stack justifyContent="center" alignItems="center">
+            <Image src={Mexico} height="120px" />
             <Text>México</Text>
+            <Text>Cuatrimestre 1 - 2022</Text>
+            <Text>1 200</Text>
           </Stack>
         </Stack>
       </Stack>
