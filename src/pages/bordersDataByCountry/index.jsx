@@ -5,9 +5,8 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import Statistics from "./components/statistics";
-import Header from "./components/header";
-import Statistics from "./components/statistics";
 import Compare from "./components/compare";
+import Header from "./components/header";
 
 const BordersDataByCountry = () => {
   const { countryID } = useParams();

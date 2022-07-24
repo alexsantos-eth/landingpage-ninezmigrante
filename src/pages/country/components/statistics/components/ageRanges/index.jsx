@@ -28,7 +28,7 @@ export const options = {
 
 const labels = ["0-6 años", "7-12 años", "13-17 años"];
 
-const AgeRanges = ({ period, year, country }) => {
+const AgeRanges = ({ period, year, country, defData: { f1 = 0, f2 = 0 } }) => {
   const countryID = useParams().countryID || country;
   const [total, setTotal] = useState({ f1: 0, f2: 0, f3: 0 });
 
@@ -52,7 +52,7 @@ const AgeRanges = ({ period, year, country }) => {
     labels,
     datasets: [
       {
-        data: [total.f1, total.f2, total.f3],
+        data: [f1 ?? total.f1, f2 ?? total.f2, total.f3],
         backgroundColor: [
           colors.yellow[700],
           colors.blue[700],
@@ -79,7 +79,7 @@ const AgeRanges = ({ period, year, country }) => {
               Primera infancia
             </Text>
             <Text fontFamily="Oswald" fontSize="2xl">
-              {total.f1}
+              {f1 ?? total.f1}
             </Text>
           </Stack>
 
@@ -90,7 +90,7 @@ const AgeRanges = ({ period, year, country }) => {
               Niñez
             </Text>
             <Text fontFamily="Oswald" fontSize="2xl">
-              {total.f2}
+              {f2 ?? total.f2}
             </Text>
           </Stack>
 

@@ -11,7 +11,12 @@ import Femenine from "../../../../../../assets/femenine.png";
 
 import useFetch from "../../../../../../hooks/fetch";
 
-const Gender = ({ period, year, country }) => {
+const Gender = ({
+  period,
+  year,
+  country,
+  defData: { female = 0, male = 0 },
+}) => {
   const countryID = useParams().countryID || country;
   const [total, setTotal] = useState({ male: 0, female: 0 });
 
@@ -55,7 +60,7 @@ const Gender = ({ period, year, country }) => {
             <Image src={Femenine} height="50px" />
           </Tooltip>
           <Text fontFamily="Oswald" fontSize="4xl" color="red.700">
-            {total.female}
+            {female ?? total.female}
           </Text>
         </Stack>
         <Stack
@@ -77,7 +82,7 @@ const Gender = ({ period, year, country }) => {
             <Image src={Male} height="50px" />
           </Tooltip>
           <Text fontFamily="Oswald" fontSize="4xl" color="yellow.700">
-            {total.male}
+            {male ?? total.male}
           </Text>
         </Stack>
       </Stack>

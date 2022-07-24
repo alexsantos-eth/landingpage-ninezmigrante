@@ -21,7 +21,12 @@ export const options = {
   },
 };
 
-const TravelCondition = ({ period, year, country }) => {
+const TravelCondition = ({
+  period,
+  year,
+  country,
+  defData: { acd = 0, noAcd = 0 },
+}) => {
   const countryID = useParams().countryID || country;
   const [total, setTotal] = useState({ acd: 0, noAcd: 0 });
 
@@ -45,7 +50,7 @@ const TravelCondition = ({ period, year, country }) => {
     labels: ["ACAMPANADOS", "NO ACAMPANADOS"],
     datasets: [
       {
-        data: [total.acd, total.noAcd],
+        data: [acd ?? total.acd, noAcd ?? total.noAcd],
         backgroundColor: [colors.red[700], colors.blue[700]],
         borderColor: [colors.red[700], colors.blue[700]],
         borderWidth: 1,
@@ -74,7 +79,7 @@ const TravelCondition = ({ period, year, country }) => {
               No Acompañados
             </Text>
             <Text fontFamily="Oswald" fontSize="2xl">
-              {total.noAcd}
+              {noAcd ?? total.noAcd}
             </Text>
           </Stack>
 
@@ -85,7 +90,7 @@ const TravelCondition = ({ period, year, country }) => {
               Acompañados
             </Text>
             <Text fontFamily="Oswald" fontSize="2xl">
-              {total.acd}
+              {acd ?? total.acd}
             </Text>
           </Stack>
         </Stack>
