@@ -40,7 +40,7 @@ const Mexico = () => {
     ) ?? {};
 
   return (
-    <Box width="100%" padding="40px" ref={containerRef}>
+    <Box width="100%" padding="80px 40px" ref={containerRef}>
       <Stack
         gap="40px"
         width="100%"
