@@ -39,7 +39,7 @@ const Mexico = () => {
         justifyContent="center"
       >
         <Stack>
-          <Image src={MexicoSVG} height="240px" />
+          <Image src={MexicoSVG} width="360px" />
         </Stack>
 
         <Stack>
