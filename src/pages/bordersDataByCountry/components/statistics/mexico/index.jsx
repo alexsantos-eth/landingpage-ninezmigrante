@@ -9,6 +9,7 @@ import Gender from "../../../../../pages/country/components/statistics/component
 import AgeRanges from "../../../../../pages/country/components/statistics/components/ageRanges";
 import TravelCondition from "../../../../../pages/country/components/statistics/components/travelCondition";
 import { useParams } from "react-router-dom";
+import { year } from "../../../../../utils/year";
 
 const Mexico = () => {
   const [currentMonth, setCurrentMonth] = useState("");
@@ -51,7 +52,7 @@ const Mexico = () => {
 
         <Stack>
           <Text fontFamily="Oswald" fontSize="2xl" lineHeight="1">
-            {currentYear || "Año"}
+            {currentYear || year}
           </Text>
           <Text fontFamily="Oswald" fontSize="4xl" lineHeight="1">
             REPORTADOS POR MÉXICO

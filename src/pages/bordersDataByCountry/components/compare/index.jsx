@@ -73,40 +73,48 @@ const Compare = () => {
             COMPARAR DETENIDOS EN FRONTERA CON RETORNADOS
           </Text>
 
-          {/* SELECT YEAR */}
-          <Select
-            fontSize="2xl"
-            lineHeight="1.8"
-            fontWeight="600"
-            fontFamily="Times"
-            onChange={handleYear}
-            letterSpacing="1.2px"
-            bgColor="rgba(255,255,255,0.5)"
-            value={currentYear?.toString() || ""}
+          <Stack
+            width="100%"
+            direction="row"
+            alignItems="center"
+            justifyContent="center"
           >
-            <option value="">Elegir año</option>
-            <option value="2020">2020</option>
-            <option value="2021">2021</option>
-            <option value="2022">2022</option>
-          </Select>
+            {/* SELECT YEAR */}
+            <Select
+              maxWidth="40%"
+              fontSize="2xl"
+              lineHeight="1.8"
+              fontWeight="600"
+              fontFamily="Times"
+              onChange={handleYear}
+              letterSpacing="1.2px"
+              bgColor="rgba(255,255,255,0.5)"
+              value={currentYear?.toString() || ""}
+            >
+              <option value="">Elegir año</option>
+              <option value="2020">2020</option>
+              <option value="2021">2021</option>
+              <option value="2022">2022</option>
+            </Select>
 
-          {/* SELECT PERIOD */}
-          <Select
-            width="300px"
-            fontSize="2xl"
-            lineHeight="1.8"
-            fontWeight="600"
-            fontFamily="Times"
-            letterSpacing="1.2px"
-            value={currentPeriod}
-            onChange={handlePeriod}
-            bgColor="rgba(255,255,255,0.5)"
-          >
-            <option value="">Elegir cuatrimestre</option>
-            <option value="q1">Enero - Abril</option>
-            <option value="q2">Mayo - Agosto</option>
-            <option value="q3">Septiembre - Diciembre</option>
-          </Select>
+            {/* SELECT PERIOD */}
+            <Select
+              maxWidth="40%"
+              fontSize="2xl"
+              lineHeight="1.8"
+              fontWeight="600"
+              fontFamily="Times"
+              letterSpacing="1.2px"
+              value={currentPeriod}
+              onChange={handlePeriod}
+              bgColor="rgba(255,255,255,0.5)"
+            >
+              <option value="">Elegir cuatrimestre</option>
+              <option value="q1">Enero - Abril</option>
+              <option value="q2">Mayo - Agosto</option>
+              <option value="q3">Septiembre - Diciembre</option>
+            </Select>
+          </Stack>
         </Stack>
 
         <Stack gap="40px" direction="row">

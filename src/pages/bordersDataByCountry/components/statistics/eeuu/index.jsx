@@ -6,6 +6,7 @@ import MexicoSVG from "../../../../../assets/usa.svg";
 
 import useFetch from "../../../../../hooks/fetch";
 import { useParams } from "react-router-dom";
+import { year } from "../../../../../utils/year";
 
 const excludeFields = [
   "_id",
@@ -63,7 +64,7 @@ const EEUU = () => {
 
         <Stack>
           <Text fontFamily="Oswald" fontSize="2xl" lineHeight="1">
-            {currentYear || "Año"}
+            {currentYear || year}
           </Text>
           <Text fontFamily="Oswald" fontSize="4xl" lineHeight="1">
             REPORTADOS POR EE.UU.
@@ -121,28 +122,34 @@ const EEUU = () => {
             width="100%"
             padding="24px"
             bgColor="#fff"
+            direction="row"
+            justifyContent="space-between"
             maxWidth="380px"
             borderRadius="12px"
           >
-            <Text fontFamily="Oswald" fontSize="3xl" lineHeight="1">
-              {currentMonth || "Mes"}
-            </Text>
-            <Text fontFamily="Oswald" fontSize="4xl" lineHeight="1">
-              {dataPerMonth?.totalMes ?? "0"}
-            </Text>
+            <Stack>
+              <Text fontFamily="Oswald" fontSize="3xl" lineHeight="1">
+                {currentMonth || "Mes"}
+              </Text>
+              <Text fontFamily="Oswald" fontSize="4xl" lineHeight="1">
+                {dataPerMonth?.totalMes ?? "0"}
+              </Text>
+            </Stack>
 
-            {dataPerDeps.map(([key, value]) => (
-              <Stack
-                padding="8px 32px"
-                direction="row"
-                alignItems="center"
-                key={`${key}-${value}`}
-                justifyContent="space-between"
-              >
-                <Text>{key}</Text>
-                <Text>{value}</Text>
-              </Stack>
-            ))}
+            <Stack>
+              {dataPerDeps.map(([key, value]) => (
+                <Stack
+                  key={`${key}-${value}`}
+                  gap="40px"
+                  direction="row"
+                  alignItems="center"
+                  justifyContent="space-between"
+                >
+                  <Text fontFamily="Montserrat Medium">{key}</Text>
+                  <Text fontFamily="Montserrat Medium">{value}</Text>
+                </Stack>
+              ))}
+            </Stack>
           </Stack>
         </Stack>
       </Stack>

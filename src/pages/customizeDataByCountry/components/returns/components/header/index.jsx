@@ -51,7 +51,7 @@ const Header = ({ returns, handleChange }) => {
               fontWeight="600"
               fontFamily="Times"
               letterSpacing="1.2px"
-              bgColor="rgba(255,255,255,0.5)"
+              bgColor="#bcd6d6"
             >
               <option value="default">Elegir año</option>
               <option value="2020">2020</option>
@@ -69,7 +69,7 @@ const Header = ({ returns, handleChange }) => {
               fontWeight="600"
               fontFamily="Times"
               letterSpacing="1.2px"
-              bgColor="rgba(255,255,255,0.5)"
+              bgColor="#bcd6d6"
             >
               <option value="default">Elegir período</option>
               <option value="q1">Enero - Abril</option>
@@ -87,7 +87,7 @@ const Header = ({ returns, handleChange }) => {
               fontWeight="600"
               fontFamily="Times"
               letterSpacing="1.2px"
-              bgColor="rgba(255,255,255,0.5)"
+              bgColor="#bcd6d6"
             >
               <option value="default">Elegir lista</option>
               <option value="asc">Más retornados</option>
