@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 
 import { Box, Stack, Text, Image, Select, border } from "@chakra-ui/react";
 
-import MexicoSVG from "../../../../../assets/usa.svg";
+import MapaEEUU from "../../../../../assets/usa.svg";
 
 import useFetch from "../../../../../hooks/fetch";
 import { useParams } from "react-router-dom";
@@ -61,7 +61,7 @@ const EEUU = () => {
         direction={{ base: "column-reverse", md: "row" }}
       >
         <Stack>
-          <Image src={MexicoSVG} width="360px" />
+          <Image src={MapaEEUU} width="280px" />
         </Stack>
 
         <Stack>
@@ -127,12 +127,13 @@ const EEUU = () => {
           {dataPerDeps.length > 0 && (
             <Stack
               width="100%"
+              spacing="40px"
               padding="24px"
               bgColor="#fff"
-              direction="row"
-              justifyContent="space-between"
+              direction="column"
               maxWidth="380px"
               borderRadius="12px"
+              justifyContent="space-between"
             >
               <Stack>
                 <Text fontFamily="Oswald" fontSize="3xl" lineHeight="1">
@@ -156,8 +157,8 @@ const EEUU = () => {
                     <Text fontFamily="Montserrat Medium">{value}</Text>
                   </Stack>
                 ))}
-                <DownloadImage label="" containerRef={containerRef} />
               </Stack>
+              <DownloadImage label="" containerRef={containerRef} />
             </Stack>
           )}
         </Stack>

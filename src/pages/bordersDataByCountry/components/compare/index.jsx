@@ -65,16 +65,29 @@ const Compare = () => {
   };
 
   return (
-    <Box width="100%" padding="40px" bgColor="#d9e8e8" ref={containerRef}>
+    <Box
+      width="100%"
+      bgColor="#d9e8e8"
+      padding="40px 40px 80px 40px"
+      ref={containerRef}
+    >
       <Stack
-        gap="40px"
         width="100%"
         margin="auto"
-        direction="column"
+        spacing="80px"
         maxWidth="800px"
+        direction="column"
         alignItems="center"
         justifyContent="center"
       >
+        <Divider
+          width="100%"
+          borderWidth="1px"
+          borderColor="black"
+          orientation="horizontal"
+          display={{ base: "none", md: "block" }}
+        />
+
         <Stack justifyContent="center" alignItems="center" gap="8px">
           <Text
             lineHeight="1"
@@ -132,9 +145,9 @@ const Compare = () => {
         <Stack
           gap="40px"
           width="100%"
-          alignItems="center"
           justifyContent="center"
           direction={{ base: "column", md: "row" }}
+          alignItems={{ base: "center", md: "flex-end" }}
         >
           <Stack
             justifyContent="center"
@@ -165,9 +178,9 @@ const Compare = () => {
             </Text>
             <Text
               lineHeight="1"
-              fontSize="4xl"
               textAlign="right"
               fontFamily="Oswald"
+              fontSize={{ base: "4xl", md: "6xl" }}
             >
               {total}
             </Text>
@@ -186,7 +199,11 @@ const Compare = () => {
             >
               Cuatrimestre {currentPeriod.substring(1)} - {currentYear || "Año"}
             </Text>
-            <Text lineHeight="1" fontSize="4xl" fontFamily="Oswald">
+            <Text
+              lineHeight="1"
+              fontFamily="Oswald"
+              fontSize={{ base: "4xl", md: "6xl" }}
+            >
               {dataPerPeriod.usa}
             </Text>
           </Stack>
@@ -204,7 +221,11 @@ const Compare = () => {
             >
               Cuatrimestre {currentPeriod.substring(1)} - {currentYear || "Año"}
             </Text>
-            <Text lineHeight="1" fontSize="4xl" fontFamily="Oswald">
+            <Text
+              lineHeight="1"
+              fontFamily="Oswald"
+              fontSize={{ base: "4xl", md: "6xl" }}
+            >
               {dataPerPeriod.mx}
             </Text>
           </Stack>

@@ -2,12 +2,13 @@ import React, { useState, useRef } from "react";
 
 import { Box, Stack, Text, Image, Select } from "@chakra-ui/react";
 
-import MexicoSVG from "../../../../../assets/mexico.svg";
+import MapaMexico from "../../../../../assets/mexico.svg";
 import useFetch from "../../../../../hooks/fetch";
 
 import Gender from "../../../../../pages/country/components/statistics/components/gender";
 import AgeRanges from "../../../../../pages/country/components/statistics/components/ageRanges";
 import TravelCondition from "../../../../../pages/country/components/statistics/components/travelCondition";
+
 import { useParams } from "react-router-dom";
 import { year } from "../../../../../utils/year";
 import DownloadImage from "../../../../../components/downloadImage";
@@ -50,7 +51,7 @@ const Mexico = () => {
         direction={{ base: "column-reverse", md: "row" }}
       >
         <Stack>
-          <Image src={MexicoSVG} width="360px" />
+          <Image src={MapaMexico} width="280px" />
         </Stack>
 
         <Stack>
@@ -113,19 +114,20 @@ const Mexico = () => {
           {Object.keys(dataPerMonth).length > 0 && (
             <Stack
               width="100%"
+              spacing="40px"
               padding="24px"
               bgColor="#fff"
               maxWidth="380px"
               borderRadius="12px"
             >
-              <Text
-                fontSize="3xl"
-                lineHeight="1"
-                fontFamily="Oswald"
-                marginBottom="24px"
-              >
-                {currentMonth || "Mes"} {dataPerMonth?.totalMes ?? "0"}
-              </Text>
+              <Stack>
+                <Text fontFamily="Oswald" fontSize="3xl" lineHeight="1">
+                  {currentMonth || "Mes"}
+                </Text>
+                <Text fontFamily="Oswald" fontSize="4xl" lineHeight="1">
+                  {dataPerMonth?.totalMes ?? "0"}
+                </Text>
+              </Stack>
 
               {/* GRAPHS */}
               <Stack
