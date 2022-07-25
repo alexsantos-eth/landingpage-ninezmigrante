@@ -50,7 +50,7 @@ const EEUU = () => {
   );
 
   return (
-    <Box width="100%" padding="40px">
+    <Box width="100%" padding="40px" ref={containerRef}>
       <Stack
         gap="24px"
         width="100%"

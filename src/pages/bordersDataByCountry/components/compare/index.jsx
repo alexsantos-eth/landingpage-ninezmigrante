@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 import { Box, Stack, Text, Select, Image } from "@chakra-ui/react";
 
@@ -8,6 +8,7 @@ import EEUU from "../../../.../../../assets/usa.svg";
 import useFetch, { quarterId } from "../../../../hooks/fetch";
 import { useParams } from "react-router-dom";
 import { year } from "../../../../utils/year";
+import DownloadImage from "../../../../components/downloadImage";
 
 const Compare = () => {
   const [bordersData, setBordersData] = useState({ mx: [], usa: [] });
@@ -16,6 +17,8 @@ const Compare = () => {
   const [total, setTotal] = useState(0);
 
   const { countryID } = useParams();
+
+  const containerRef = useRef();
 
   const handleYear = (ev) => setCurrentYear(ev.target.value);
   const handlePeriod = (ev) => setCurrentPeriod(ev.target.value);
@@ -59,7 +62,7 @@ const Compare = () => {
   };
 
   return (
-    <Box width="100%" padding="40px" bgColor="#d9e8e8">
+    <Box width="100%" padding="40px" bgColor="#d9e8e8" ref={containerRef}>
       <Stack
         gap="40px"
         width="100%"
@@ -146,6 +149,10 @@ const Compare = () => {
             <Text>{dataPerPeriod.mx}</Text>
           </Stack>
         </Stack>
+        <DownloadImage
+          label="Descargar imagen de la comparacion"
+          containerRef={containerRef}
+        />
       </Stack>
     </Box>
   );
