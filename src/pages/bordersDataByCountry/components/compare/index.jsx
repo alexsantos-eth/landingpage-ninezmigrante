@@ -1,10 +1,13 @@
 import React, { useState, useRef } from "react";
 
-import { Box, Stack, Text, Select, Image } from "@chakra-ui/react";
+import { Box, Stack, Text, Select, Image, Divider } from "@chakra-ui/react";
 
-import Guatemala from "../../../.../../../assets/MapaGuatemala.svg";
+import MapaGuatemala from "../../../.../../../assets/MapaGuatemala.svg";
+import MapaHonduras from "../../../.../../../assets/MapaHonduras.svg";
+
 import Mexico from "../../../.../../../assets/mexico.svg";
 import EEUU from "../../../.../../../assets/usa.svg";
+
 import useFetch, { quarterId } from "../../../../hooks/fetch";
 import { useParams } from "react-router-dom";
 import { year } from "../../../../utils/year";
@@ -121,32 +124,80 @@ const Compare = () => {
           </Stack>
         </Stack>
 
-        <Stack gap="40px" direction="row">
-          <Stack justifyContent="center" alignItems="flex-end">
-            <Image src={Guatemala} height="200px" />
-            <Text>TOTAL DE RETORNADOS A GUATEMALA</Text>
-            <Text>
+        <Stack
+          gap="40px"
+          width="100%"
+          direction="row"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Stack justifyContent="center" alignItems="flex-end" maxWidth="210px">
+            <Image
+              height="200px"
+              maxWidth={{ base: "300px", md: "240px" }}
+              src={countryID === "guatemala" ? MapaGuatemala : MapaHonduras}
+            />
+            <Text
+              lineHeight="1"
+              fontSize="2xl"
+              textAlign="right"
+              fontFamily="Oswald"
+            >
+              TOTAL DE RETORNADOS A{" "}
+              {countryID === "guatemala" ? "GUATEMALA" : "HONDURAS"}
+            </Text>
+            <Text
+              fontSize="xl"
+              lineHeight="1"
+              fontWeight="600"
+              fontFamily="Times"
+            >
               Cuatrimestre {currentPeriod.substring(1)} - {currentYear || "Año"}
             </Text>
-            <Text>{total}</Text>
+            <Text
+              lineHeight="1"
+              fontSize="4xl"
+              textAlign="right"
+              fontFamily="Oswald"
+            >
+              {total}
+            </Text>
           </Stack>
 
           <Stack justifyContent="center" alignItems="center">
             <Image src={EEUU} height="120px" />
-            <Text>Estados Unidos</Text>
-            <Text>
+            <Text fontFamily="Oswald" fontSize="2xl" lineHeight="1">
+              Estados Unidos
+            </Text>
+            <Text
+              fontSize="xl"
+              lineHeight="1"
+              fontWeight="600"
+              fontFamily="Times"
+            >
               Cuatrimestre {currentPeriod.substring(1)} - {currentYear || "Año"}
             </Text>
-            <Text>{dataPerPeriod.usa}</Text>
+            <Text lineHeight="1" fontSize="4xl" fontFamily="Oswald">
+              {dataPerPeriod.usa}
+            </Text>
           </Stack>
 
-          <Stack justifyContent="center" alignItems="center">
+          <Stack justifyContent="center" alignItems="center" lineHeight="1">
             <Image src={Mexico} height="120px" />
-            <Text>México</Text>
-            <Text>
+            <Text fontFamily="Oswald" fontSize="2xl">
+              México
+            </Text>
+            <Text
+              fontSize="xl"
+              lineHeight="1"
+              fontWeight="600"
+              fontFamily="Times"
+            >
               Cuatrimestre {currentPeriod.substring(1)} - {currentYear || "Año"}
             </Text>
-            <Text>{dataPerPeriod.mx}</Text>
+            <Text lineHeight="1" fontSize="4xl" fontFamily="Oswald">
+              {dataPerPeriod.mx}
+            </Text>
           </Stack>
         </Stack>
         <DownloadImage
