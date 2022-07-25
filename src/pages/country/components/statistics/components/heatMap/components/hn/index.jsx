@@ -1,24 +1,24 @@
 import React from "react";
 
 // POLYGONS
-import Atlantida from "../polygons/hn/atlantida";
-import Choluteca from "../polygons/hn/choluteca";
-import Colon from "../polygons/hn/colon";
-import Comayagua from "../polygons/hn/comayagua";
-import Copan from "../polygons/hn/copan";
-import Cortes from "../polygons/hn/cortes";
-import ElParaiso from "../polygons/hn/elparaiso";
-import Francis from "../polygons/hn/francis";
-import Gracias from "../polygons/hn/gracias";
-import Intibuca from "../polygons/hn/intibuca";
-import IslasBahia from "../polygons/hn/islasbahia";
-import LaPaz from "../polygons/hn/lapaz";
-import Lempira from "../polygons/hn/lempira";
-import Ocotepeque from "../polygons/hn/ocotepeque";
-import Olancho from "../polygons/hn/olancho";
-import SantaBarbara from "../polygons/hn/santabarbara";
-import Valle from "../polygons/hn/valle";
-import Yoro from "../polygons/hn/yoro";
+import Atlantida from "../../../../../../../../components/departments/components/polygons/hn/atlantida";
+import Choluteca from "../../../../../../../../components/departments/components/polygons/hn/choluteca";
+import Colon from "../../../../../../../../components/departments/components/polygons/hn/colon";
+import Comayagua from "../../../../../../../../components/departments/components/polygons/hn/comayagua";
+import Copan from "../../../../../../../../components/departments/components/polygons/hn/copan";
+import Cortes from "../../../../../../../../components/departments/components/polygons/hn/cortes";
+import ElParaiso from "../../../../../../../../components/departments/components/polygons/hn/elparaiso";
+import Francis from "../../../../../../../../components/departments/components/polygons/hn/francis";
+import Gracias from "../../../../../../../../components/departments/components/polygons/hn/gracias";
+import Intibuca from "../../../../../../../../components/departments/components/polygons/hn/intibuca";
+import IslasBahia from "../../../../../../../../components/departments/components/polygons/hn/islasbahia";
+import LaPaz from "../../../../../../../../components/departments/components/polygons/hn/lapaz";
+import Lempira from "../../../../../../../../components/departments/components/polygons/hn/lempira";
+import Ocotepeque from "../../../../../../../../components/departments/components/polygons/hn/ocotepeque";
+import Olancho from "../../../../../../../../components/departments/components/polygons/hn/olancho";
+import SantaBarbara from "../../../../../../../../components/departments/components/polygons/hn/santabarbara";
+import Valle from "../../../../../../../../components/departments/components/polygons/hn/valle";
+import Yoro from "../../../../../../../../components/departments/components/polygons/hn/yoro";
 
 const HeatMapHN = () => {
   return (

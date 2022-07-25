@@ -78,9 +78,11 @@ const Popup = () => {
     }));
 
   useEffect(() => {
-    setTimeout(() => {
-      setPopup(true);
-    }, 3000);
+    if (!import.meta.env.DEV) {
+      setTimeout(() => {
+        setPopup(true);
+      }, 3000);
+    }
   }, []);
 
   const closePopup = () => {

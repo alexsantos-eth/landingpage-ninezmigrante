@@ -11,70 +11,24 @@ import ReturnCountry from "./components/returnCountry";
 import TravelCondition from "./components/travelCondition";
 import DownloadTable from "./components/downloadTable";
 
-const quarters = {
-  q1: "Primer cuatrimestre",
-  q2: "Segundo cuatrimestre",
-  q3: "Tercer cuatrimestre",
-};
+import useFetch, { quarters } from "../../../../hooks/fetch";
 
 const Statistics = ({ period, year, satisticsRef }) => {
   const { countryID } = useParams();
   const [total, setTotal] = useState(0);
-  const [screenshot, setScreenshot] = useState(false);
   const [periodId, setPeriodId] = useState("");
 
-  const handleDownloadImage = async () => setScreenshot(true);
-
-  useEffect(() => {
-    if (screenshot) {
-      const take = async () => {
-        const element = satisticsRef.current;
-        const html2canvas = (await import("html2canvas")).default;
-        const canvas = await html2canvas(element);
-
-        const data = canvas.toDataURL("image/png");
-        const link = document.createElement("a");
-
-        if (typeof link.download === "string") {
-          link.href = data;
-          link.download = "infografia.png";
-
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-        } else {
-          window.open(data);
-        }
-
-        setScreenshot(false);
-      };
-      take();
-    }
-  }, [screenshot]);
-
-  useEffect(() => {
-    if (period.length > 0 && year.length > 0) {
-      const quads = {
-        q1: "enero - abril",
-        q2: "mayo - agosto",
-        q3: "septiembre - diciembre",
-      };
-      fetch(
-        `${
-          import.meta.env.VITE_APP_API_URL
-        }consultas/totalporpaisanioperiodo/${countryID}/${year}/${encodeURI(
-          quads[period]
-        )}`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          const periodData = data?.data?.[0];
-          setPeriodId(periodData?._id ?? "");
-          setTotal(periodData?.totalRegistros ?? 0);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [period, year]);
+  useFetch({
+    url: "/consultas/totalporpaisanioperiodo/country/year/quarter",
+    year,
+    period,
+    country: countryID,
+    resolve: (data) => {
+      const periodData = data?.data?.[0];
+      setPeriodId(periodData?._id ?? "");
+      setTotal(periodData?.totalRegistros ?? 0);
+    },
+  });
 
   return (
     <>
@@ -165,13 +119,11 @@ const Statistics = ({ period, year, satisticsRef }) => {
           </Text>
         </Stack>
 
-        {!screenshot && (
-          <DownloadTable
-            handleDownloadImage={handleDownloadImage}
-            periodId={periodId}
-            tableState
-          />
-        )}
+        <DownloadTable
+          satisticsRef={satisticsRef}
+          periodId={periodId}
+          tableState
+        />
       </Box>
     </>
   );

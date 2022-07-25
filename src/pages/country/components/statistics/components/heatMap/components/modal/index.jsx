@@ -17,43 +17,32 @@ import {
 
 //UTILS
 import depName from "./utils";
+import useFetch from "../../../../../../../../hooks/fetch";
 
 // COMPONENTS
 import ModalMapContent from "./components/modalMapContent";
 import ModelContent from "./components/modalContent";
 import DownloadTable from "../../../../components/downloadTable";
 
-const quads = {
-  q1: "enero - abril",
-  q2: "mayo - agosto",
-  q3: "septiembre - diciembre",
-};
-
 const MapModal = ({ modalDep, onCloseModal, year, period, country }) => {
   const countryID = useParams().countryID || country;
   const [depTotals, setDepTotals] = useState({});
   const [screenshot, setScreenshot] = useState(false);
 
-  useEffect(() => {
-    if (period.length > 0 && year.length > 0 && modalDep.length > 0) {
-      fetch(
-        `${
-          import.meta.env.VITE_APP_API_URL
-        }consultas/totalpormunicipio/${year}/${encodeURI(
-          quads[period]
-        )}/${countryID}/${encodeURI(depName[modalDep])}`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          let depLocalTotals = {};
-          data?.data.forEach((stats) => {
-            depLocalTotals[stats._id] = stats.total;
-          });
-          setDepTotals(depLocalTotals);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [period, year, modalDep, countryID]);
+  useFetch({
+    url: "/consultas/totalpormunicipio/year/quarter/country/department",
+    year,
+    period,
+    department: depName[modalDep],
+    country: countryID,
+    resolve: (data) => {
+      let depLocalTotals = {};
+      data?.data?.forEach((stats) => {
+        depLocalTotals[stats._id] = stats.total;
+      });
+      setDepTotals(depLocalTotals);
+    },
+  });
 
   const onCloseChange = () => {
     setDepTotals({});

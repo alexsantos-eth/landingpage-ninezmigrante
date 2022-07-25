@@ -56,7 +56,7 @@ const Period = ({ period, setPeriod, year, setYear, satisticsRef }) => {
             {countryID === "guatemala" ? "Guatemala" : "Honduras"}
           </Text>
 
-          {/* SELECT PERIOD */}
+          {/* SELECT YEAR */}
           <Select
             value={year || "default"}
             fontSize="2xl"

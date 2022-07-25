@@ -13,82 +13,66 @@ import Belice from "./components/polygons/belice";
 import Guatemala from "./components/polygons/guatemala";
 import ElSalvador from "./components/polygons/elsalvador";
 
+import useFetch from "../../../../../../hooks/fetch";
+
 const countryImages = {
-  eu: { color: "", image: <EEUU /> },
-  mx: { color: "", image: <Mexico /> },
-  cd: { color: "", image: <Canada /> },
-  gt: { color: "", image: <Guatemala /> },
-  bz: { color: "", image: <Belice /> },
-  es: { color: "", image: <ElSalvador /> },
+  eu: { color: "", image: <EEUU key={`eeuu_1`} /> },
+  mx: { color: "", image: <Mexico key={`mexico_2`} /> },
+  cd: { color: "", image: <Canada key={`canada_3`} /> },
+  gt: { color: "", image: <Guatemala key={`guatemala_4`} /> },
+  bz: { color: "", image: <Belice key={`belice_5`} /> },
+  es: { color: "", image: <ElSalvador key={`elsalvador_6`} /> },
+};
+
+const defaultTotals = {
+  eu: { name: "", total: 0 },
+  mx: { name: "", total: 0 },
+  cd: { name: "", total: 0 },
+  gt: { name: "", total: 0 },
+  bz: { name: "", total: 0 },
+  es: { name: "", total: 0 },
 };
 
 const ReturnCountry = ({ period, year, country }) => {
   const countryID = useParams().countryID || country;
-  const [total, setTotal] = useState({
-    eu: { name: "", total: 0 },
-    mx: { name: "", total: 0 },
-    cd: { name: "", total: 0 },
-    gt: { name: "", total: 0 },
-    bz: { name: "", total: 0 },
-    es: { name: "", total: 0 },
+  const [total, setTotal] = useState(() => ({ ...defaultTotals }));
+
+  useFetch({
+    url: "/consultas/totalporpaisdeproveniencia/country/year/quarter",
+    year,
+    period,
+    country: countryID,
+    resolve: (data) => {
+      let totals = { ...defaultTotals };
+      data?.data?.forEach((stats) => {
+        if (stats._id?.nombre === "Estados Unidos") {
+          totals.eu.total += stats.total;
+          totals.eu.name = "EE.UU.";
+        }
+        if (stats._id?.nombre === "México") {
+          totals.mx.total += stats.total;
+          totals.mx.name = stats._id?.nombre;
+        }
+        if (stats._id?.nombre === "Canadá") {
+          totals.cd.total += stats.total;
+          totals.cd.name = stats._id?.nombre;
+        }
+        if (stats._id?.nombre === "Guatemala") {
+          totals.gt.total += stats.total;
+          totals.gt.name = stats._id?.nombre;
+        }
+        if (stats._id?.nombre === "Belice") {
+          totals.bz.total += stats.total;
+          totals.bz.name = stats._id?.nombre;
+        }
+        if (stats._id?.nombre === "El Salvador") {
+          totals.es.total += stats.total;
+          totals.es.name = stats._id?.nombre;
+        }
+      });
+      setTotal(totals);
+    },
   });
-
-  useEffect(() => {
-    if (period.length > 0 && year.length > 0) {
-      const quads = {
-        q1: "enero - abril",
-        q2: "mayo - agosto",
-        q3: "septiembre - diciembre",
-      };
-      fetch(
-        `${
-          import.meta.env.VITE_APP_API_URL
-        }consultas/totalporpaisdeproveniencia/${countryID}/${year}/${encodeURI(
-          quads[period]
-        )}`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          let totals = {
-            eu: { name: "", total: 0 },
-            mx: { name: "", total: 0 },
-            cd: { name: "", total: 0 },
-            gt: { name: "", total: 0 },
-            bz: { name: "", total: 0 },
-            es: { name: "", total: 0 },
-          };
-
-          data?.data.forEach((stats) => {
-            if (stats._id?.nombre === "Estados Unidos") {
-              totals.eu.total += stats.total;
-              totals.eu.name = "EE.UU.";
-            }
-            if (stats._id?.nombre === "México") {
-              totals.mx.total += stats.total;
-              totals.mx.name = stats._id?.nombre;
-            }
-            if (stats._id?.nombre === "Canadá") {
-              totals.cd.total += stats.total;
-              totals.cd.name = stats._id?.nombre;
-            }
-            if (stats._id?.nombre === "Guatemala") {
-              totals.gt.total += stats.total;
-              totals.gt.name = stats._id?.nombre;
-            }
-            if (stats._id?.nombre === "Belice") {
-              totals.bz.total += stats.total;
-              totals.bz.name = stats._id?.nombre;
-            }
-            if (stats._id?.nombre === "El Salvador") {
-              totals.es.total += stats.total;
-              totals.es.name = stats._id?.nombre;
-            }
-          });
-          setTotal(totals);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [period, year, country]);
 
   return (
     <Box width="100%">
@@ -98,12 +82,12 @@ const ReturnCountry = ({ period, year, country }) => {
         </Text>
         {Object.entries(total)
           .sort((a, b) => b[1].total - a[1].total)
-          .map((country) =>
+          .map((country, index) =>
             country[1].total > 0 ? (
               <Stack
-                key={country[0]}
                 gap="24px"
                 direction="row"
+                key={`${country[0]}-${index}`}
                 alignItems="center"
                 justifyContent="center"
               >
@@ -123,9 +107,7 @@ const ReturnCountry = ({ period, year, country }) => {
                   </Text>
                 </Stack>
               </Stack>
-            ) : (
-              <></>
-            )
+            ) : null
           )}
       </Stack>
     </Box>

@@ -56,11 +56,15 @@ const Navbar = () => {
 
         {/* TITLE AND SUBTITLE */}
         <Stack spacing="16px">
-          <Stack direction="row" alignItems="center">
+          <Stack
+            direction="row"
+            alignItems="center"
+            gap={{ base: "0px", md: "8px" }}
+          >
             <Icon
               color="white"
               as={Search2Icon}
-              boxSize={{ base: "1.2em", md: "3.8em" }}
+              boxSize={{ base: "1.2em", md: "3.2em" }}
             />
             <Heading
               as="h1"
@@ -148,6 +152,15 @@ const Navbar = () => {
                   Honduras
                 </MenuItem>
               </Link>
+              <Link to="/customize">
+                <MenuItem
+                  color="gray.600"
+                  fontFamily="Montserrat Medium"
+                  _hover={{ bgColor: "blue.700", color: "white" }}
+                >
+                  Personalizar
+                </MenuItem>
+              </Link>
               <Link to="/compare">
                 <MenuItem
                   color="gray.600"
@@ -155,6 +168,15 @@ const Navbar = () => {
                   _hover={{ bgColor: "blue.700", color: "white" }}
                 >
                   Comparar
+                </MenuItem>
+              </Link>
+              <Link to="/borders">
+                <MenuItem
+                  color="gray.600"
+                  fontFamily="Montserrat Medium"
+                  _hover={{ bgColor: "blue.700", color: "white" }}
+                >
+                  Detenidos en fronteras
                 </MenuItem>
               </Link>
             </MenuList>

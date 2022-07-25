@@ -10,23 +10,22 @@ import Femenine from "../../../../assets/femenine.png";
 
 // UTILS
 import { year } from "../../../../utils/year";
+import useFetch from "../../../../hooks/fetch";
 
 const TotalByGender = () => {
   const [total, setTotal] = useState({ female: 0, male: 0 });
 
-  useEffect(() => {
-    fetch(`${import.meta.env.VITE_APP_API_URL}consultas/totalnnaporanioactual`)
-      .then((res) => res.json())
-      .then((data) => {
-        let totals = { female: 0, male: 0 };
-        data?.data.forEach((stats) => {
-          if (stats._id === "Femenino") totals.female += stats.total;
-          if (stats._id === "Masculino") totals.male += stats.total;
-        });
-        setTotal(totals);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  useFetch({
+    url: "/consultas/totalnnaporanioactual",
+    resolve: (data) => {
+      let totals = { female: 0, male: 0 };
+      data?.data.forEach((stats) => {
+        if (stats._id === "Femenino") totals.female += stats.total;
+        if (stats._id === "Masculino") totals.male += stats.total;
+      });
+      setTotal(totals);
+    },
+  });
 
   return (
     <Box width="100%">

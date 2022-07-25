@@ -9,36 +9,32 @@ import { Box, Stack, Text, Image, Tooltip } from "@chakra-ui/react";
 import Male from "../../../../../../assets/male.png";
 import Femenine from "../../../../../../assets/femenine.png";
 
-const Gender = ({ period, year, country }) => {
-  const countryID = useParams().countryID || country;
-  const [total, setTotal] = useState({ male: 0, female: 0 });
+import useFetch from "../../../../../../hooks/fetch";
 
-  useEffect(() => {
-    if (period.length > 0 && year.length > 0) {
-      const quads = {
-        q1: "enero - abril",
-        q2: "mayo - agosto",
-        q3: "septiembre - diciembre",
-      };
-      fetch(
-        `${
-          import.meta.env.VITE_APP_API_URL
-        }consultas/totalporgenero/${countryID}/${year}/${encodeURI(
-          quads[period]
-        )}`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          let totals = { male: 0, female: 0 };
-          data?.data.forEach((stats) => {
-            if (stats._id === "Femenino") totals.female += stats.total;
-            if (stats._id === "Masculino") totals.male += stats.total;
-          });
-          setTotal(totals);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [period, year, countryID]);
+const Gender = ({
+  period,
+  year,
+  country,
+  defData: { female = undefined, male = undefined },
+}) => {
+  const countryID = useParams().countryID || country;
+  const [total, setTotal] = useState({ male: male ?? 0, female: female ?? 0 });
+
+  useFetch({
+    url: "/consultas/totalporgenero/country/year/quarter",
+    year,
+    period,
+    country: countryID,
+    disableFetch: female !== undefined || male !== undefined,
+    resolve: (data) => {
+      let totals = { male: 0, female: 0 };
+      data?.data?.forEach((stats) => {
+        if (stats._id === "Femenino") totals.female += stats.total;
+        if (stats._id === "Masculino") totals.male += stats.total;
+      });
+      setTotal(totals);
+    },
+  });
 
   return (
     <Box width="100%">
@@ -65,7 +61,7 @@ const Gender = ({ period, year, country }) => {
             <Image src={Femenine} height="50px" />
           </Tooltip>
           <Text fontFamily="Oswald" fontSize="4xl" color="red.700">
-            {total.female}
+            {female ?? total.female}
           </Text>
         </Stack>
         <Stack
@@ -87,12 +83,16 @@ const Gender = ({ period, year, country }) => {
             <Image src={Male} height="50px" />
           </Tooltip>
           <Text fontFamily="Oswald" fontSize="4xl" color="yellow.700">
-            {total.male}
+            {male ?? total.male}
           </Text>
         </Stack>
       </Stack>
     </Box>
   );
+};
+
+Gender.defaultProps = {
+  defData: { female: undefined, male: undefined },
 };
 
 export default Gender;

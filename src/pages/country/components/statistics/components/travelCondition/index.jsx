@@ -9,6 +9,8 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 import { Box, Stack, Text } from "@chakra-ui/react";
 import { colors } from "../../../../../../utils/theme";
 
+import useFetch from "../../../../../../hooks/fetch";
+
 export const options = {
   responsive: true,
   maintainAspectRatio: false,
@@ -19,43 +21,37 @@ export const options = {
   },
 };
 
-const TravelCondition = ({ period, year, country }) => {
+const TravelCondition = ({
+  period,
+  year,
+  country,
+  defData: { acd = undefined, noAcd = undefined },
+}) => {
   const countryID = useParams().countryID || country;
-  const [total, setTotal] = useState({ acd: 0, noAcd: 0 });
+  const [total, setTotal] = useState({ acd: acd ?? 0, noAcd: noAcd ?? 0 });
 
-  useEffect(() => {
-    if (period.length > 0 && year.length > 0) {
-      const quads = {
-        q1: "enero - abril",
-        q2: "mayo - agosto",
-        q3: "septiembre - diciembre",
-      };
-      fetch(
-        `${
-          import.meta.env.VITE_APP_API_URL
-        }consultas/totalporcondiciondeviaje/${countryID}/${year}/${encodeURI(
-          quads[period]
-        )}`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          let totals = { acd: 0, noAcd: 0 };
-          data?.data.forEach((stats) => {
-            if (stats._id.condicion === "Acompañado") totals.acd += stats.total;
-            if (stats._id.condicion === "No acompañado")
-              totals.noAcd += stats.total;
-          });
-          setTotal(totals);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [period, year, countryID]);
+  useFetch({
+    url: "/consultas/totalporcondiciondeviaje/country/year/quarter",
+    year,
+    period,
+    country: countryID,
+    disableFetch: acd !== undefined || noAcd !== undefined,
+    resolve: (data) => {
+      let totals = { acd: 0, noAcd: 0 };
+      data?.data?.forEach((stats) => {
+        if (stats._id.condicion === "Acompañado") totals.acd += stats.total;
+        if (stats._id.condicion === "No acompañado")
+          totals.noAcd += stats.total;
+      });
+      setTotal(totals);
+    },
+  });
 
   const data = {
     labels: ["ACAMPANADOS", "NO ACAMPANADOS"],
     datasets: [
       {
-        data: [total.acd, total.noAcd],
+        data: [acd ?? total.acd, noAcd ?? total.noAcd],
         backgroundColor: [colors.red[700], colors.blue[700]],
         borderColor: [colors.red[700], colors.blue[700]],
         borderWidth: 1,
@@ -84,7 +80,7 @@ const TravelCondition = ({ period, year, country }) => {
               No Acompañados
             </Text>
             <Text fontFamily="Oswald" fontSize="2xl">
-              {total.noAcd}
+              {noAcd ?? total.noAcd}
             </Text>
           </Stack>
 
@@ -95,13 +91,17 @@ const TravelCondition = ({ period, year, country }) => {
               Acompañados
             </Text>
             <Text fontFamily="Oswald" fontSize="2xl">
-              {total.acd}
+              {acd ?? total.acd}
             </Text>
           </Stack>
         </Stack>
       </Stack>
     </Box>
   );
+};
+
+TravelCondition.defaultProps = {
+  defData: { acd: undefined, noAcd: undefined },
 };
 
 export default TravelCondition;
