@@ -118,7 +118,7 @@ const Statistics = ({ returns }) => {
 
         <DownloadImage
           containerRef={containerRef}
-          label="Descargar imagen de comparacion"
+          label="Descargar imagen de comparación"
         />
       </Stack>
     </Box>

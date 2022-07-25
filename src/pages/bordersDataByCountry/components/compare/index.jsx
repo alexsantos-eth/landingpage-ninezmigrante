@@ -201,7 +201,7 @@ const Compare = () => {
           </Stack>
         </Stack>
         <DownloadImage
-          label="Descargar imagen de la comparacion"
+          label="Descargar imagen de la comparación"
           containerRef={containerRef}
         />
       </Stack>

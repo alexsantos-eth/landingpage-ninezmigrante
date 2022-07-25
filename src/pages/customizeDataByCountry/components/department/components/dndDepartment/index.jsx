@@ -282,7 +282,7 @@ const DnDDepartment = ({ country = "guatemala" }) => {
 
           <DownloadImage
             containerRef={containerRef}
-            label="Descargar imagen de comparacion"
+            label="Descargar imagen de comparación"
           />
         </Box>
       </DragDropContext>
