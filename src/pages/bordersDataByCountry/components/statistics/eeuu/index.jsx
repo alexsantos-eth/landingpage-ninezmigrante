@@ -69,7 +69,7 @@ const EEUU = () => {
             REPORTADOS POR EE.UU.
           </Text>
           <Text fontFamily="Oswald" fontSize="2xl" lineHeight="1">
-            REPORTADOS POR EE.UU.
+            Sólo NO ACOMPAÑADOS
           </Text>
 
           {/* SELECT YEAR */}
@@ -117,7 +117,13 @@ const EEUU = () => {
             </Select>
           </Stack>
 
-          <Stack padding="8px" bgColor="#fff" borderRadius="10px">
+          <Stack
+            width="100%"
+            padding="24px"
+            bgColor="#fff"
+            maxWidth="380px"
+            borderRadius="12px"
+          >
             <Text fontFamily="Oswald" fontSize="3xl" lineHeight="1">
               {currentMonth || "Mes"}
             </Text>

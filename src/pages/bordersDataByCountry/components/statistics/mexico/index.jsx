@@ -51,7 +51,7 @@ const Mexico = () => {
 
         <Stack>
           <Text fontFamily="Oswald" fontSize="2xl" lineHeight="1">
-            {currentYear}
+            {currentYear || "Año"}
           </Text>
           <Text fontFamily="Oswald" fontSize="4xl" lineHeight="1">
             REPORTADOS POR MÉXICO
@@ -102,15 +102,25 @@ const Mexico = () => {
             </Select>
           </Stack>
 
-          <Stack padding="8px" bgColor="#fff" borderRadius="10px">
-            <Text fontFamily="Oswald" fontSize="3xl" lineHeight="1">
-              {currentMonth} {dataPerMonth?.totalMes}
+          <Stack
+            width="100%"
+            padding="24px"
+            bgColor="#fff"
+            maxWidth="380px"
+            borderRadius="12px"
+          >
+            <Text
+              fontSize="3xl"
+              lineHeight="1"
+              fontFamily="Oswald"
+              marginBottom="24px"
+            >
+              {currentMonth || "Mes"} {dataPerMonth?.totalMes ?? "0"}
             </Text>
 
             {/* GRAPHS */}
             <Stack
-              p={8}
-              gap="40px"
+              gap="24px"
               margin="auto"
               direction="column"
               alignItems="center"
