@@ -32,47 +32,52 @@ const EEUU = () => {
           <Text fontFamily="Oswald" fontSize="4xl" lineHeight="1">
             REPORTADOS POR EE.UU.
           </Text>
+          <Text fontFamily="Oswald" fontSize="2xl" lineHeight="1">
+            REPORTADOS POR EE.UU.
+          </Text>
 
-          {/* SELECT YEAR */}
-          <Select
-            value="default"
-            fontSize="2xl"
-            lineHeight="1.8"
-            fontWeight="600"
-            fontFamily="Times"
-            letterSpacing="1.2px"
-            bgColor="rgba(255,255,255,0.5)"
-          >
-            <option value="default">Elegir año</option>
-            <option value="2020">2020</option>
-            <option value="2021">2021</option>
-            <option value="2022">2022</option>
-          </Select>
+          <Stack direction="row">
+            {/* SELECT YEAR */}
+            <Select
+              value="default"
+              fontSize="2xl"
+              lineHeight="1.8"
+              fontWeight="600"
+              fontFamily="Times"
+              letterSpacing="1.2px"
+              bgColor="rgba(255,255,255,0.5)"
+            >
+              <option value="default">Elegir año</option>
+              <option value="2020">2020</option>
+              <option value="2021">2021</option>
+              <option value="2022">2022</option>
+            </Select>
 
-          {/* SELECT MONTH */}
-          <Select
-            value="default"
-            fontSize="2xl"
-            lineHeight="1.8"
-            fontWeight="600"
-            fontFamily="Times"
-            letterSpacing="1.2px"
-            bgColor="rgba(255,255,255,0.5)"
-          >
-            <option value="default">Elegir mes</option>
-            <option value="ene">Enero</option>
-            <option value="feb">Febrero</option>
-            <option value="mar">Marzo</option>
-            <option value="abr">Abril</option>
-            <option value="may">Mayo</option>
-            <option value="jun">Junio</option>
-            <option value="jul">Julio</option>
-            <option value="ago">Agosto</option>
-            <option value="sep">Septiembre</option>
-            <option value="oct">Octubre</option>
-            <option value="nov">Noviembre</option>
-            <option value="dic">Diciembre</option>
-          </Select>
+            {/* SELECT MONTH */}
+            <Select
+              value="default"
+              fontSize="2xl"
+              lineHeight="1.8"
+              fontWeight="600"
+              fontFamily="Times"
+              letterSpacing="1.2px"
+              bgColor="rgba(255,255,255,0.5)"
+            >
+              <option value="default">Elegir mes</option>
+              <option value="ene">Enero</option>
+              <option value="feb">Febrero</option>
+              <option value="mar">Marzo</option>
+              <option value="abr">Abril</option>
+              <option value="may">Mayo</option>
+              <option value="jun">Junio</option>
+              <option value="jul">Julio</option>
+              <option value="ago">Agosto</option>
+              <option value="sep">Septiembre</option>
+              <option value="oct">Octubre</option>
+              <option value="nov">Noviembre</option>
+              <option value="dic">Diciembre</option>
+            </Select>
+          </Stack>
 
           <Stack padding="8px" bgColor="#fff" borderRadius="10px">
             <Text fontFamily="Oswald" fontSize="3xl" lineHeight="1">

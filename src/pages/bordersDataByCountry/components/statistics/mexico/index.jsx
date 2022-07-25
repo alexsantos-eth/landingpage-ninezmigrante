@@ -46,12 +46,12 @@ const Mexico = () => {
         width="100%"
         margin="auto"
         direction="row"
-        maxWidth="1200px"
+        maxWidth="800px"
         alignItems="center"
         justifyContent="center"
       >
         <Stack>
-          <Image src={MexicoSVG} height="160px" />
+          <Image src={MexicoSVG} height="240px" />
         </Stack>
 
         <Stack>
@@ -62,48 +62,50 @@ const Mexico = () => {
             REPORTADOS POR MÉXICO
           </Text>
 
-          {/* SELECT YEAR */}
-          <Select
-            fontSize="2xl"
-            lineHeight="1.8"
-            fontWeight="600"
-            fontFamily="Times"
-            letterSpacing="1.2px"
-            onChange={handleYear}
-            bgColor="rgba(255,255,255,0.5)"
-            value={currentYear?.toString() || "default"}
-          >
-            <option value="default">Elegir año</option>
-            <option value="2020">2020</option>
-            <option value="2021">2021</option>
-            <option value="2022">2022</option>
-          </Select>
+          <Stack direction="row">
+            {/* SELECT YEAR */}
+            <Select
+              fontSize="2xl"
+              lineHeight="1.8"
+              fontWeight="600"
+              fontFamily="Times"
+              letterSpacing="1.2px"
+              onChange={handleYear}
+              bgColor="rgba(255,255,255,0.5)"
+              value={currentYear?.toString() || "default"}
+            >
+              <option value="default">Elegir año</option>
+              <option value="2020">2020</option>
+              <option value="2021">2021</option>
+              <option value="2022">2022</option>
+            </Select>
 
-          {/* SELECT MONTH */}
-          <Select
-            fontSize="2xl"
-            lineHeight="1.8"
-            fontWeight="600"
-            fontFamily="Times"
-            letterSpacing="1.2px"
-            onChange={handleMonth}
-            bgColor="rgba(255,255,255,0.5)"
-            value={currentMonth || "default"}
-          >
-            <option value="default">Elegir mes</option>
-            <option value="ENERO">Enero</option>
-            <option value="FEBRERO">Febrero</option>
-            <option value="MARZO">Marzo</option>
-            <option value="ABRIL">Abril</option>
-            <option value="MAYO">Mayo</option>
-            <option value="JUNIO">Junio</option>
-            <option value="JULIO">Julio</option>
-            <option value="AGOSTO">Agosto</option>
-            <option value="SEPTIEMBRE">Septiembre</option>
-            <option value="OCTUBRE">Octubre</option>
-            <option value="NOVIEMBRE">Noviembre</option>
-            <option value="DICIEMBRE">Diciembre</option>
-          </Select>
+            {/* SELECT MONTH */}
+            <Select
+              fontSize="2xl"
+              lineHeight="1.8"
+              fontWeight="600"
+              fontFamily="Times"
+              letterSpacing="1.2px"
+              onChange={handleMonth}
+              bgColor="rgba(255,255,255,0.5)"
+              value={currentMonth || "default"}
+            >
+              <option value="default">Elegir mes</option>
+              <option value="ENERO">Enero</option>
+              <option value="FEBRERO">Febrero</option>
+              <option value="MARZO">Marzo</option>
+              <option value="ABRIL">Abril</option>
+              <option value="MAYO">Mayo</option>
+              <option value="JUNIO">Junio</option>
+              <option value="JULIO">Julio</option>
+              <option value="AGOSTO">Agosto</option>
+              <option value="SEPTIEMBRE">Septiembre</option>
+              <option value="OCTUBRE">Octubre</option>
+              <option value="NOVIEMBRE">Noviembre</option>
+              <option value="DICIEMBRE">Diciembre</option>
+            </Select>
+          </Stack>
 
           <Stack padding="8px" bgColor="#fff" borderRadius="10px">
             <Text fontFamily="Oswald" fontSize="3xl" lineHeight="1">
@@ -113,13 +115,12 @@ const Mexico = () => {
             {/* GRAPHS */}
             <Stack
               p={8}
-              spacing={2}
               gap="40px"
               margin="auto"
+              direction="column"
+              alignItems="center"
               justifyContent="space-between"
-              direction={{ base: "column", md: "row" }}
               marginBottom={{ base: "40px", md: "60px" }}
-              alignItems={{ base: "center", md: "flex-start" }}
             >
               <Gender
                 period={"enero - abril"}
