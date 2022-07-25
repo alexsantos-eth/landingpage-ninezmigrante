@@ -76,19 +76,23 @@ const Compare = () => {
         justifyContent="center"
       >
         <Stack justifyContent="center" alignItems="center" gap="8px">
-          <Text fontFamily="Oswald" fontSize="4xl" lineHeight="1">
+          <Text
+            lineHeight="1"
+            fontSize="4xl"
+            textAlign="center"
+            fontFamily="Oswald"
+          >
             COMPARAR DETENIDOS EN FRONTERA CON RETORNADOS
           </Text>
 
           <Stack
             width="100%"
-            direction="row"
             alignItems="center"
             justifyContent="center"
+            direction={{ base: "column", md: "row" }}
           >
             {/* SELECT YEAR */}
             <Select
-              maxWidth="40%"
               fontSize="2xl"
               lineHeight="1.8"
               fontWeight="600"
@@ -96,6 +100,7 @@ const Compare = () => {
               onChange={handleYear}
               letterSpacing="1.2px"
               bgColor="rgba(255,255,255,0.5)"
+              maxWidth={{ base: "100%", md: "40%" }}
               value={currentYear?.toString() || ""}
             >
               <option value="">Elegir año</option>
@@ -106,7 +111,6 @@ const Compare = () => {
 
             {/* SELECT PERIOD */}
             <Select
-              maxWidth="40%"
               fontSize="2xl"
               lineHeight="1.8"
               fontWeight="600"
@@ -115,6 +119,7 @@ const Compare = () => {
               value={currentPeriod}
               onChange={handlePeriod}
               bgColor="rgba(255,255,255,0.5)"
+              maxWidth={{ base: "100%", md: "40%" }}
             >
               <option value="">Elegir cuatrimestre</option>
               <option value="q1">Enero - Abril</option>
@@ -127,21 +132,25 @@ const Compare = () => {
         <Stack
           gap="40px"
           width="100%"
-          direction="row"
           alignItems="center"
           justifyContent="center"
+          direction={{ base: "column", md: "row" }}
         >
-          <Stack justifyContent="center" alignItems="flex-end" maxWidth="210px">
+          <Stack
+            justifyContent="center"
+            alignItems={{ base: "center", md: "flex-end" }}
+            maxWidth="210px"
+          >
             <Image
               height="200px"
               maxWidth={{ base: "300px", md: "240px" }}
               src={countryID === "guatemala" ? MapaGuatemala : MapaHonduras}
             />
             <Text
-              lineHeight="1"
               fontSize="2xl"
-              textAlign="right"
+              lineHeight="1"
               fontFamily="Oswald"
+              textAlign={{ base: "center", md: "right" }}
             >
               TOTAL DE RETORNADOS A{" "}
               {countryID === "guatemala" ? "GUATEMALA" : "HONDURAS"}

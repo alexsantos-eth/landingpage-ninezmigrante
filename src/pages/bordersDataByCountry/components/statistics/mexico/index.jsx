@@ -44,10 +44,10 @@ const Mexico = () => {
         gap="40px"
         width="100%"
         margin="auto"
-        direction="row"
         maxWidth="800px"
         alignItems="center"
         justifyContent="center"
+        direction={{ base: "column-reverse", md: "row" }}
       >
         <Stack>
           <Image src={MexicoSVG} width="360px" />
@@ -57,11 +57,15 @@ const Mexico = () => {
           <Text fontFamily="Oswald" fontSize="2xl" lineHeight="1">
             {currentYear || year}
           </Text>
-          <Text fontFamily="Oswald" fontSize="4xl" lineHeight="1">
+          <Text
+            fontSize="4xl"
+            fontFamily="Oswald"
+            lineHeight={{ base: "1.2", md: "1" }}
+          >
             REPORTADOS POR MÉXICO
           </Text>
 
-          <Stack direction="row">
+          <Stack direction={{ base: "column", md: "row" }}>
             {/* SELECT YEAR */}
             <Select
               fontSize="2xl"
