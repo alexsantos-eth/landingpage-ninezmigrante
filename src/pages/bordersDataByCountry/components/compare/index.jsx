@@ -7,11 +7,12 @@ import Mexico from "../../../.../../../assets/mexico.svg";
 import EEUU from "../../../.../../../assets/usa.svg";
 import useFetch, { quarterId } from "../../../../hooks/fetch";
 import { useParams } from "react-router-dom";
+import { year } from "../../../../utils/year";
 
 const Compare = () => {
   const [bordersData, setBordersData] = useState({ mx: [], usa: [] });
   const [currentPeriod, setCurrentPeriod] = useState("");
-  const [currentYear, setCurrentYear] = useState("");
+  const [currentYear, setCurrentYear] = useState(year);
   const [total, setTotal] = useState(0);
 
   const { countryID } = useParams();

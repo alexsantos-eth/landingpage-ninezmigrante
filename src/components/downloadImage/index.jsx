@@ -44,10 +44,14 @@ const DownloadImage = ({ label, containerRef }) => {
       justifyContent="center"
       direction={{ base: "column", md: "row" }}
     >
-      <Image src={folder} height="50px" />
-      <Text fontFamily="Oswald" fontSize="2xl" textAlign="center">
-        {label}
-      </Text>
+      {label.length > 0 && (
+        <>
+          <Image src={folder} height="50px" />
+          <Text fontFamily="Oswald" fontSize="2xl" textAlign="center">
+            {label}
+          </Text>
+        </>
+      )}
       <Button
         size="lg"
         bgColor="#ccc"

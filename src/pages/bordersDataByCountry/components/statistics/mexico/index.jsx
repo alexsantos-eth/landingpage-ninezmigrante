@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 import { Box, Stack, Text, Image, Select } from "@chakra-ui/react";
 
@@ -10,11 +10,14 @@ import AgeRanges from "../../../../../pages/country/components/statistics/compon
 import TravelCondition from "../../../../../pages/country/components/statistics/components/travelCondition";
 import { useParams } from "react-router-dom";
 import { year } from "../../../../../utils/year";
+import DownloadImage from "../../../../../components/downloadImage";
 
 const Mexico = () => {
   const [currentMonth, setCurrentMonth] = useState("");
   const [currentYear, setCurrentYear] = useState("");
   const [bordersData, setBordersData] = useState([]);
+
+  const containerRef = useRef(null);
 
   const { countryID } = useParams();
 
@@ -36,7 +39,7 @@ const Mexico = () => {
     ) ?? {};
 
   return (
-    <Box width="100%" padding="40px">
+    <Box width="100%" padding="40px" ref={containerRef}>
       <Stack
         gap="40px"
         width="100%"
@@ -103,58 +106,61 @@ const Mexico = () => {
             </Select>
           </Stack>
 
-          <Stack
-            width="100%"
-            padding="24px"
-            bgColor="#fff"
-            maxWidth="380px"
-            borderRadius="12px"
-          >
-            <Text
-              fontSize="3xl"
-              lineHeight="1"
-              fontFamily="Oswald"
-              marginBottom="24px"
-            >
-              {currentMonth || "Mes"} {dataPerMonth?.totalMes ?? "0"}
-            </Text>
-
-            {/* GRAPHS */}
+          {Object.keys(dataPerMonth).length > 0 && (
             <Stack
-              gap="24px"
-              margin="auto"
-              direction="column"
-              alignItems="center"
-              justifyContent="space-between"
-              marginBottom={{ base: "40px", md: "60px" }}
+              width="100%"
+              padding="24px"
+              bgColor="#fff"
+              maxWidth="380px"
+              borderRadius="12px"
             >
-              <Gender
-                period={"enero - abril"}
-                year={"2020"}
-                defData={{
-                  female: dataPerMonth?.femenino,
-                  male: dataPerMonth?.masculino,
-                }}
-              />
-              <TravelCondition
-                period={"enero - abril"}
-                year={"2020"}
-                defData={{
-                  acd: dataPerMonth?.acompaniado,
-                  noAcd: dataPerMonth?.noAcompaniado,
-                }}
-              />
-              <AgeRanges
-                disableFirstAge
-                period={"enero - abril"}
-                year={"2020"}
-                defData={{
-                  f2: dataPerMonth?.ninos,
-                  f3: dataPerMonth?.adolescentes,
-                }}
-              />
+              <Text
+                fontSize="3xl"
+                lineHeight="1"
+                fontFamily="Oswald"
+                marginBottom="24px"
+              >
+                {currentMonth || "Mes"} {dataPerMonth?.totalMes ?? "0"}
+              </Text>
+
+              {/* GRAPHS */}
+              <Stack
+                gap="24px"
+                margin="auto"
+                direction="column"
+                alignItems="center"
+                justifyContent="space-between"
+                marginBottom={{ base: "40px", md: "60px" }}
+              >
+                <Gender
+                  period={"enero - abril"}
+                  year={"2020"}
+                  defData={{
+                    female: dataPerMonth?.femenino,
+                    male: dataPerMonth?.masculino,
+                  }}
+                />
+                <TravelCondition
+                  period={"enero - abril"}
+                  year={"2020"}
+                  defData={{
+                    acd: dataPerMonth?.acompaniado,
+                    noAcd: dataPerMonth?.noAcompaniado,
+                  }}
+                />
+                <AgeRanges
+                  disableFirstAge
+                  period={"enero - abril"}
+                  year={"2020"}
+                  defData={{
+                    f2: dataPerMonth?.ninos,
+                    f3: dataPerMonth?.adolescentes,
+                  }}
+                />
+              </Stack>
+              <DownloadImage label="" containerRef={containerRef} />
             </Stack>
-          </Stack>
+          )}
         </Stack>
       </Stack>
     </Box>

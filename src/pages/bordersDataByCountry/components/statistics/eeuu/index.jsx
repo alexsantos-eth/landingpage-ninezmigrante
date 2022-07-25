@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 import { Box, Stack, Text, Image, Select, border } from "@chakra-ui/react";
 
@@ -7,6 +7,7 @@ import MexicoSVG from "../../../../../assets/usa.svg";
 import useFetch from "../../../../../hooks/fetch";
 import { useParams } from "react-router-dom";
 import { year } from "../../../../../utils/year";
+import DownloadImage from "../../../../../components/downloadImage";
 
 const excludeFields = [
   "_id",
@@ -26,6 +27,7 @@ const EEUU = () => {
   const [currentYear, setCurrentYear] = useState("");
 
   const { countryID } = useParams();
+  const containerRef = useRef(null);
 
   const handleMonth = (ev) => setCurrentMonth(ev.target.value);
   const handleYear = (ev) => setCurrentYear(ev.target.value);
@@ -149,6 +151,7 @@ const EEUU = () => {
                   <Text fontFamily="Montserrat Medium">{value}</Text>
                 </Stack>
               ))}
+              <DownloadImage label="" containerRef={containerRef} />
             </Stack>
           </Stack>
         </Stack>
