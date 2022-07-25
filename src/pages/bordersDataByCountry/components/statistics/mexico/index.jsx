@@ -1,26 +1,18 @@
 import React, { useState } from "react";
 
-import { useParams } from "react-router-dom";
-
 import { Box, Stack, Text, Image, Select } from "@chakra-ui/react";
 
 import MexicoSVG from "../../../../../assets/mexico.svg";
 import useFetch from "../../../../../hooks/fetch";
 
-import { year } from "../../../../../utils/year";
-import { useEffect } from "react";
-
 import Gender from "../../../../../pages/country/components/statistics/components/gender";
 import AgeRanges from "../../../../../pages/country/components/statistics/components/ageRanges";
 import TravelCondition from "../../../../../pages/country/components/statistics/components/travelCondition";
 
-const defDataPerMonth = { totalMes: 0 };
-
 const Mexico = () => {
-  const [bordersData, setBordersData] = useState([]);
-  const [dataPerMonth, setDataPerMonth] = useState(defDataPerMonth);
   const [currentMonth, setCurrentMonth] = useState("");
-  const [currentYear, setCurrentYear] = useState(year);
+  const [currentYear, setCurrentYear] = useState("");
+  const [bordersData, setBordersData] = useState([]);
 
   const handleMonth = (ev) => setCurrentMonth(ev.target.value);
   const handleYear = (ev) => setCurrentYear(ev.target.value);
@@ -32,12 +24,8 @@ const Mexico = () => {
     resolve: (data) => setBordersData(data.data),
   });
 
-  useEffect(() => {
-    const data = bordersData?.filter((item) => item.mes === currentMonth);
-    setDataPerMonth(data[0] ?? defDataPerMonth);
-  }, [currentMonth, currentYear, bordersData]);
-
-  console.log(dataPerMonth);
+  const dataPerMonth =
+    bordersData?.find((item) => item.mes === currentMonth) ?? {};
 
   return (
     <Box width="100%" padding="40px">

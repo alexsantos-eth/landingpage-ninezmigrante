@@ -1,15 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 
-import { useParams } from "react-router-dom";
-
-import { Box, Stack, Text, Image, Select } from "@chakra-ui/react";
+import { Box, Stack, Text, Image, Select, border } from "@chakra-ui/react";
 
 import MexicoSVG from "../../../../../assets/usa.svg";
 
-import { year as currentYear } from "../../../../../utils/year";
+import { year } from "../../../../../utils/year";
+import useFetch from "../../../../../hooks/fetch";
+
+const excludeFields = [
+  "_id",
+  "mes",
+  "anio",
+  "organizacion",
+  "pais",
+  "totalMes",
+  "paisLocal",
+  "periodo",
+  "granTotal",
+];
 
 const EEUU = () => {
-  const { countryID } = useParams();
+  const [currentMonth, setCurrentMonth] = useState("");
+  const [bordersData, setBordersData] = useState([]);
+  const [currentYear, setCurrentYear] = useState("");
+
+  const handleMonth = (ev) => setCurrentMonth(ev.target.value);
+  const handleYear = (ev) => setCurrentYear(ev.target.value);
+
+  useFetch({
+    url: "/consultas/detenidosenfronteradeestadosunidos/year/estados%20unidos",
+    year: currentYear,
+    resolve: (data) => setBordersData(data.data),
+  });
+
+  const dataPerMonth =
+    bordersData?.find((item) => item.mes === currentMonth) ?? {};
+
+  const dataPerDeps = Object.entries(dataPerMonth).filter(
+    ([key]) => !excludeFields.includes(key)
+  );
+
   return (
     <Box width="100%" padding="40px">
       <Stack
@@ -27,7 +57,7 @@ const EEUU = () => {
 
         <Stack>
           <Text fontFamily="Oswald" fontSize="2xl" lineHeight="1">
-            {currentYear}
+            {currentYear || "Año"}
           </Text>
           <Text fontFamily="Oswald" fontSize="4xl" lineHeight="1">
             REPORTADOS POR EE.UU.
@@ -36,18 +66,19 @@ const EEUU = () => {
             REPORTADOS POR EE.UU.
           </Text>
 
+          {/* SELECT YEAR */}
           <Stack direction="row">
-            {/* SELECT YEAR */}
             <Select
-              value="default"
               fontSize="2xl"
               lineHeight="1.8"
               fontWeight="600"
               fontFamily="Times"
+              onChange={handleYear}
               letterSpacing="1.2px"
               bgColor="rgba(255,255,255,0.5)"
+              value={currentYear?.toString() || ""}
             >
-              <option value="default">Elegir año</option>
+              <option value="">Elegir año</option>
               <option value="2020">2020</option>
               <option value="2021">2021</option>
               <option value="2022">2022</option>
@@ -55,47 +86,51 @@ const EEUU = () => {
 
             {/* SELECT MONTH */}
             <Select
-              value="default"
               fontSize="2xl"
               lineHeight="1.8"
               fontWeight="600"
               fontFamily="Times"
               letterSpacing="1.2px"
+              onChange={handleMonth}
               bgColor="rgba(255,255,255,0.5)"
+              value={currentMonth || ""}
             >
-              <option value="default">Elegir mes</option>
-              <option value="ene">Enero</option>
-              <option value="feb">Febrero</option>
-              <option value="mar">Marzo</option>
-              <option value="abr">Abril</option>
-              <option value="may">Mayo</option>
-              <option value="jun">Junio</option>
-              <option value="jul">Julio</option>
-              <option value="ago">Agosto</option>
-              <option value="sep">Septiembre</option>
-              <option value="oct">Octubre</option>
-              <option value="nov">Noviembre</option>
-              <option value="dic">Diciembre</option>
+              <option value="">Elegir mes</option>
+              <option value="ENERO">Enero</option>
+              <option value="FEBRERO">Febrero</option>
+              <option value="MARZO">Marzo</option>
+              <option value="ABRIL">Abril</option>
+              <option value="MAYO">Mayo</option>
+              <option value="JUNIO">Junio</option>
+              <option value="JULIO">Julio</option>
+              <option value="AGOSTO">Agosto</option>
+              <option value="SEPTIEMBRE">Septiembre</option>
+              <option value="OCTUBRE">Octubre</option>
+              <option value="NOVIEMBRE">Noviembre</option>
+              <option value="DICIEMBRE">Diciembre</option>
             </Select>
           </Stack>
 
           <Stack padding="8px" bgColor="#fff" borderRadius="10px">
             <Text fontFamily="Oswald" fontSize="3xl" lineHeight="1">
-              Julio
+              {currentMonth || "Mes"}
             </Text>
             <Text fontFamily="Oswald" fontSize="4xl" lineHeight="1">
-              1 500
+              {dataPerMonth?.totalMes ?? "0"}
             </Text>
 
-            <Stack
-              padding="8px 32px"
-              direction="row"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <Text>Big Bend</Text>
-              <Text>125</Text>
-            </Stack>
+            {dataPerDeps.map(([key, value]) => (
+              <Stack
+                padding="8px 32px"
+                direction="row"
+                alignItems="center"
+                key={`${key}-${value}`}
+                justifyContent="space-between"
+              >
+                <Text>{key}</Text>
+                <Text>{value}</Text>
+              </Stack>
+            ))}
           </Stack>
         </Stack>
       </Stack>

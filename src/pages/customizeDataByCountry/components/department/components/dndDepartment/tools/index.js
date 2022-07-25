@@ -13,7 +13,7 @@ export const getItemStyle = (isDragging, draggableStyle) => ({
   margin: `0 8px 0 0`,
   borderRadius: "5px",
   transition: "background 0.2s ease-in-out",
-  background: isDragging ? "transparent" : "rgba(0,0,0,.1)",
+  background: "transparent",
   ...draggableStyle,
 });
 
