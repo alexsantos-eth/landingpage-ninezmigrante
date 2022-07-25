@@ -4,8 +4,8 @@ import { Box, Stack, Text, Image, Select, border } from "@chakra-ui/react";
 
 import MexicoSVG from "../../../../../assets/usa.svg";
 
-import { year } from "../../../../../utils/year";
 import useFetch from "../../../../../hooks/fetch";
+import { useParams } from "react-router-dom";
 
 const excludeFields = [
   "_id",
@@ -24,6 +24,8 @@ const EEUU = () => {
   const [bordersData, setBordersData] = useState([]);
   const [currentYear, setCurrentYear] = useState("");
 
+  const { countryID } = useParams();
+
   const handleMonth = (ev) => setCurrentMonth(ev.target.value);
   const handleYear = (ev) => setCurrentYear(ev.target.value);
 
@@ -34,7 +36,11 @@ const EEUU = () => {
   });
 
   const dataPerMonth =
-    bordersData?.find((item) => item.mes === currentMonth) ?? {};
+    bordersData?.find(
+      (item) =>
+        item.mes === currentMonth?.toUpperCase() &&
+        item.paisLocal?.toUpperCase() === countryID.toUpperCase()
+    ) ?? {};
 
   const dataPerDeps = Object.entries(dataPerMonth).filter(
     ([key]) => !excludeFields.includes(key)

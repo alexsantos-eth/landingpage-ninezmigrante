@@ -8,11 +8,14 @@ import useFetch from "../../../../../hooks/fetch";
 import Gender from "../../../../../pages/country/components/statistics/components/gender";
 import AgeRanges from "../../../../../pages/country/components/statistics/components/ageRanges";
 import TravelCondition from "../../../../../pages/country/components/statistics/components/travelCondition";
+import { useParams } from "react-router-dom";
 
 const Mexico = () => {
   const [currentMonth, setCurrentMonth] = useState("");
   const [currentYear, setCurrentYear] = useState("");
   const [bordersData, setBordersData] = useState([]);
+
+  const { countryID } = useParams();
 
   const handleMonth = (ev) => setCurrentMonth(ev.target.value);
   const handleYear = (ev) => setCurrentYear(ev.target.value);
@@ -25,7 +28,11 @@ const Mexico = () => {
   });
 
   const dataPerMonth =
-    bordersData?.find((item) => item.mes === currentMonth) ?? {};
+    bordersData?.find(
+      (item) =>
+        item.mes === currentMonth?.toUpperCase() &&
+        item.paisLocal?.toUpperCase() === countryID.toUpperCase()
+    ) ?? {};
 
   return (
     <Box width="100%" padding="40px">

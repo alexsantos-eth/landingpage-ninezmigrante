@@ -6,14 +6,29 @@ import Guatemala from "../../../.../../../assets/MapaGuatemala.svg";
 import Mexico from "../../../.../../../assets/mexico.svg";
 import EEUU from "../../../.../../../assets/usa.svg";
 import useFetch, { quarterId } from "../../../../hooks/fetch";
+import { useParams } from "react-router-dom";
 
 const Compare = () => {
   const [bordersData, setBordersData] = useState({ mx: [], usa: [] });
   const [currentPeriod, setCurrentPeriod] = useState("");
   const [currentYear, setCurrentYear] = useState("");
+  const [total, setTotal] = useState(0);
+
+  const { countryID } = useParams();
 
   const handleYear = (ev) => setCurrentYear(ev.target.value);
   const handlePeriod = (ev) => setCurrentPeriod(ev.target.value);
+
+  useFetch({
+    url: "/consultas/totalporpaisanioperiodo/country/year/quarter",
+    year: currentYear,
+    country: countryID,
+    period: currentPeriod,
+    resolve: (data) => {
+      const periodData = data?.data?.[0];
+      setTotal(periodData?.totalRegistros ?? 0);
+    },
+  });
 
   useFetch({
     url: "/consultas/detenidosenfronteradeestadosunidos/year/estados%20unidos",
@@ -30,15 +45,17 @@ const Compare = () => {
   const dataPerPeriod = {
     mx:
       bordersData.mx.find(
-        (item) => item.periodo === quarterId[currentPeriod]?.toUpperCase()
+        (item) =>
+          item.periodo === quarterId[currentPeriod]?.toUpperCase() &&
+          item.paisLocal?.toUpperCase() === countryID.toUpperCase()
       )?.granTotal ?? 0,
     usa:
       bordersData.usa.find(
-        (item) => item.periodo === quarterId[currentPeriod]?.toUpperCase()
+        (item) =>
+          item.periodo === quarterId[currentPeriod]?.toUpperCase() &&
+          item.paisLocal?.toUpperCase() === countryID.toUpperCase()
       )?.granTotal ?? 0,
   };
-
-  console.log(dataPerPeriod);
 
   return (
     <Box width="100%" padding="40px" bgColor="#d9e8e8">
@@ -99,7 +116,7 @@ const Compare = () => {
             <Text>
               Cuatrimestre {currentPeriod.substring(1)} - {currentYear || "Año"}
             </Text>
-            <Text>1 200</Text>
+            <Text>{total}</Text>
           </Stack>
 
           <Stack justifyContent="center" alignItems="center">
