@@ -3,20 +3,16 @@ import React from "react";
 import { colors } from "../../../../../../../utils/theme";
 
 // ASSETS
-import MaleIcon from "../../../../../../../assets/male.png";
-import FemaleIcon from "../../../../../../../assets/femenine.png";
-import Airplane from "../../../../../../../assets/airplane.png";
-import BusIcon from "../../../../../../../assets/bus.png";
-import FamilyIcon from "../../../../../../../assets/family.png";
-import GroupIcon from "../../../../../../../assets/group.png";
-import AgeGroupIcon from "../../../../../../../assets/age-group.png";
 
-import BarChartIcon from "../../../../../../../assets/bar-chart.png";
-import AreaChartIcon from "../../../../../../../assets/area-chart.png";
-import GroupedChartIcon from "../../../../../../../assets/chart-stacked.png";
+import GroupedChartIcon from "../../../../../../../assets/chart-stacked.svg";
+import AreaChartIcon from "../../../../../../../assets/area-chart.svg";
+import BarChartIcon from "../../../../../../../assets/bar-chart.svg";
 
-import MexIcon from "../../../../../../../assets/mexico.svg";
-import UsaIcon from "../../../../../../../assets/usa.svg";
+import ConditionIcon from "../../../../../../../assets/charts/condicion.svg";
+import AgeGroupIcon from "../../../../../../../assets/charts/edad.svg";
+import GenderIcon from "../../../../../../../assets/charts/genero.svg";
+import CountryIcon from "../../../../../../../assets/charts/pais.svg";
+import ViaIcon from "../../../../../../../assets/charts/via.svg";
 
 export const itemColors = [
   colors.blue[700],
@@ -47,10 +43,10 @@ export const customDataTypes = [
         direction="column"
         alignItems="center"
         justifyContent="center"
-        style={{ filter: "brightness(0) saturate(100%)" }}
+        transition="transform 0.2s ease-in-out"
+        _hover={{ transform: "scale(1.1)" }}
       >
-        <Image src={MaleIcon} height="23px" />
-        <Image src={FemaleIcon} height="23px" />
+        <Image src={GenderIcon} height="55px" />
       </Stack>
     ),
   },
@@ -63,10 +59,10 @@ export const customDataTypes = [
         direction="column"
         alignItems="center"
         justifyContent="center"
-        style={{ filter: "brightness(0) saturate(100%)" }}
+        transition="transform 0.2s ease-in-out"
+        _hover={{ transform: "scale(1.1)" }}
       >
-        <Image src={BusIcon} height="23px" />
-        <Image src={Airplane} height="23px" />
+        <Image src={ViaIcon} height="55px" />
       </Stack>
     ),
   },
@@ -79,10 +75,10 @@ export const customDataTypes = [
         direction="column"
         alignItems="center"
         justifyContent="center"
-        style={{ filter: "brightness(0) saturate(100%)" }}
+        transition="transform 0.2s ease-in-out"
+        _hover={{ transform: "scale(1.1)" }}
       >
-        <Image src={FamilyIcon} height="23px" />
-        <Image src={GroupIcon} height="23px" />
+        <Image src={ConditionIcon} height="55px" />
       </Stack>
     ),
   },
@@ -95,10 +91,10 @@ export const customDataTypes = [
         direction="column"
         alignItems="center"
         justifyContent="center"
-        style={{ filter: "brightness(0) saturate(100%)" }}
+        transition="transform 0.2s ease-in-out"
+        _hover={{ transform: "scale(1.1)" }}
       >
-        <Image src={UsaIcon} height="23px" />
-        <Image src={MexIcon} height="23px" />
+        <Image src={CountryIcon} height="55px" />
       </Stack>
     ),
   },
@@ -111,9 +107,10 @@ export const customDataTypes = [
         direction="column"
         alignItems="center"
         justifyContent="center"
-        style={{ filter: "brightness(0) saturate(100%)" }}
+        transition="transform 0.2s ease-in-out"
+        _hover={{ transform: "scale(1.1)" }}
       >
-        <Image src={AgeGroupIcon} height="35px" />
+        <Image src={AgeGroupIcon} height="55px" />
       </Stack>
     ),
   },
@@ -123,17 +120,38 @@ export const customDataChart = [
   {
     id: "bar",
     name: "Barras",
-    Content: <Image src={BarChartIcon} height="35px" />,
+    Content: (
+      <Image
+        transition="transform 0.2s ease-in-out"
+        _hover={{ transform: "scale(1.1)" }}
+        src={BarChartIcon}
+        height="55px"
+      />
+    ),
   },
   {
     id: "area",
     name: "Área",
-    Content: <Image src={AreaChartIcon} height="35px" />,
+    Content: (
+      <Image
+        transition="transform 0.2s ease-in-out"
+        _hover={{ transform: "scale(1.1)" }}
+        src={AreaChartIcon}
+        height="55px"
+      />
+    ),
   },
   {
     id: "group",
     name: "Agrupado",
-    Content: <Image src={GroupedChartIcon} height="35px" />,
+    Content: (
+      <Image
+        transition="transform 0.2s ease-in-out"
+        _hover={{ transform: "scale(1.1)" }}
+        src={GroupedChartIcon}
+        height="55px"
+      />
+    ),
   },
 ];
 
