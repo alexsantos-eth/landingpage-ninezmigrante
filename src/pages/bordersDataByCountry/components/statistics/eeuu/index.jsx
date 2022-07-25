@@ -120,40 +120,42 @@ const EEUU = () => {
             </Select>
           </Stack>
 
-          <Stack
-            width="100%"
-            padding="24px"
-            bgColor="#fff"
-            direction="row"
-            justifyContent="space-between"
-            maxWidth="380px"
-            borderRadius="12px"
-          >
-            <Stack>
-              <Text fontFamily="Oswald" fontSize="3xl" lineHeight="1">
-                {currentMonth || "Mes"}
-              </Text>
-              <Text fontFamily="Oswald" fontSize="4xl" lineHeight="1">
-                {dataPerMonth?.totalMes ?? "0"}
-              </Text>
-            </Stack>
+          {dataPerDeps.length > 0 && (
+            <Stack
+              width="100%"
+              padding="24px"
+              bgColor="#fff"
+              direction="row"
+              justifyContent="space-between"
+              maxWidth="380px"
+              borderRadius="12px"
+            >
+              <Stack>
+                <Text fontFamily="Oswald" fontSize="3xl" lineHeight="1">
+                  {currentMonth || "Mes"}
+                </Text>
+                <Text fontFamily="Oswald" fontSize="4xl" lineHeight="1">
+                  {dataPerMonth?.totalMes ?? "0"}
+                </Text>
+              </Stack>
 
-            <Stack>
-              {dataPerDeps.map(([key, value]) => (
-                <Stack
-                  key={`${key}-${value}`}
-                  gap="40px"
-                  direction="row"
-                  alignItems="center"
-                  justifyContent="space-between"
-                >
-                  <Text fontFamily="Montserrat Medium">{key}</Text>
-                  <Text fontFamily="Montserrat Medium">{value}</Text>
-                </Stack>
-              ))}
-              <DownloadImage label="" containerRef={containerRef} />
+              <Stack>
+                {dataPerDeps.map(([key, value]) => (
+                  <Stack
+                    key={`${key}-${value}`}
+                    gap="40px"
+                    direction="row"
+                    alignItems="center"
+                    justifyContent="space-between"
+                  >
+                    <Text fontFamily="Montserrat Medium">{key}</Text>
+                    <Text fontFamily="Montserrat Medium">{value}</Text>
+                  </Stack>
+                ))}
+                <DownloadImage label="" containerRef={containerRef} />
+              </Stack>
             </Stack>
-          </Stack>
+          )}
         </Stack>
       </Stack>
     </Box>
