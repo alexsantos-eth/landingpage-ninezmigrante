@@ -1,17 +1,24 @@
+// REACT
 import React, { useState, useRef } from "react";
+import { useParams } from "react-router-dom";
 
+// CHAKRA UI COMPONENTS
 import { Box, Stack, Text, Select, Image, Divider } from "@chakra-ui/react";
 
+// COMPONENTS
+import DownloadImage from "../../../../components/downloadImage";
+
+// ASSETS
 import MapaGuatemala from "../../../.../../../assets/MapaGuatemala.svg";
 import MapaHonduras from "../../../.../../../assets/MapaHonduras.svg";
-
 import Mexico from "../../../.../../../assets/mexico.svg";
 import EEUU from "../../../.../../../assets/usa.svg";
 
+// HOOKS
 import useFetch, { quarterId } from "../../../../hooks/fetch";
-import { useParams } from "react-router-dom";
+
+// UTILS
 import { year } from "../../../../utils/year";
-import DownloadImage from "../../../../components/downloadImage";
 
 const Compare = () => {
   const [bordersData, setBordersData] = useState({ mx: [], usa: [] });
@@ -143,16 +150,16 @@ const Compare = () => {
         </Stack>
 
         <Stack
-          gap="40px"
+          gap="24px"
           width="100%"
           justifyContent="center"
           direction={{ base: "column", md: "row" }}
           alignItems={{ base: "center", md: "flex-end" }}
         >
           <Stack
+            maxWidth="210px"
             justifyContent="center"
             alignItems={{ base: "center", md: "flex-end" }}
-            maxWidth="210px"
           >
             <Image
               height="200px"
@@ -186,7 +193,24 @@ const Compare = () => {
             </Text>
           </Stack>
 
-          <Stack justifyContent="center" alignItems="center">
+          {/* DIVIDER */}
+          <Divider
+            height="400px"
+            borderWidth="1px"
+            orientation="vertical"
+            borderColor="#000"
+            display={{ base: "none", md: "block" }}
+          />
+
+          <Stack
+            justifyContent="center"
+            alignItems="center"
+            maxWidth="300px"
+            spacing="16px"
+          >
+            <Text textAlign="center">
+              * Sólo se reportan niños, niñas y adolescentes NO ACOMPAÑADOS
+            </Text>
             <Image src={EEUU} height="120px" />
             <Text fontFamily="Oswald" fontSize="2xl" lineHeight="1">
               Estados Unidos

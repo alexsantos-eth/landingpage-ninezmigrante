@@ -1,13 +1,21 @@
+// REACT
 import React, { useState, useRef } from "react";
+import { useParams } from "react-router-dom";
 
+// CHAKRA UI COMPONENTS
 import { Box, Stack, Text, Image, Select, border } from "@chakra-ui/react";
 
+// COMPONENTS
+import DownloadImage from "../../../../../components/downloadImage";
+
+// ASSETS
 import MapaEEUU from "../../../../../assets/usa.svg";
 
+// HOOKS
 import useFetch from "../../../../../hooks/fetch";
-import { useParams } from "react-router-dom";
+
+// UTILS
 import { year } from "../../../../../utils/year";
-import DownloadImage from "../../../../../components/downloadImage";
 
 const excludeFields = [
   "_id",
@@ -51,36 +59,46 @@ const EEUU = () => {
 
   return (
     <Box width="100%" padding="40px" ref={containerRef}>
+      {/* CONTAINER */}
       <Stack
         gap="24px"
         width="100%"
         margin="auto"
-        maxWidth="800px"
+        maxWidth="1000px"
+        direction="column"
         alignItems="center"
         justifyContent="center"
-        direction={{ base: "column-reverse", md: "row" }}
       >
-        <Stack>
-          <Image src={MapaEEUU} width="280px" />
-        </Stack>
+        {/* SECTION HEADING */}
+        <Stack
+          width="100%"
+          alignItems="center"
+          direction={{ base: "column", md: "row" }}
+          justifyContent={{ base: "center", md: "space-between" }}
+        >
+          {/* YEAR AND TITLE */}
+          <Stack width={{ base: "100%", md: "50%" }}>
+            <Text fontFamily="Oswald" fontSize="2xl" lineHeight="1">
+              {currentYear || year}
+            </Text>
+            <Text
+              fontSize="4xl"
+              fontFamily="Oswald"
+              lineHeight={{ base: "1.2", md: "1" }}
+            >
+              REPORTADOS POR EE.UU.
+            </Text>
+            <Text fontFamily="Oswald" fontSize="2xl" lineHeight="1">
+              Sólo NO ACOMPAÑADOS
+            </Text>
+          </Stack>
 
-        <Stack>
-          <Text fontFamily="Oswald" fontSize="2xl" lineHeight="1">
-            {currentYear || year}
-          </Text>
-          <Text
-            fontSize="4xl"
-            fontFamily="Oswald"
-            lineHeight={{ base: "1.2", md: "1" }}
+          {/* YEAR AND PERIOD SELECTS */}
+          <Stack
+            width={{ base: "100%", md: "50%" }}
+            direction={{ base: "column", md: "row" }}
           >
-            REPORTADOS POR EE.UU.
-          </Text>
-          <Text fontFamily="Oswald" fontSize="2xl" lineHeight="1">
-            Sólo NO ACOMPAÑADOS
-          </Text>
-
-          {/* SELECT YEAR */}
-          <Stack direction={{ base: "column", md: "row" }}>
+            {/* SELECT YEAR */}
             <Select
               fontSize="2xl"
               lineHeight="1.8"
@@ -123,45 +141,55 @@ const EEUU = () => {
               <option value="DICIEMBRE">Diciembre</option>
             </Select>
           </Stack>
-
-          {dataPerDeps.length > 0 && (
-            <Stack
-              width="100%"
-              spacing="40px"
-              padding="24px"
-              bgColor="#fff"
-              direction="column"
-              maxWidth="380px"
-              borderRadius="12px"
-              justifyContent="space-between"
-            >
-              <Stack>
-                <Text fontFamily="Oswald" fontSize="3xl" lineHeight="1">
-                  {currentMonth || "Mes"}
-                </Text>
-                <Text fontFamily="Oswald" fontSize="4xl" lineHeight="1">
-                  {dataPerMonth?.totalMes ?? "0"}
-                </Text>
-              </Stack>
-
-              <Stack>
-                {dataPerDeps.map(([key, value]) => (
-                  <Stack
-                    key={`${key}-${value}`}
-                    gap="40px"
-                    direction="row"
-                    alignItems="center"
-                    justifyContent="space-between"
-                  >
-                    <Text fontFamily="Montserrat Medium">{key}</Text>
-                    <Text fontFamily="Montserrat Medium">{value}</Text>
-                  </Stack>
-                ))}
-              </Stack>
-              <DownloadImage label="" containerRef={containerRef} />
-            </Stack>
-          )}
         </Stack>
+
+        {/* STATISTICS */}
+        <Stack
+          gap="40px"
+          width="100%"
+          bgColor="#fff"
+          padding="40px 24px"
+          borderRadius="12px"
+          alignItems="flex-start"
+          justifyContent="space-between"
+          direction={{ base: "column", md: "row" }}
+        >
+          {/* COUNTRY MAP */}
+          <Stack>
+            <Image src={MapaEEUU} minWidth="240px" />
+          </Stack>
+
+          {/* TOTAL MONTH DATA */}
+          <Stack>
+            <Text fontFamily="Oswald" fontSize="3xl" lineHeight="1">
+              {currentMonth || "Mes"}
+            </Text>
+            <Text fontFamily="Oswald" fontSize="6xl" lineHeight="1">
+              {dataPerMonth?.totalMes ?? "0"}
+            </Text>
+          </Stack>
+
+          {/* DATA BY BORDERS */}
+          <Stack>
+            {dataPerDeps.map(([key, value]) => (
+              <Stack
+                key={`${key}-${value}`}
+                gap="120px"
+                direction="row"
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                <Text fontFamily="Montserrat Medium" fontSize="xl">
+                  {key}
+                </Text>
+                <Text fontFamily="Montserrat Medium" fontSize="xl">
+                  {value}
+                </Text>
+              </Stack>
+            ))}
+          </Stack>
+        </Stack>
+        <DownloadImage label="" containerRef={containerRef} />
       </Stack>
     </Box>
   );
