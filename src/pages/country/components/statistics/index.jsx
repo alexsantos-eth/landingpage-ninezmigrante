@@ -17,6 +17,7 @@ const Statistics = ({ period, year, satisticsRef }) => {
   const { countryID } = useParams();
   const [total, setTotal] = useState(0);
   const [periodId, setPeriodId] = useState("");
+  const [departments, setDepartments] = useState([]);
 
   useFetch({
     url: "/consultas/totalporpaisanioperiodo/country/year/quarter",
@@ -27,6 +28,20 @@ const Statistics = ({ period, year, satisticsRef }) => {
       const periodData = data?.data?.[0];
       setPeriodId(periodData?._id ?? "");
       setTotal(periodData?.totalRegistros ?? 0);
+    },
+  });
+
+  useFetch({
+    url: "/consultas/totalpordepartamento/country/year/quarter",
+    year,
+    period,
+    country: countryID,
+    resolve: (data) => {
+      const filteredData = data.data.map((department) => ({
+        ...department,
+        name: department._id.replace("Department", "").toUpperCase(),
+      }));
+      setDepartments(filteredData.sort((a, b) => b.total - a.total));
     },
   });
 
@@ -111,6 +126,7 @@ const Statistics = ({ period, year, satisticsRef }) => {
         </Stack>
 
         <Stack
+          spacing={8}
           width="100%"
           margin="auto"
           maxWidth="800px"
@@ -120,6 +136,23 @@ const Statistics = ({ period, year, satisticsRef }) => {
           direction={{ base: "column", md: "row" }}
         >
           <HeatMap period={period} year={year} />
+          <Stack direction="column" spacing={4}>
+            {departments.map((department) => (
+              <Stack
+                spacing={8}
+                direction="row"
+                key={department._id}
+                justifyContent="space-between"
+              >
+                <Text fontFamily="Montserrat Medium" key={department.name}>
+                  {department.name}
+                </Text>
+                <Text fontFamily="Montserrat Medium" key={department.name}>
+                  {department.total}
+                </Text>
+              </Stack>
+            ))}
+          </Stack>
         </Stack>
 
         <Stack

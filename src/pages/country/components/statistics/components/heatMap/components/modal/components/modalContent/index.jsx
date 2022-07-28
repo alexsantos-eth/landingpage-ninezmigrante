@@ -72,7 +72,7 @@ const ModalContent = ({ period, year, dep, country }) => {
             justifyContent="center"
           >
             <Image src={Femenine} height="32px" />
-            <Text fontFamily="Oswald" fontSize="3xl" color="red.700">
+            <Text fontFamily="Oswald" fontSize="3xl" color="green.700">
               {genders.female}
             </Text>
           </Stack>

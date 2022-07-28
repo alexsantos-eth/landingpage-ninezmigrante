@@ -59,7 +59,7 @@ const TotalByGender = () => {
           width="50%"
           direction="row"
           alignItems="center"
-          bgColor="red.700"
+          bgColor="green.700"
           justifyContent="flex-end"
           padding={{
             base: "160px 40px 80px 40px",

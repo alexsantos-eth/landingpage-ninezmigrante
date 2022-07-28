@@ -34,8 +34,8 @@ const countryDeps = {
     { id: "copan", color },
     { id: "cortes", color },
     { id: "elparaiso", color },
-    { id: "francis", color },
-    { id: "gracias", color },
+    { id: "franciscomorazan", color },
+    { id: "graciasadios", color },
     { id: "intibuca", color },
     { id: "islasbahia", color },
     { id: "lapaz", color },
@@ -49,7 +49,7 @@ const countryDeps = {
 };
 
 export const depColors = [
-  colors.red[700],
+  colors.green[700],
   colors.yellow[700],
   colors.blue[700],
 ];

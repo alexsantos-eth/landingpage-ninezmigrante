@@ -16,7 +16,7 @@ import ViaIcon from "../../../../../../../assets/charts/via.svg";
 
 export const itemColors = [
   colors.blue[700],
-  colors.red[700],
+  colors.green[700],
   colors.yellow[700],
 ];
 

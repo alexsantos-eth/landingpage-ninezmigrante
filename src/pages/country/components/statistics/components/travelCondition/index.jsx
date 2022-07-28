@@ -52,8 +52,8 @@ const TravelCondition = ({
     datasets: [
       {
         data: [acd ?? total.acd, noAcd ?? total.noAcd],
-        backgroundColor: [colors.red[700], colors.blue[700]],
-        borderColor: [colors.red[700], colors.blue[700]],
+        backgroundColor: [colors.green[700], colors.blue[700]],
+        borderColor: [colors.green[700], colors.blue[700]],
         borderWidth: 1,
       },
     ],
@@ -86,7 +86,7 @@ const TravelCondition = ({
 
           {/* DATA ITEM */}
           <Stack direction="row" alignItems="center">
-            <Box bgColor="red.700" width="18px" height="18px" />
+            <Box bgColor="green.700" width="18px" height="18px" />
             <Text fontFamily="Oswald" fontSize="md" lineHeight="1">
               Acompañados
             </Text>

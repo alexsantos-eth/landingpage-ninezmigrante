@@ -60,7 +60,7 @@ const Gender = ({
           >
             <Image src={Femenine} height="50px" />
           </Tooltip>
-          <Text fontFamily="Oswald" fontSize="4xl" color="red.700">
+          <Text fontFamily="Oswald" fontSize="4xl" color="green.700">
             {female ?? total.female}
           </Text>
         </Stack>

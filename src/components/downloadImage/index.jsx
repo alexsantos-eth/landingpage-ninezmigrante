@@ -58,7 +58,7 @@ const DownloadImage = ({ label, containerRef }) => {
         onClick={handleDownloadImage}
         rightIcon={<DownloadIcon />}
         fontFamily="Montserrat Medium"
-        _hover={{ bgColor: "red.700", color: "white" }}
+        _hover={{ bgColor: "green.700", color: "white" }}
       >
         Descargar
       </Button>

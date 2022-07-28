@@ -305,7 +305,7 @@ const Popup = () => {
                 onClick={sendForm}
                 fontFamily="Montserrat Medium"
                 size={{ base: "md", md: "lg" }}
-                _hover={{ bgColor: "red.700" }}
+                _hover={{ bgColor: "green.700" }}
               >
                 Enviar
               </Button>

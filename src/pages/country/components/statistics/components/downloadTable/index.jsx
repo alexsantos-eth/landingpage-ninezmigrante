@@ -52,7 +52,7 @@ const DownloadTable = ({ satisticsRef, periodId, tableState }) => {
               onClick={downloadXLS}
               rightIcon={<DownloadIcon />}
               fontFamily="Montserrat Medium"
-              _hover={{ bgColor: "red.700", color: "white" }}
+              _hover={{ bgColor: "green.700", color: "white" }}
             >
               Descargar
             </Button>
