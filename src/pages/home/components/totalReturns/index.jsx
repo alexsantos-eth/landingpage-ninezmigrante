@@ -106,7 +106,12 @@ const TotalReturns = () => {
                 bgColor="blue.500"
                 fontFamily="Oswald"
               >
-                <Image src={Guatemala} height="70px" />
+                <Image
+                  width="35%"
+                  height="70px"
+                  src={Guatemala}
+                  objectFit="contain"
+                />
               </Tooltip>
               <Text
                 color="white"
@@ -138,7 +143,12 @@ const TotalReturns = () => {
                 bgColor="blue.500"
                 fontFamily="Oswald"
               >
-                <Image src={Honduras} width={{ base: "90px", md: "100px" }} />
+                <Image
+                  width="45%"
+                  height="70px"
+                  src={Honduras}
+                  objectFit="contain"
+                />
               </Tooltip>
               <Text
                 color="white"

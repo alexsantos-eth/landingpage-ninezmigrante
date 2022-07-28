@@ -2,10 +2,11 @@
 import React, { useEffect } from "react";
 
 // COMPONENTS
-import CountrySelect from "./components/countrySelect";
-import TotalReturns from "./components/totalReturns";
-import TotalByGender from "./components/totalByGender";
 import TotalByTravelCondition from "./components/totalByTravelCondition";
+import CountrySelect from "./components/countrySelect";
+import TotalByGender from "./components/totalByGender";
+import TotalReturns from "./components/totalReturns";
+import TotalBorders from "./components/totalBorders";
 
 const HomePage = () => {
   useEffect(() => {
@@ -18,6 +19,7 @@ const HomePage = () => {
       <TotalReturns />
       <TotalByGender />
       <TotalByTravelCondition />
+      <TotalBorders />
     </>
   );
 };
