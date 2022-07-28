@@ -16,7 +16,7 @@ import ViaIcon from "../../../../../../../assets/charts/via.svg";
 
 export const itemColors = [
   colors.blue[700],
-  colors.red[700],
+  colors.green[700],
   colors.yellow[700],
 ];
 
@@ -25,7 +25,7 @@ export const graphDataTypes = {
   return: "Pais de Retorno",
   via: "Via de Retorno",
   age: "Rango Etario",
-  gender: "Género",
+  gender: "Sexo",
 };
 
 export const customPeriods = [
@@ -36,7 +36,7 @@ export const customPeriods = [
 export const customDataTypes = [
   {
     id: "gender",
-    name: "Género",
+    name: "Sexo",
     Content: (
       <Stack
         height="100%"

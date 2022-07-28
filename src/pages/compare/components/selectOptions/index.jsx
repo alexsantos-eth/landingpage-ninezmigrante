@@ -11,7 +11,7 @@ const SelectOptions = ({ onChange, satisticsRef }) => {
         <Text
           fontSize={{ base: "5xl", md: "6xl" }}
           lineHeight="1.2"
-          color="red.700"
+          color="green.700"
           marginBottom="40px"
           textAlign="center"
           fontFamily="Oswald"

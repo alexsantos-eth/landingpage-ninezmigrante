@@ -4,13 +4,14 @@ import { Stack, Text, Button, Image } from "@chakra-ui/react";
 import { DownloadIcon } from "@chakra-ui/icons";
 import folder from "../../assets/folder.png";
 
-const DownloadImage = ({ label, containerRef }) => {
+const DownloadImage = ({ label, containerRef, onSS = (screenshot) => {} }) => {
   // STATE
   const [screenshot, setScreenshot] = useState(false);
   const handleDownloadImage = async () => setScreenshot(true);
 
   // TAKE SCREEN SHOOT
   useEffect(() => {
+    onSS(screenshot);
     if (screenshot) {
       const take = async () => {
         const element = containerRef.current;
@@ -58,7 +59,7 @@ const DownloadImage = ({ label, containerRef }) => {
         onClick={handleDownloadImage}
         rightIcon={<DownloadIcon />}
         fontFamily="Montserrat Medium"
-        _hover={{ bgColor: "red.700", color: "white" }}
+        _hover={{ bgColor: "green.700", color: "white" }}
       >
         Descargar
       </Button>

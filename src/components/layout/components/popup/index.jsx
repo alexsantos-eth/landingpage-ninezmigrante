@@ -218,14 +218,14 @@ const Popup = () => {
                     fontSize={{ base: "lg", md: "xl" }}
                     width={{ base: "100%", md: "25%" }}
                   >
-                    Género:
+                    Sexo:
                   </Text>
                   <Select
                     name="gender"
                     onChange={handleInputs}
                     bgColor="white"
                     fontFamily="Montserrat Medium"
-                    placeholder="Selecciona tu género"
+                    placeholder="Selecciona tu sexo"
                     width={{ base: "100%", md: "75%" }}
                   >
                     <option value="masculino">Masculino</option>
@@ -305,7 +305,7 @@ const Popup = () => {
                 onClick={sendForm}
                 fontFamily="Montserrat Medium"
                 size={{ base: "md", md: "lg" }}
-                _hover={{ bgColor: "red.500" }}
+                _hover={{ bgColor: "green.700" }}
               >
                 Enviar
               </Button>

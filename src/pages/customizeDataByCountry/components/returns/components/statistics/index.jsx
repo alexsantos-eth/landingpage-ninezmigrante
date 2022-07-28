@@ -89,13 +89,13 @@ const Statistics = ({ returns }) => {
                   <ModalContentGT
                     disableHeat
                     id={department.id}
-                    customColor={[colors.heat[900 - index * 100]]}
+                    customColor={[colors.heat.guatemala[900 - index * 100]]}
                   />
                 ) : (
                   <ModalContentHN
                     disableHeat
                     id={department.id}
-                    customColor={[colors.heat[900 - index * 100]]}
+                    customColor={[colors.heat.honduras[900 - index * 100]]}
                   />
                 )}
               </Stack>

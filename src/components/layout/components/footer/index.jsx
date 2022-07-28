@@ -33,7 +33,7 @@ const Footer = () => {
           >
             <Link to="/observatory">
               <Text fontFamily="Montserrat Medium" color="gray.600">
-                Observatorio
+                Monitoreo
               </Text>
             </Link>
 

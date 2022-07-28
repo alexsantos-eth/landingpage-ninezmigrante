@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Stack, Text, Button, Image, Divider } from "@chakra-ui/react";
 
@@ -8,6 +8,9 @@ import folder from "../../../../../../assets/folder.png";
 import DownloadImage from "../../../../../../components/downloadImage";
 
 const DownloadTable = ({ satisticsRef, periodId, tableState }) => {
+  const [hideXls, setHideXls] = useState(false);
+  const onSS = (ss) => setHideXls(ss);
+
   // DOWNLOAD
   const downloadXLS = () =>
     fetch(`${import.meta.env.VITE_APP_API_URL}/uploads/planillav1/${periodId}`)
@@ -35,7 +38,7 @@ const DownloadTable = ({ satisticsRef, periodId, tableState }) => {
           borderWidth="1px"
         />
 
-        {tableState ? (
+        {!hideXls ? (
           <Stack
             gap="24px"
             alignItems="center"
@@ -52,7 +55,7 @@ const DownloadTable = ({ satisticsRef, periodId, tableState }) => {
               onClick={downloadXLS}
               rightIcon={<DownloadIcon />}
               fontFamily="Montserrat Medium"
-              _hover={{ bgColor: "red.700", color: "white" }}
+              _hover={{ bgColor: "green.700", color: "white" }}
             >
               Descargar
             </Button>
@@ -62,6 +65,7 @@ const DownloadTable = ({ satisticsRef, periodId, tableState }) => {
         )}
 
         <DownloadImage
+          onSS={onSS}
           containerRef={satisticsRef}
           label="Descargar infografía del período"
         />

@@ -40,7 +40,7 @@ const Gender = ({
     <Box width="100%">
       <Stack justifyContent="center" alignItems="center" spacing="16px">
         <Text fontFamily="Oswald" fontSize="2xl">
-          Género
+          Sexo
         </Text>
         <Stack
           gap="16px"
@@ -60,7 +60,7 @@ const Gender = ({
           >
             <Image src={Femenine} height="50px" />
           </Tooltip>
-          <Text fontFamily="Oswald" fontSize="4xl" color="red.700">
+          <Text fontFamily="Oswald" fontSize="4xl" color="green.700">
             {female ?? total.female}
           </Text>
         </Stack>

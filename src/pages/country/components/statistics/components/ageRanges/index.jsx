@@ -33,7 +33,7 @@ const AgeRanges = ({
   defData: { f1 = undefined, f2 = undefined, f3 = undefined },
 }) => {
   let labels = ["0-6 años", "7-12 años", "13-17 años"];
-  let chartColors = [colors.yellow[700], colors.blue[700], colors.red[700]];
+  let chartColors = [colors.yellow[700], colors.blue[700], colors.green[700]];
   let agesLabels = ["Primera infancia", "Niñez", "Adolescencia"];
 
   const countryID = useParams().countryID || country;

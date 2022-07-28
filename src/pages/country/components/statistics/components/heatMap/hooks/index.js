@@ -61,7 +61,7 @@ export const useHeatColors = (setColorScales, countryID, period, year) => {
             );
 
             if (scale === 0) scales[department.id] = colors.heatMin[100];
-            else scales[department.id] = colors.heat[scale];
+            else scales[department.id] = colors.heat[countryID][scale];
           });
           setColorScales(scales);
         });

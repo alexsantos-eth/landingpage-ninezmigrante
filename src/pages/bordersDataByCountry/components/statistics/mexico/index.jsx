@@ -1,17 +1,31 @@
+// REACT
 import React, { useState, useRef } from "react";
+import { useParams } from "react-router-dom";
 
-import { Box, Stack, Text, Image, Select } from "@chakra-ui/react";
+// CHAKRA UI COMPONENTS
+import {
+  Box,
+  Stack,
+  Text,
+  Image,
+  Select,
+  StackDivider,
+} from "@chakra-ui/react";
 
-import MapaMexico from "../../../../../assets/mexico.svg";
-import useFetch from "../../../../../hooks/fetch";
-
+// COMPONENTS
 import Gender from "../../../../../pages/country/components/statistics/components/gender";
 import AgeRanges from "../../../../../pages/country/components/statistics/components/ageRanges";
 import TravelCondition from "../../../../../pages/country/components/statistics/components/travelCondition";
-
-import { useParams } from "react-router-dom";
-import { year } from "../../../../../utils/year";
 import DownloadImage from "../../../../../components/downloadImage";
+
+// ASSETS
+import MapaMexico from "../../../../../assets/mexico.svg";
+
+// HOOKS
+import useFetch from "../../../../../hooks/fetch";
+
+// UTILS
+import { year } from "../../../../../utils/year";
 
 const Mexico = () => {
   const [currentMonth, setCurrentMonth] = useState("");
@@ -40,33 +54,47 @@ const Mexico = () => {
     ) ?? {};
 
   return (
-    <Box width="100%" padding="80px 40px" ref={containerRef}>
+    <Box
+      width="100%"
+      ref={containerRef}
+      padding={{ base: "24px 40px", md: "80px 40px" }}
+    >
+      {/* CONTAINER */}
       <Stack
-        gap="40px"
+        gap="24px"
         width="100%"
         margin="auto"
-        maxWidth="800px"
+        maxWidth="1000px"
+        direction="column"
         alignItems="center"
         justifyContent="center"
-        direction={{ base: "column-reverse", md: "row" }}
       >
-        <Stack>
-          <Image src={MapaMexico} width="280px" />
-        </Stack>
+        {/* SECTION HEADING  */}
+        <Stack
+          width="100%"
+          alignItems="center"
+          direction={{ base: "column", md: "row" }}
+          justifyContent={{ base: "center", md: "space-between" }}
+        >
+          {/* YEAR AND TITLE */}
+          <Stack width={{ base: "100%", md: "50%" }}>
+            <Text fontFamily="Oswald" fontSize="2xl" lineHeight="1">
+              {currentYear || year}
+            </Text>
+            <Text
+              fontSize="4xl"
+              fontFamily="Oswald"
+              lineHeight={{ base: "1.2", md: "1" }}
+            >
+              REPORTADOS POR MÉXICO
+            </Text>
+          </Stack>
 
-        <Stack>
-          <Text fontFamily="Oswald" fontSize="2xl" lineHeight="1">
-            {currentYear || year}
-          </Text>
-          <Text
-            fontSize="4xl"
-            fontFamily="Oswald"
-            lineHeight={{ base: "1.2", md: "1" }}
+          {/* YEAR AND PERIOD SELECTS */}
+          <Stack
+            width={{ base: "100%", md: "50%" }}
+            direction={{ base: "column", md: "row" }}
           >
-            REPORTADOS POR MÉXICO
-          </Text>
-
-          <Stack direction={{ base: "column", md: "row" }}>
             {/* SELECT YEAR */}
             <Select
               fontSize="2xl"
@@ -110,64 +138,112 @@ const Mexico = () => {
               <option value="DICIEMBRE">Diciembre</option>
             </Select>
           </Stack>
-
-          {Object.keys(dataPerMonth).length > 0 && (
-            <Stack
-              width="100%"
-              spacing="40px"
-              padding="24px"
-              bgColor="#fff"
-              maxWidth="380px"
-              borderRadius="12px"
-            >
-              <Stack>
-                <Text fontFamily="Oswald" fontSize="3xl" lineHeight="1">
-                  {currentMonth || "Mes"}
-                </Text>
-                <Text fontFamily="Oswald" fontSize="4xl" lineHeight="1">
-                  {dataPerMonth?.totalMes ?? "0"}
-                </Text>
-              </Stack>
-
-              {/* GRAPHS */}
-              <Stack
-                gap="24px"
-                margin="auto"
-                direction="column"
-                alignItems="center"
-                justifyContent="space-between"
-                marginBottom={{ base: "40px", md: "60px" }}
-              >
-                <Gender
-                  period={"enero - abril"}
-                  year={"2020"}
-                  defData={{
-                    female: dataPerMonth?.femenino,
-                    male: dataPerMonth?.masculino,
-                  }}
-                />
-                <TravelCondition
-                  period={"enero - abril"}
-                  year={"2020"}
-                  defData={{
-                    acd: dataPerMonth?.acompaniado,
-                    noAcd: dataPerMonth?.noAcompaniado,
-                  }}
-                />
-                <AgeRanges
-                  disableFirstAge
-                  period={"enero - abril"}
-                  year={"2020"}
-                  defData={{
-                    f2: dataPerMonth?.ninos,
-                    f3: dataPerMonth?.adolescentes,
-                  }}
-                />
-              </Stack>
-              <DownloadImage label="" containerRef={containerRef} />
-            </Stack>
-          )}
         </Stack>
+
+        {/* STATISTICS */}
+        <Stack
+          gap="40px"
+          width="100%"
+          bgColor="#fff"
+          padding="40px 24px"
+          alignItems="center"
+          borderRadius="12px"
+          justifyContent="space-between"
+          direction={{ base: "column", md: "row" }}
+        >
+          {/* COUNTRY MAP */}
+          <Stack>
+            <Image src={MapaMexico} minWidth="240px" />
+          </Stack>
+
+          <Stack
+            direction="column"
+            alignItems={{ base: "center", md: "flex-start" }}
+          >
+            {/* TOTAL MONTH DATA */}
+            <Stack direction="row" alignItems="center">
+              <Text fontFamily="Oswald" fontSize="3xl" lineHeight="1">
+                {currentMonth || "Mes"}
+              </Text>
+              <Text fontFamily="Oswald" fontSize="4xl" lineHeight="1">
+                {dataPerMonth?.totalMes ?? "0"}
+              </Text>
+            </Stack>
+
+            {/* GRAPHS */}
+            <Stack
+              gap="16px"
+              padding="24px 0px"
+              alignItems="flex-start"
+              direction={{ base: "column", md: "row" }}
+            >
+              {/* GENDER COMPONENT */}
+              <Gender
+                period={"enero - abril"}
+                year={"2020"}
+                defData={{
+                  female: dataPerMonth?.femenino,
+                  male: dataPerMonth?.masculino,
+                }}
+              />
+
+              {/* TRAVEL CONDITION COMPONENT */}
+              <TravelCondition
+                period={"enero - abril"}
+                year={"2020"}
+                defData={{
+                  acd: dataPerMonth?.acompaniado,
+                  noAcd: dataPerMonth?.noAcompaniado,
+                }}
+              />
+
+              {/* AGE RANGES COMPONENT */}
+              <AgeRanges
+                disableFirstAge
+                year={"2020"}
+                period={"enero - abril"}
+                defData={{
+                  f2: dataPerMonth?.ninos,
+                  f3: dataPerMonth?.adolescentes,
+                }}
+              />
+            </Stack>
+          </Stack>
+        </Stack>
+
+        {/* SOURCES */}
+        <Stack
+          width="100%"
+          margin="auto"
+          direction="column"
+          alignItems="center"
+          marginBottom="40px"
+          justifyContent="center"
+          maxWidth={{ base: "300px", md: "800px" }}
+        >
+          <Text
+            textAlign="center"
+            fontFamily="Oswald"
+            fontSize={{ base: "xl", md: "2xl" }}
+            maxWidth={{ base: "300px", md: "800px" }}
+          >
+            Fuente:
+            http://www.politicamigratoria.gob.mx/es/PoliticaMigratoria/Boletines_Estadisticos
+          </Text>
+
+          <Text
+            textAlign="center"
+            fontFamily="Montserrat Medium"
+            fontSize={{ base: "xs", md: "sm" }}
+          >
+            Esta información ha sido procesada por: MOBINM, monitoreo binacional
+            de niñez migrante Guatemala-Honduras, en el marco del Proyecto
+            Binacional Honduras-Guatemala a favor de los derechos de la niñez y
+            adolescencia migrante. Implementado por: PAMI y COIPRODEN, con
+            fondos de KNH y BMZ.
+          </Text>
+        </Stack>
+        <DownloadImage label="" containerRef={containerRef} />
       </Stack>
     </Box>
   );

@@ -26,7 +26,7 @@ const CountrySelect = () => {
         height="100%"
         alignItems="center"
         justifyContent="center"
-        gap={{ base: "40px", md: "120px" }}
+        gap={{ base: "40px", md: "60px" }}
         direction={{ base: "column", md: "row" }}
       >
         {/* GUATEMALA OPTION */}
@@ -35,12 +35,12 @@ const CountrySelect = () => {
             <Image
               maxWidth="500px"
               src={MapaGuatemala}
-              height={{ base: "200px", md: "240px" }}
+              height={{ base: "200px", md: "280px" }}
             />
 
             <Stack direction="row" alignItems="center" spacing="16px">
               <ArrowRightIcon boxSize="24px" color="gray.700" />
-              <Text fontSize="4xl" fontFamily="Oswald" color="red.700">
+              <Text fontSize="4xl" fontFamily="Oswald" color="gray.700">
                 Guatemala
               </Text>
             </Stack>
@@ -53,12 +53,12 @@ const CountrySelect = () => {
             <Image
               maxWidth="500px"
               src={MapaHonduras}
-              height={{ base: "160px", md: "240px" }}
+              height={{ base: "160px", md: "260px" }}
             />
 
             <Stack direction="row" alignItems="center" spacing="16px">
               <ArrowRightIcon boxSize="24px" color="gray.700" />
-              <Text fontSize="4xl" fontFamily="Oswald" color="red.700">
+              <Text fontSize="4xl" fontFamily="Oswald" color="gray.700">
                 Honduras
               </Text>
             </Stack>

@@ -152,7 +152,7 @@ const ContactPage = () => {
             width="100%"
             color="white"
             marginTop="24px"
-            bgColor="red.700"
+            bgColor="green.700"
             onClick={sendForm}
             fontFamily="Montserrat Medium"
             _hover={{ bgColor: "blue.700" }}

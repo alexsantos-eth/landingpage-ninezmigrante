@@ -33,7 +33,7 @@ const HeatMap = ({ period, year, country }) => {
     setModalDep(name);
     setColorScales((prevScales) => ({
       ...prevScales,
-      [name]: colors.red[500],
+      [name]: colors.heat[countryID][900],
     }));
   };
 
@@ -54,7 +54,6 @@ const HeatMap = ({ period, year, country }) => {
       <Box
         gap="16px"
         width="100%"
-        margin="auto"
         display="flex"
         alignItems="center"
         flexDirection="column"
@@ -66,7 +65,7 @@ const HeatMap = ({ period, year, country }) => {
         </Text>
         <Box>
           <HStack spacing={0}>
-            {Object.values(colors.heat).map((color) => (
+            {Object.values(colors.heat[countryID]).map((color) => (
               <Box height="30px" width="30px" key={color} background={color} />
             ))}
           </HStack>
