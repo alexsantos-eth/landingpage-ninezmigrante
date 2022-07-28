@@ -125,13 +125,18 @@ const Statistics = ({ period, year, satisticsRef }) => {
         <Stack
           width="100%"
           margin="auto"
-          maxWidth="800px"
           direction="column"
           alignItems="center"
           marginBottom="40px"
           justifyContent="center"
+          maxWidth={{ base: "300px", md: "800px" }}
         >
-          <Text fontFamily="Oswald" fontSize="2xl">
+          <Text
+            textAlign="center"
+            fontFamily="Oswald"
+            fontSize={{ base: "xl", md: "2xl" }}
+            maxWidth={{ base: "300px", md: "800px" }}
+          >
             {countryID === "guatemala"
               ? "Fuentes: SBS y/o IGM"
               : "Fuente: DINAF"}

@@ -210,6 +210,39 @@ const Mexico = () => {
             </Stack>
           </Stack>
         </Stack>
+
+        {/* SOURCES */}
+        <Stack
+          width="100%"
+          margin="auto"
+          direction="column"
+          alignItems="center"
+          marginBottom="40px"
+          justifyContent="center"
+          maxWidth={{ base: "300px", md: "800px" }}
+        >
+          <Text
+            textAlign="center"
+            fontFamily="Oswald"
+            fontSize={{ base: "xl", md: "2xl" }}
+            maxWidth={{ base: "300px", md: "800px" }}
+          >
+            Fuente:
+            http://www.politicamigratoria.gob.mx/es/PoliticaMigratoria/Boletines_Estadisticos
+          </Text>
+
+          <Text
+            textAlign="center"
+            fontFamily="Montserrat Medium"
+            fontSize={{ base: "xs", md: "sm" }}
+          >
+            Esta información ha sido procesada por: MOBINM, monitoreo binacional
+            de niñez migrante Guatemala-Honduras, en el marco del Proyecto
+            Binacional Honduras-Guatemala a favor de los derechos de la niñez y
+            adolescencia migrante. Implementado por: PAMI y COIPRODEN, con
+            fondos de KNH y BMZ.
+          </Text>
+        </Stack>
         <DownloadImage label="" containerRef={containerRef} />
       </Stack>
     </Box>
