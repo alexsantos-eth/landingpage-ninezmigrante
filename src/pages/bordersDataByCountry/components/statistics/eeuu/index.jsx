@@ -27,6 +27,8 @@ const excludeFields = [
   "paisLocal",
   "periodo",
   "granTotal",
+  "createdAt",
+  "updatedAt",
 ];
 
 const EEUU = () => {

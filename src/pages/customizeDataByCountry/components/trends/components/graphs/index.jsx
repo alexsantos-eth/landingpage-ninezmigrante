@@ -155,7 +155,7 @@ const TrendsGraphs = ({ country = "guatemala" }) => {
                               ),
                               filter:
                                 graphType === item.id
-                                  ? "invert(21%) sepia(96%) saturate(1831%) hue-rotate(354deg) brightness(93%) contrast(89%)"
+                                  ? "invert(68%) sepia(41%) saturate(480%) hue-rotate(43deg) brightness(95%) contrast(90%)"
                                   : "none",
                               marginRight: index === 4 ? "0" : "8px",
                             }}
