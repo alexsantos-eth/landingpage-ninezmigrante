@@ -40,7 +40,7 @@ const CountrySelect = () => {
 
             <Stack direction="row" alignItems="center" spacing="16px">
               <ArrowRightIcon boxSize="24px" color="gray.700" />
-              <Text fontSize="4xl" fontFamily="Oswald" color="red.700">
+              <Text fontSize="4xl" fontFamily="Oswald" color="gray.700">
                 Guatemala
               </Text>
             </Stack>
@@ -58,7 +58,7 @@ const CountrySelect = () => {
 
             <Stack direction="row" alignItems="center" spacing="16px">
               <ArrowRightIcon boxSize="24px" color="gray.700" />
-              <Text fontSize="4xl" fontFamily="Oswald" color="red.700">
+              <Text fontSize="4xl" fontFamily="Oswald" color="gray.700">
                 Honduras
               </Text>
             </Stack>

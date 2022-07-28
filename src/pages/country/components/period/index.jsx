@@ -49,7 +49,7 @@ const Period = ({ period, setPeriod, year, setYear, satisticsRef }) => {
         <Stack direction="column">
           {/* TITLE */}
           <Text
-            color="red.700"
+            color="gray.700"
             fontFamily="Oswald"
             fontSize={{ base: "4xl", md: "6xl" }}
           >

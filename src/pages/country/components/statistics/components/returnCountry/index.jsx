@@ -76,17 +76,25 @@ const ReturnCountry = ({ period, year, country }) => {
 
   return (
     <Box width="100%">
-      <Stack justifyContent="center" alignItems="center" spacing="24px">
+      <Stack justifyContent="center" alignItems="center" marginBottom="24px">
         <Text fontFamily="Oswald" fontSize="2xl">
           País de retorno
         </Text>
+      </Stack>
+
+      <Stack
+        spacing="24px"
+        justifyContent="center"
+        direction={{ base: "column", md: "row" }}
+        alignItems={{ base: "center", md: "flex-end" }}
+      >
         {Object.entries(total)
           .sort((a, b) => b[1].total - a[1].total)
           .map((country, index) =>
             country[1].total > 0 ? (
               <Stack
                 gap="24px"
-                direction="row"
+                direction="column"
                 key={`${country[0]}-${index}`}
                 alignItems="center"
                 justifyContent="center"

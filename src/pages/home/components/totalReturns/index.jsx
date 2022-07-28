@@ -29,7 +29,7 @@ const TotalReturns = () => {
   });
 
   return (
-    <Box bg="red.500" p={{ base: "40px 24px", md: "80px 40px" }}>
+    <Box bg="blue.700" p={{ base: "40px 24px", md: "80px 40px" }}>
       {/* CONTAINER */}
       <Stack
         alignItems="center"

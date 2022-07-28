@@ -35,7 +35,7 @@ const Header = () => {
             <span style={{ fontWeight: "bold" }}>Instrucciones: </span> Para
             realizar una comparación personalizada, elija el período de
             comparación y luego arrastre al lienzo la variable que desea
-            comparar (género, rango etario, condición de viaje, vía de retorno o
+            comparar (sexo, rango etario, condición de viaje, vía de retorno o
             país de retorno). Por útlimo, elija el tipo de gráfico a desplegar.
             Luego de mostrar su gráfica de tendencia personalizada, puede
             guardar la imagen en su dispositivo haciendo clic en el botón

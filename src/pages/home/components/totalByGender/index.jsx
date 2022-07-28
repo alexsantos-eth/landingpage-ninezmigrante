@@ -42,7 +42,7 @@ const TotalByGender = () => {
           bgColor="white"
           padding="4px 16px"
           position="absolute"
-          marginTop={{ base: "-180px", md: "-240px" }}
+          marginTop={{ base: "-180px", md: "-320px" }}
         >
           <Text
             textAlign="center"
@@ -59,11 +59,11 @@ const TotalByGender = () => {
           width="50%"
           direction="row"
           alignItems="center"
-          bgColor="yellow.500"
+          bgColor="red.700"
           justifyContent="flex-end"
           padding={{
             base: "160px 40px 80px 40px",
-            md: "220px 40px 120px 40px",
+            md: "180px 40px 120px 40px",
           }}
         >
           <Image
@@ -73,14 +73,14 @@ const TotalByGender = () => {
           />
           <Stack direction="column" spacing="-16px">
             <Text
-              color="red.700"
+              color="white"
               fontFamily="Oswald"
-              fontSize={{ base: "4xl", md: "5xl" }}
+              fontSize={{ base: "4xl", md: "7xl" }}
             >
               NIÑAS
             </Text>
             <Text
-              color="red.700"
+              color="white"
               fontFamily="Oswald"
               fontSize={{ base: "5xl", md: "7xl" }}
             >
@@ -94,24 +94,24 @@ const TotalByGender = () => {
           gap="16px"
           width="50%"
           direction="row"
-          bgColor="#EAD0C1"
+          bgColor="yellow.700"
           alignItems="center"
           justifyContent="flex-start"
           padding={{
             base: "160px 40px 80px 40px",
-            md: "220px 40px 120px 40px",
+            md: "180px 40px 120px 40px",
           }}
         >
           <Stack direction="column" spacing="-16px">
             <Text
-              color="yellow.700"
+              color="white"
               fontFamily="Oswald"
-              fontSize={{ base: "4xl", md: "5xl" }}
+              fontSize={{ base: "4xl", md: "7xl" }}
             >
               NIÑOS
             </Text>
             <Text
-              color="yellow.700"
+              color="white"
               fontFamily="Oswald"
               fontSize={{ base: "5xl", md: "7xl" }}
             >
@@ -120,7 +120,7 @@ const TotalByGender = () => {
           </Stack>
           <Image
             src={Male}
-            height="100px"
+            height="120px"
             display={{ base: "none", md: "block" }}
           />
         </Stack>

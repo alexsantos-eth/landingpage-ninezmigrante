@@ -40,7 +40,7 @@ const Gender = ({
     <Box width="100%">
       <Stack justifyContent="center" alignItems="center" spacing="16px">
         <Text fontFamily="Oswald" fontSize="2xl">
-          Género
+          Sexo
         </Text>
         <Stack
           gap="16px"

@@ -7,7 +7,7 @@ import { Box, Stack, Image, Text, Tooltip } from "@chakra-ui/react";
 // COMPONETS
 import Mexico from "../../../../assets/mexico.svg";
 import USA from "../../../../assets/usa.svg";
-import Group from "../../../../assets/group.png";
+import Police from "../../../../assets/police.png";
 
 // UTILS
 import { year } from "../../../../utils/year";
@@ -32,7 +32,7 @@ const TotalBorders = () => {
   });
 
   return (
-    <Box bg="red.500" p={{ base: "40px 24px", md: "80px 40px" }}>
+    <Box bg="blue.700" p={{ base: "40px 24px", md: "80px 40px" }}>
       {/* CONTAINER */}
       <Stack
         alignItems="center"
@@ -43,9 +43,9 @@ const TotalBorders = () => {
       >
         {/* DESKTOP IMAGE */}
         <Image
-          w="160px"
-          h="160px"
-          src={Group}
+          w="180px"
+          h="180px"
+          src={Police}
           display={{ base: "none", md: "block" }}
         />
         {/* DATA */}
@@ -58,19 +58,19 @@ const TotalBorders = () => {
           {/* TITLE */}
           <Text
             color="white"
-            maxWidth="400px"
+            maxWidth="600px"
             fontFamily="Oswald"
             fontSize={{ base: "3xl", md: "4xl" }}
             textAlign={{ base: "center", md: "left" }}
           >
-            Total de NIÑEZ detendia en FRONTERA retornada {year}
+            Total de NIÑEZ detendia en FRONTERA {year}
           </Text>
 
           {/* MOBILE IMAGE */}
           <Image
             w="150px"
             h="150px"
-            src={Group}
+            src={Police}
             display={{ base: "block", md: "none" }}
           />
 

@@ -29,7 +29,7 @@ const MobileNavbar = () => {
         size="lg"
         onClick={onOpen}
         colorScheme="white"
-        icon={<HamburgerIcon />}
+        icon={<HamburgerIcon fontSize="2xl" />}
         display={{ base: "block", md: "none" }}
       />
 
@@ -57,7 +57,7 @@ const MobileNavbar = () => {
                 <Stack direction="row" alignItems="center">
                   <Icon as={ChevronRightIcon} color="gray.600" />
                   <Text fontFamily="Montserrat Medium" color="gray.600">
-                    Observatorio
+                    Monitoreo
                   </Text>
                 </Stack>
               </Link>

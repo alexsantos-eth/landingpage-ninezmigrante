@@ -39,7 +39,7 @@ const Statistics = ({ period, year, satisticsRef }) => {
       >
         <Stack
           margin="auto"
-          maxWidth="750px"
+          maxWidth="800px"
           alignItems="center"
           justifyContent="space-between"
           gap={{ base: "24px", md: "40px" }}
@@ -83,39 +83,70 @@ const Statistics = ({ period, year, satisticsRef }) => {
         </Stack>
         <Stack
           gap="40px"
+          width="100%"
           margin="auto"
-          maxWidth="750px"
+          maxWidth="800px"
           justifyContent="space-between"
           direction={{ base: "column", md: "row" }}
           marginBottom={{ base: "40px", md: "60px" }}
           alignItems={{ base: "center", md: "flex-start" }}
         >
           <Gender period={period} year={year} />
-          <TravelCondition period={period} year={year} />
+          <TravelCondition period={period} year={year} />z
           <AgeRanges period={period} year={year} />
         </Stack>
+
         <Stack
+          width="100%"
           margin="auto"
-          maxWidth="750px"
-          justifyContent="space-between"
+          maxWidth="800px"
+          justifyContent="center"
           gap={{ base: "40px", md: "40px" }}
           direction={{ base: "column", md: "row" }}
           marginBottom={{ base: "40px", md: "60px" }}
           alignItems={{ base: "center", md: "flex-start" }}
         >
-          <Stack spacing={{ base: "40px", md: "60px" }} direction="column">
-            <ReturnPath period={period} year={year} />
-            <ReturnCountry period={period} year={year} />
-          </Stack>
+          <ReturnPath period={period} year={year} />
+          <ReturnCountry period={period} year={year} />
+        </Stack>
 
+        <Stack
+          width="100%"
+          margin="auto"
+          maxWidth="800px"
+          alignItems="center"
+          marginBottom="40px"
+          justifyContent="center"
+          direction={{ base: "column", md: "row" }}
+        >
           <HeatMap period={period} year={year} />
         </Stack>
 
-        <Stack justifyContent="center" alignItems="center" marginBottom="40px">
+        <Stack
+          width="100%"
+          margin="auto"
+          maxWidth="800px"
+          direction="column"
+          alignItems="center"
+          marginBottom="40px"
+          justifyContent="center"
+        >
           <Text fontFamily="Oswald" fontSize="2xl">
             {countryID === "guatemala"
               ? "Fuentes: SBS y/o IGM"
               : "Fuente: DINAF"}
+          </Text>
+
+          <Text
+            textAlign="center"
+            fontFamily="Montserrat Medium"
+            fontSize={{ base: "xs", md: "sm" }}
+          >
+            Esta información ha sido procesada por: MOBINM, monitoreo binacional
+            de niñez migrante Guatemala-Honduras, en el marco del Proyecto
+            Binacional Honduras-Guatemala a favor de los derechos de la niñez y
+            adolescencia migrante. Implementado por: PAMI y COIPRODEN, con
+            fondos de KNH y BMZ.
           </Text>
         </Stack>
 
