@@ -48,7 +48,7 @@ export const useHeatColors = (setColorScales, countryID, period, year) => {
           });
 
           const scales = {};
-          const dataRange = 10 / filteredData.length;
+          const dataRange = 6 / filteredData.length;
           const scaleRange = dataRange * 10;
 
           filteredData.forEach((department) => {
@@ -63,10 +63,6 @@ export const useHeatColors = (setColorScales, countryID, period, year) => {
             if (scale === 0) scales[department.id] = colors.heatMin[100];
             else scales[department.id] = colors.heat[countryID][scale];
           });
-
-          // OBTENER MAXIMO
-          const max = filteredData.sort((a, b) => b.total - a.total)[0];
-          if (max) scales[max.id] = colors.heat[countryID][900];
 
           setColorScales(scales);
         });
