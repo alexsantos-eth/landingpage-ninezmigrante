@@ -63,6 +63,11 @@ export const useHeatColors = (setColorScales, countryID, period, year) => {
             if (scale === 0) scales[department.id] = colors.heatMin[100];
             else scales[department.id] = colors.heat[countryID][scale];
           });
+
+          // OBTENER MAXIMO
+          const max = filteredData.sort((a, b) => b.total - a.total)[0];
+          if (max) scales[max.id] = colors.heat[countryID][900];
+
           setColorScales(scales);
         });
     }

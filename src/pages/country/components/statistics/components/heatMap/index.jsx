@@ -65,6 +65,7 @@ const HeatMap = ({ period, year, country }) => {
         </Text>
         <Box>
           <HStack spacing={0}>
+            <Box height="30px" width="30px" background={colors.heatMin[100]} />
             {Object.values(colors.heat[countryID]).map((color) => (
               <Box height="30px" width="30px" key={color} background={color} />
             ))}
