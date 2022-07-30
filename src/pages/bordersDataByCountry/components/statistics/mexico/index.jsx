@@ -19,7 +19,7 @@ import TravelCondition from "../../../../../pages/country/components/statistics/
 import DownloadImage from "../../../../../components/downloadImage";
 
 // ASSETS
-import MapaMexico from "../../../../../assets/mexico.svg";
+import MapaMexico from "../../../../../assets/MapaMexico.png";
 
 // HOOKS
 import useFetch from "../../../../../hooks/fetch";
@@ -153,7 +153,7 @@ const Mexico = () => {
         >
           {/* COUNTRY MAP */}
           <Stack>
-            <Image src={MapaMexico} minWidth="240px" />
+            <Image src={MapaMexico} maxWidth="240px" />
           </Stack>
 
           <Stack

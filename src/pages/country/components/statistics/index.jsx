@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { Box, Stack, Text } from "@chakra-ui/react";
+import { Box, Stack, Text, Divider } from "@chakra-ui/react";
 
 import Gender from "./components/gender";
 import HeatMap from "./components/heatMap";
@@ -124,6 +124,14 @@ const Statistics = ({ period, year, satisticsRef }) => {
           <ReturnPath period={period} year={year} />
           <ReturnCountry period={period} year={year} />
         </Stack>
+
+        <Divider
+          maxWidth="800px"
+          borderWidth="1px"
+          margin="40px auto"
+          borderColor="black"
+          orientation="horizontal"
+        />
 
         <Stack
           spacing={8}

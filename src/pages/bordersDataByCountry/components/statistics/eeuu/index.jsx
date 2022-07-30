@@ -9,7 +9,7 @@ import { Box, Stack, Text, Image, Select, border } from "@chakra-ui/react";
 import DownloadImage from "../../../../../components/downloadImage";
 
 // ASSETS
-import MapaEEUU from "../../../../../assets/usa.svg";
+import MapaEEUU from "../../../../../assets/MapaEEUU.png";
 
 // HOOKS
 import useFetch from "../../../../../hooks/fetch";
@@ -158,7 +158,7 @@ const EEUU = () => {
         >
           {/* COUNTRY MAP */}
           <Stack>
-            <Image src={MapaEEUU} minWidth="240px" />
+            <Image src={MapaEEUU} maxWidth="240px" />
           </Stack>
 
           {/* TOTAL MONTH DATA */}

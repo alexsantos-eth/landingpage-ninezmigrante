@@ -14,6 +14,7 @@ import OrganizationsPage from "../../pages/organizations";
 import DocumentationPage from "../../pages/documentation";
 import BordersDataByCountry from "../../pages/bordersDataByCountry";
 import CustomizeDataByCountry from "../../pages/customizeDataByCountry";
+import DocumentationByCountry from "../../pages/documentationByCountry";
 
 const RouterProvider = () => (
   <Routes>
@@ -27,6 +28,10 @@ const RouterProvider = () => (
     <Route path="/borders/:countryID" element={<BordersDataByCountry />} />
     <Route path="/organizations" element={<OrganizationsPage />} />
     <Route path="/documentation" element={<DocumentationPage />} />
+    <Route
+      path="/documentation/:countryID"
+      element={<DocumentationByCountry />}
+    />
     <Route path="/contact" element={<ContactPage />} />
   </Routes>
 );
