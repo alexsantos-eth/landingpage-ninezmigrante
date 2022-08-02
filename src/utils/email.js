@@ -1,8 +1,12 @@
 export const validateEmail = (email) => {
-  const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return emailRegex.test(email)
-}
+  const emailRegex =
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return emailRegex.test(email);
+};
 
+/**
+ * Envía un correo electrónico a info@ninezmigrante.org con los datos proporcionados por el usuario
+ */
 const sendContactEmail = ({
   email,
   phone,
@@ -12,7 +16,7 @@ const sendContactEmail = ({
   subject,
   country,
   message,
-  callBack = () => {}
+  callBack = () => {},
 }) =>
   Email.send({
     Host: "smtp.elasticemail.com",

@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import { updateSection } from "../tools";
 
+/**
+ * Cuando cambie el período o el año actual, actualice los datos de cada departamento de la lista.
+ */
 export const usePeriodReload = ({
   period,
   countryID,

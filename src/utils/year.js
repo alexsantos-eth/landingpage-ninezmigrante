@@ -1,3 +1,4 @@
+/* Exportación del año y del trimestre actual. */
 export const year = new Date().getFullYear();
 export const getCurrentQuarter = () => {
   const month = new Date().getMonth();

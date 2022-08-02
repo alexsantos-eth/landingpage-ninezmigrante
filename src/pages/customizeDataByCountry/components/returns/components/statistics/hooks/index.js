@@ -2,6 +2,14 @@
 import { useEffect } from "react";
 import { quarterId } from "../../../../../../../hooks/fetch";
 
+/**
+ * Obtiene datos de una API, los filtra, los ordena y los establece en un estado
+ * @param setData - la función que establece los datos en el componente
+ * @param countryID - El ID del país del que desea obtener los datos.
+ * @param period - el período del año (trimestre)
+ * @param year - El año a consultar
+ * @param list - "asc" o "desc" o "predeterminado"
+ */
 export const useSortedDepartments = (
   setData,
   countryID,
