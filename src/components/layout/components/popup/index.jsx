@@ -1,9 +1,9 @@
 // REACT
-import React, { useEffect, useState } from "react";
-import { useToast } from "@chakra-ui/react";
+import React, { useEffect, useState } from 'react';
+import { CircularProgress, useToast } from '@chakra-ui/react';
 
 // GOOGLE RECAPTCHA
-import ReCAPTCHA from "react-google-recaptcha";
+import ReCAPTCHA from 'react-google-recaptcha';
 
 // CHAKRA UI COMPONENTS
 import {
@@ -15,33 +15,59 @@ import {
   Select,
   Checkbox,
   IconButton,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
 // CHAKRA UI ICONS
-import { CloseIcon } from "@chakra-ui/icons";
+import { CloseIcon } from '@chakra-ui/icons';
 
-import "./index.css";
-import sendContactEmail, { validateEmail } from "../../../../utils/email";
+import './index.css';
+import sendContactEmail, { validateEmail } from '../../../../utils/email';
+import useFetch from '../../../../hooks/fetch';
 
 const Popup = () => {
   const toast = useToast();
   const [popup, setPopup] = useState(false);
   const [form, setForm] = useState({
-    email: "",
-    age: "",
-    gender: "",
-    country: "",
-    message: "",
-    notifications: "",
-    captcha: "",
+    email: '',
+    edad: 0,
+    sexo: '',
+    pais: '',
+    razonDeConsulta: '',
+    deseaRecibirNotificaciones: false,
+    captcha: '',
+  });
+  const [sexList, setSexList] = useState([]);
+  const [razonList, setRazonList] = useState([]);
+  const [paisList, setPaisList] = useState([]);
+  const popupFilled = window.localStorage.getItem('popup');
+
+  useFetch({
+    url: '/sexovisitas',
+    resolve: (data) => {
+      setSexList(data?.sexoVisitas ?? '');
+    },
+  });
+
+  useFetch({
+    url: '/razonvisitas',
+    resolve: (data) => {
+      setRazonList(data?.razonVisitas ?? '');
+    },
+  });
+
+  useFetch({
+    url: '/pais',
+    resolve: (data) => {
+      setPaisList(data?.paises ?? '');
+    },
   });
 
   const sendForm = () => {
     // VALIDAR CAPTCHA
     if (!form.captcha) {
       toast({
-        title: "Por favor completa el reCAPTCHA",
-        status: "error",
+        title: 'Por favor completa el reCAPTCHA',
+        status: 'error',
       });
       return;
     }
@@ -49,8 +75,8 @@ const Popup = () => {
     //  VALIDAR EMAIL
     if (!validateEmail(form.email)) {
       toast({
-        title: "Tu correo electrónico no es válido.",
-        status: "error",
+        title: 'Tu correo electrónico no es válido.',
+        status: 'error',
       });
       return;
     }
@@ -60,11 +86,30 @@ const Popup = () => {
       ...form,
       callBack: (msg) => {
         toast({
-          title: "Hemos recibido tu información correctamente.",
-          status: "success",
+          title: 'Hemos recibido tu información correctamente.',
+          status: 'success',
         });
       },
     });
+
+    // GAURDAR FORMULARIO
+    fetch(`${import.meta.env.VITE_APP_API_URL}/visitas`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Client-ID [my-client-id]',
+        'Access-Control-Allow-Headers':
+          'Content-Type, Authorization, Access-Control-Allow-Headers',
+        'Access-Control-Allow-Methods': 'POST',
+      },
+      body: JSON.stringify(form),
+    })
+      .then((resp) => {
+        window.localStorage.setItem('popup', true);
+        return console.log('formulario enviado correctamente.');
+      })
+      .catch((err) => console.log('Error'));
+
     closePopup();
   };
 
@@ -74,11 +119,16 @@ const Popup = () => {
   const handleCheckbox = (ev) =>
     setForm((prev) => ({
       ...prev,
-      notifications: ev.target.checked,
+      deseaRecibirNotificaciones: ev.target.checked,
     }));
 
   useEffect(() => {
-    if (!import.meta.env.DEV) {
+    // if (!import.meta.env.DEV) {
+    //   setTimeout(() => {
+    //     setPopup(true);
+    //   }, 3000);
+    // }
+    if (!popupFilled) {
       setTimeout(() => {
         setPopup(true);
       }, 3000);
@@ -90,204 +140,224 @@ const Popup = () => {
   };
 
   if (popup) {
-    document.body.classList.add("active-popup");
+    document.body.classList.add('active-popup');
   } else {
-    document.body.classList.remove("active-popup");
+    document.body.classList.remove('active-popup');
   }
 
-  const onChange = (value) => {
-    setForm((prev) => ({ ...prev, captcha: value }));
-  };
+  const onChange = (value) => setForm((prev) => ({ ...prev, captcha: value }));
 
   return (
     <>
       {popup && (
         <Box
-          top="0"
-          left="0"
-          right="0"
-          bottom="0"
-          zIndex="2"
-          width="100vw"
-          height="100vh"
-          position="fixed"
+          top='0'
+          left='0'
+          right='0'
+          bottom='0'
+          zIndex='2'
+          width='100vw'
+          height='100vh'
+          position='fixed'
         >
           {/* OVERLAY */}
           <Box
-            zIndex="2"
-            width="100%"
-            height="100%"
-            position="fixed"
+            zIndex='2'
+            width='100%'
+            height='100%'
+            position='fixed'
             onClick={closePopup}
-            bgColor="rgba(0,0,0,0.5)"
-            backdropFilter="blur(4px)"
-            _hover={{ cursor: "pointer" }}
+            bgColor='rgba(0,0,0,0.5)'
+            backdropFilter='blur(4px)'
+            _hover={{ cursor: 'pointer' }}
           ></Box>
 
           {/* CONTENT */}
           <Box
-            top="50%"
-            left="50%"
-            zIndex="2"
-            borderRadius="8px"
-            position="absolute"
-            padding="40px 32px 32px 32px"
-            bgColor="rgba(255,255,255,0.8)"
-            transform="translate(-50%, -50%)"
-            width={{ base: "324px", md: "720px" }}
-            height={{ base: "480px", md: "auto" }}
-            overflow={{ base: "scroll", md: "hidden" }}
+            top='50%'
+            left='50%'
+            zIndex='2'
+            borderRadius='8px'
+            position='absolute'
+            padding='40px 32px 32px 32px'
+            bgColor='rgba(255,255,255,0.8)'
+            transform='translate(-50%, -50%)'
+            width={{ base: '324px', md: '720px' }}
+            height={{ base: '480px', md: 'auto' }}
+            overflow={{ base: 'scroll', md: 'hidden' }}
           >
             <IconButton
-              size="xs"
-              top="10px"
-              right="10px"
-              position="absolute"
+              size='xs'
+              top='10px'
+              right='10px'
+              position='absolute'
               icon={<CloseIcon />}
               onClick={closePopup}
             />
 
             {/* POPUP TITLE */}
             <Text
-              fontWeight="500"
-              textAlign="center"
-              marginBottom="24px"
-              fontFamily="Montserrat Medium"
-              fontSize={{ base: "2xl", md: "3xl" }}
+              fontWeight='500'
+              textAlign='center'
+              marginBottom='24px'
+              fontFamily='Montserrat Medium'
+              fontSize={{ base: '2xl', md: '3xl' }}
             >
               Queremos saber más sobre usted
             </Text>
 
             {/* FORM */}
-            <Stack gap={{ base: "16px", md: "24px" }}>
+            <Stack gap={{ base: '16px', md: '24px' }}>
               {/* EMAIL FIELD */}
               <Stack
-                gap="0px"
-                direction={{ base: "column", md: "row" }}
-                alignItems="center"
+                gap='0px'
+                direction={{ base: 'column', md: 'row' }}
+                alignItems='center'
               >
                 <Text
-                  fontFamily="Montserrat Medium"
-                  fontSize={{ base: "lg", md: "xl" }}
-                  width={{ base: "100%", lg: "12%" }}
+                  fontFamily='Montserrat Medium'
+                  fontSize={{ base: 'lg', md: 'xl' }}
+                  width={{ base: '100%', lg: '12%' }}
                 >
                   E-mail:
                 </Text>
                 <Input
-                  name="email"
+                  name='email'
                   onChange={handleInputs}
-                  type="email"
-                  bgColor="white"
-                  width={{ base: "100%", lg: "88%" }}
+                  type='email'
+                  bgColor='white'
+                  width={{ base: '100%', lg: '88%' }}
                 />
               </Stack>
 
-              <Stack direction={{ base: "column", md: "row" }} gap="16px">
+              <Stack direction={{ base: 'column', md: 'row' }} gap='16px'>
                 {/* AGE FIELD */}
                 <Stack
-                  gap="0px"
-                  width="100%"
-                  alignItems="center"
-                  direction={{ base: "column", md: "row" }}
+                  gap='0px'
+                  width='100%'
+                  alignItems='center'
+                  direction={{ base: 'column', md: 'row' }}
                 >
                   <Text
-                    fontFamily="Montserrat Medium"
-                    fontSize={{ base: "lg", md: "xl" }}
-                    width={{ base: "100%", md: "25%" }}
+                    fontFamily='Montserrat Medium'
+                    fontSize={{ base: 'lg', md: 'xl' }}
+                    width={{ base: '100%', md: '25%' }}
                   >
                     Edad:
                   </Text>
                   <Input
-                    name="age"
+                    name='edad'
                     onChange={handleInputs}
-                    type="number"
-                    bgColor="white"
-                    width={{ base: "100%", md: "75%" }}
+                    type='number'
+                    bgColor='white'
+                    width={{ base: '100%', md: '75%' }}
                   />
                 </Stack>
 
                 {/* GENDER FIELD */}
                 <Stack
-                  gap="0px"
-                  width="100%"
-                  alignItems="center"
-                  direction={{ base: "column", md: "row" }}
+                  gap='0px'
+                  width='100%'
+                  alignItems='center'
+                  direction={{ base: 'column', md: 'row' }}
                 >
                   <Text
-                    fontFamily="Montserrat Medium"
-                    fontSize={{ base: "lg", md: "xl" }}
-                    width={{ base: "100%", md: "25%" }}
+                    fontFamily='Montserrat Medium'
+                    fontSize={{ base: 'lg', md: 'xl' }}
+                    width={{ base: '100%', md: '25%' }}
                   >
                     Sexo:
                   </Text>
-                  <Select
-                    name="gender"
-                    onChange={handleInputs}
-                    bgColor="white"
-                    fontFamily="Montserrat Medium"
-                    placeholder="Selecciona tu sexo"
-                    width={{ base: "100%", md: "75%" }}
-                  >
-                    <option value="masculino">Masculino</option>
-                    <option value="femenino">Femenino</option>
-                    <option value="femenino">Otro</option>
-                    <option value="femenino">Prefiero no decirlo</option>
-                  </Select>
+                  {!sexList ? (
+                    <CircularProgress />
+                  ) : (
+                    <Select
+                      name='sexo'
+                      onChange={handleInputs}
+                      bgColor='white'
+                      fontFamily='Montserrat Medium'
+                      placeholder='Selecciona tu sexo'
+                      width={{ base: '100%', md: '75%' }}
+                    >
+                      {sexList.map((item) => (
+                        <option key={item.id} value={item.nombre}>
+                          {item.nombre}
+                        </option>
+                      ))}
+                    </Select>
+                  )}
                 </Stack>
               </Stack>
 
               {/* COUNTRY FIELD */}
               <Stack
-                gap="0px"
-                alignItems="center"
-                direction={{ base: "column", md: "row" }}
+                gap='0px'
+                alignItems='center'
+                direction={{ base: 'column', md: 'row' }}
               >
                 <Text
-                  fontFamily="Montserrat Medium"
-                  fontSize={{ base: "lg", md: "xl" }}
-                  width={{ base: "100%", md: "12%" }}
+                  fontFamily='Montserrat Medium'
+                  fontSize={{ base: 'lg', md: 'xl' }}
+                  width={{ base: '100%', md: '10%' }}
                 >
                   País:
                 </Text>
-                <Input
-                  name="country"
-                  onChange={handleInputs}
-                  type="text"
-                  bgColor="white"
-                  width={{ base: "100%", md: "88%" }}
-                />
+                {!paisList ? (
+                  <CircularProgress />
+                ) : (
+                  <Select
+                    name='pais'
+                    onChange={handleInputs}
+                    bgColor='white'
+                    fontFamily='Montserrat Medium'
+                    width={{ base: '100%', md: '90%' }}
+                    placeholder='Selecciona una opción'
+                  >
+                    {paisList.map((item) => (
+                      <option key={item.id} value={item.nombre}>
+                        {item.nombre}
+                      </option>
+                    ))}
+                  </Select>
+                )}
               </Stack>
 
               {/* INQUIRY FIELD */}
               <Stack
-                gap="0px"
-                alignItems="center"
-                direction={{ base: "column", md: "row" }}
+                gap='0px'
+                alignItems='center'
+                direction={{ base: 'column', md: 'row' }}
               >
                 <Text
-                  fontFamily="Montserrat Medium"
-                  fontSize={{ base: "lg", md: "xl" }}
-                  width={{ base: "100%", md: "30%" }}
+                  fontFamily='Montserrat Medium'
+                  fontSize={{ base: 'lg', md: 'xl' }}
+                  width={{ base: '100%', md: '30%' }}
                 >
                   Rázon de consulta:
                 </Text>
-                <Select
-                  name="message"
-                  onChange={handleInputs}
-                  bgColor="white"
-                  fontFamily="Montserrat Medium"
-                  width={{ base: "100%", md: "70%" }}
-                  placeholder="Selecciona una opción"
-                >
-                  <option value="investigacion">Investigación</option>
-                  <option value="academia">Academia</option>
-                  <option value="escolar">Escolar</option>
-                </Select>
+                {!razonList ? (
+                  <CircularProgress />
+                ) : (
+                  <Select
+                    name='razonDeConsulta'
+                    onChange={handleInputs}
+                    bgColor='white'
+                    fontFamily='Montserrat Medium'
+                    width={{ base: '100%', md: '70%' }}
+                    placeholder='Selecciona una opción'
+                  >
+                    {razonList.map((item) => (
+                      <option key={item.id} value={item.nombre}>
+                        {item.nombre}
+                      </option>
+                    ))}
+                  </Select>
+                )}
               </Stack>
 
               {/* NEWSLETTER CHECKBOX */}
-              <Checkbox borderColor="black" onChange={handleCheckbox}>
-                <Text fontFamily="Montserrat Medium">
+              <Checkbox borderColor='black' onChange={handleCheckbox}>
+                <Text fontFamily='Montserrat Medium'>
                   Deseo recibir notificaciones
                 </Text>
               </Checkbox>
@@ -300,12 +370,12 @@ const Popup = () => {
 
               {/* SEND BUTTON */}
               <Button
-                color="white"
-                bgColor="blue.700"
+                color='white'
+                bgColor='blue.700'
                 onClick={sendForm}
-                fontFamily="Montserrat Medium"
-                size={{ base: "md", md: "lg" }}
-                _hover={{ bgColor: "green.700" }}
+                fontFamily='Montserrat Medium'
+                size={{ base: 'md', md: 'lg' }}
+                _hover={{ bgColor: 'green.700' }}
               >
                 Enviar
               </Button>

@@ -1,10 +1,10 @@
 // REACT
-import { useContext, useEffect } from "react";
-import HeatMapContext from "../context";
-import { quarterId } from "../../../../../../../hooks/fetch";
+import { useContext, useEffect } from 'react';
+import HeatMapContext from '../context';
+import { quarterId } from '../../../../../../../hooks/fetch';
 
 // COLORS
-import { colors } from "../../../../../../../utils/theme";
+import { colors } from '../../../../../../../utils/theme';
 
 /**
  * Devuelve un objeto de mapa de calor con un color y una función onClick si la propiedad disabledHeat
@@ -36,6 +36,13 @@ const useHeatmap = (id, disableHeat) => {
  * @param year - El año que se mostrará
  */
 export const useHeatColors = (setColorScales, countryID, period, year) => {
+  const setColor = (countryID, escala) => {
+    if (countryID === 'guatemala') {
+      return `rgba(146,189,87, ${escala})`;
+    } else {
+      return `rgba(221,184,65, ${escala})`;
+    }
+  };
   useEffect(() => {
     if (period.length > 0 && year.length > 0) {
       fetch(
@@ -48,36 +55,33 @@ export const useHeatColors = (setColorScales, countryID, period, year) => {
         .then((req) => req.json())
         .then((data) => {
           let total = 0;
+          const totales = [];
           const filteredData = data.data.map((department) => {
             total += department.total;
-
+            totales.push(department.total);
             const dep = {
               ...department,
               id: department._id
                 .toLowerCase()
-                .replaceAll(" ", "")
-                .replaceAll("department", "")
-                .normalize("NFD")
-                .replace(/[\u0300-\u036f]/g, ""),
+                .replaceAll(' ', '')
+                .replaceAll('department', '')
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, ''),
             };
             return dep;
           });
 
           const scales = {};
           const dataRange = 6 / filteredData.length;
-          const scaleRange = dataRange * 10;
+          // const scaleRange = dataRange * 10;
+          const higher = Math.max(...totales);
 
           filteredData.forEach((department) => {
-            const percent = department.total / total;
-            const scale = Math.min(
-              Math.ceil(
-                Math.ceil((percent * 100) / scaleRange) * percent * 10
-              ) * 100,
-              900
-            );
+            const percent = department.total / higher;
+            const scale = Math.round((percent + Number.EPSILON) * 100) / 100;
 
             if (scale === 0) scales[department.id] = colors.heatMin[100];
-            else scales[department.id] = colors.heat[countryID][scale];
+            else scales[department.id] = setColor(countryID, scale);
           });
 
           setColorScales(scales);
