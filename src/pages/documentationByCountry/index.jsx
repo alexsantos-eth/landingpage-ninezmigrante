@@ -11,8 +11,11 @@ import {
   Badge,
   Divider,
   Flex,
+  Input,
+  InputGroup,
+  InputRightElement,
 } from '@chakra-ui/react';
-import { DownloadIcon } from '@chakra-ui/icons';
+import { DownloadIcon, Search2Icon } from '@chakra-ui/icons';
 import { colors } from '../../utils/theme';
 import { motion } from 'framer-motion';
 import Libreria from '../../assets/libreria.jpg';
@@ -21,6 +24,7 @@ const DocumentationByCountry = () => {
   const { countryID } = useParams();
   const titulo = countryID.charAt(0).toUpperCase() + countryID.slice(1);
   const [dataByCountry, setDataByCountry] = useState([]);
+  const [filter, setFilter] = useState('');
 
   const downloadDocument = (id) => () =>
     fetch(`${import.meta.env.VITE_APP_API_URL}/uploads/recursos/${id}`)
@@ -44,7 +48,30 @@ const DocumentationByCountry = () => {
     },
   });
 
+  const keys = ['nombre', 'descripcion'];
+
+  let dataSearch = dataByCountry?.filter((item) => {
+    return keys.some((key) =>
+      item[key]
+        .toString()
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .includes(
+          filter
+            .toString()
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+        )
+    );
+  });
+
   const MotionFlex = motion(Flex);
+
+  const searchText = (event) => {
+    return setFilter(event.target.value);
+  };
 
   return (
     <Box width='100%' padding='40px'>
@@ -64,6 +91,21 @@ const DocumentationByCountry = () => {
           {`Listado de documentos de ${titulo}`}
         </Heading>
         <Divider orientation='horizontal' />
+        <Stack>
+          <InputGroup>
+            <Input
+              type='text'
+              id='buscar'
+              value={filter}
+              onChange={searchText.bind(this)}
+              placeholder='Buscar...'
+            />
+            <InputRightElement
+              sx={{ zIndex: -1 }}
+              children={<Search2Icon color={colors.green[500]} />}
+            />
+          </InputGroup>
+        </Stack>
         <MotionFlex
           py={3}
           px={3}
@@ -79,7 +121,7 @@ const DocumentationByCountry = () => {
             alignItems='center'
             justifyContent='space-around'
           >
-            {dataByCountry.map((source) => (
+            {dataSearch.map((source) => (
               <HStack
                 shadow='md'
                 borderWidth='1px'

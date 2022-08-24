@@ -35,6 +35,16 @@ const Popup = () => {
     razonDeConsulta: '',
     deseaRecibirNotificaciones: false,
     captcha: '',
+    details: {
+      country_code: '',
+      country_name: '',
+      city: '',
+      postal: '',
+      latitude: '',
+      longitude: '',
+      IP: '',
+      state: '',
+    },
   });
   const [sexList, setSexList] = useState([]);
   const [razonList, setRazonList] = useState([]);
@@ -105,7 +115,7 @@ const Popup = () => {
       body: JSON.stringify(form),
     })
       .then((resp) => {
-        window.localStorage.setItem('popup', true);
+        window.localStorage.setItem('popup', form.email);
         return console.log('formulario enviado correctamente.');
       })
       .catch((err) => console.log('Error'));
@@ -131,6 +141,7 @@ const Popup = () => {
     if (!popupFilled) {
       setTimeout(() => {
         setPopup(true);
+        getUserGeolocationDetails();
       }, 3000);
     }
   }, []);
@@ -146,6 +157,27 @@ const Popup = () => {
   }
 
   const onChange = (value) => setForm((prev) => ({ ...prev, captcha: value }));
+
+  // GET USER LOCATION
+  const getUserGeolocationDetails = async () => {
+    try {
+      await fetch(
+        'https://geolocation-db.com/json/86f5f280-f4eb-11ec-8676-4f4388bc6daa'
+      )
+        .then((response) => response.json())
+        .then((data) =>
+          setForm((prev) => {
+            if (!prev) {
+              return console.log('No state');
+            }
+            return { ...prev, details: data };
+          })
+        )
+        .catch((err) => console.log('Imposible obtener la info.'));
+    } catch (error) {
+      return console.log('Error al obtener la info.');
+    }
+  };
 
   return (
     <>
