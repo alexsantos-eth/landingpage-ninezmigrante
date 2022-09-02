@@ -85,14 +85,17 @@ const ComparePage = () => {
             <Text
               textAlign='center'
               fontFamily='Oswald'
-              fontSize={{ base: 'xl', md: '2xl' }}
+              fontSize={{ base: 'xl', md: 'md' }}
               maxWidth={{ base: '300px', md: '800px' }}
             >
               {options[1].country === 'guatemala'
-                ? 'Fuentes Guatemala: SBS y/o IGM'
+                ? `Fuentes Guatemala: Departamento de Centros de Atención Migratoria.
+                Elaborado por: el Departamento de Estadística y Archivos. Instituto Guatemalteco de Migración -IGM-
+                `
                 : options[2].country === 'honduras'
                 ? 'Fuente Honduras: DINAF'
-                : 'Fuente Honduras: DINAF - Fuentes Guatemala: SBS y/o IGM'}
+                : `Fuente Honduras: DINAF - Fuentes Guatemala: Departamento de Centros de Atención Migratoria.
+                Elaborado por: el Departamento de Estadística y Archivos. Instituto Guatemalteco de Migración -IGM-`}
             </Text>
 
             <Text
@@ -100,11 +103,8 @@ const ComparePage = () => {
               fontFamily='Montserrat Medium'
               fontSize={{ base: 'xs', md: 'sm' }}
             >
-              Esta información ha sido procesada por: MOBINM, monitoreo
-              binacional de niñez migrante Guatemala-Honduras, en el marco del
-              Proyecto Binacional Honduras-Guatemala a favor de los derechos de
-              la niñez y adolescencia migrante. Implementado por: PAMI y
-              COIPRODEN, con fondos de KNH y BMZ.
+              Esta información ha sido procesada por: MOBINIM -Monitoreo
+              Binacional de Niñez Migrante Guatemala-Honduras-.
             </Text>
           </Stack>
           {!screenshot && (

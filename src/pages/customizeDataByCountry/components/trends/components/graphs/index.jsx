@@ -354,11 +354,13 @@ const TrendsGraphs = ({ country = 'guatemala' }) => {
               <Text
                 textAlign='center'
                 fontFamily='Oswald'
-                fontSize={{ base: 'xl', md: '2xl' }}
+                fontSize={{ base: 'xl', md: 'md' }}
                 maxWidth={{ base: '300px', md: '800px' }}
               >
                 {countryID === 'guatemala'
-                  ? 'Fuentes: SBS y/o IGM'
+                  ? `Fuentes: Departamento de Centros de Atención Migratoria.
+Elaborado por: el Departamento de Estadística y Archivos. Instituto Guatemalteco de Migración -IGM-
+`
                   : 'Fuente: DINAF'}
               </Text>
 
@@ -367,11 +369,8 @@ const TrendsGraphs = ({ country = 'guatemala' }) => {
                 fontFamily='Montserrat Medium'
                 fontSize={{ base: 'xs', md: 'sm' }}
               >
-                Esta información ha sido procesada por: MOBINM, monitoreo
-                binacional de niñez migrante Guatemala-Honduras, en el marco del
-                Proyecto Binacional Honduras-Guatemala a favor de los derechos
-                de la niñez y adolescencia migrante. Implementado por: PAMI y
-                COIPRODEN, con fondos de KNH y BMZ.
+                Esta información ha sido procesada por: MOBINIM -Monitoreo
+                Binacional de Niñez Migrante Guatemala-Honduras-.
               </Text>
             </Stack>
           </Box>
