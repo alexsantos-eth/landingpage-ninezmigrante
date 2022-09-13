@@ -105,10 +105,15 @@ const Slider = () => {
               </Text>
             </Stack>
             <Stack padding='5px 20px 20px 20px' direction='row'>
-              <Code
-                fontFamily='Times'
-                children='Proyecto “Fortalecimiento de los Sistemas de Protección y Garantía de Derechos de la Niñez y Adolescencia Migrante en Guatemala y Honduras"'
-              />
+              <a
+                href='http://pami-guatemala.org/proyectobinacionalmigracion/'
+                target='_blank'
+              >
+                <Code
+                  fontFamily='Times'
+                  children='Proyecto “Fortalecimiento de los Sistemas de Protección y Garantía de Derechos de la Niñez y Adolescencia Migrante en Guatemala y Honduras"'
+                />
+              </a>
             </Stack>
           </Stack>
           <Stack paddingTop='20px'>
