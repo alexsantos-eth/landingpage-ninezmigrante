@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-import { Stack, Text, Button, Image } from '@chakra-ui/react';
-import { DownloadIcon } from '@chakra-ui/icons';
-import folder from '../../assets/folder.png';
+import { Stack, Text, Button, Image } from "@chakra-ui/react";
+import { DownloadIcon } from "@chakra-ui/icons";
+import folder from "../../assets/folder.png";
+import LoadSplash from "../loadSplash";
 
 const DownloadImage = ({ label, containerRef, onSS = (screenshot) => {} }) => {
   // STATE
   const [screenshot, setScreenshot] = useState(false);
+  const [loading, setLoading] = useState(false);
   const handleDownloadImage = async () => setScreenshot(true);
 
   // TAKE SCREEN SHOOT
@@ -15,63 +17,64 @@ const DownloadImage = ({ label, containerRef, onSS = (screenshot) => {} }) => {
     if (screenshot) {
       const take = async () => {
         const element = containerRef.current;
-        const html2canvas = (await import('html2canvas')).default;
+        const html2canvas = (await import("html2canvas")).default;
+        const canvas = await html2canvas(element);
+        const data = canvas.toDataURL("image/png");
 
-        const canvas = await html2canvas(element, {
-          scrollX: -window.scrollX,
-          scrollY: -window.scrollY,
-          windowWidth: document.documentElement.offsetWidth,
-          windowHeight: document.documentElement.offsetHeight,
-        });
+        setLoading(true);
 
-        const data = canvas.toDataURL('image/png');
-        const link = document.createElement('a');
+        const jsPDF = (await import("jspdf")).default;
+        const pdf = new jsPDF();
+        const imgProps = pdf.getImageProperties(data);
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
-        if (typeof link.download === 'string') {
-          link.href = data;
-          link.download = 'infografia.png';
-
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-        } else {
-          window.open(data);
-        }
-
+        pdf.addImage(data, "PNG", 0, 0, pdfWidth, pdfHeight);
+        await pdf.save("download.pdf", { returnPromise: true });
+        setLoading(false);
         setScreenshot(false);
       };
       take();
     }
   }, [screenshot]);
 
-  return !screenshot ? (
-    <Stack
-      gap='24px'
-      alignItems='center'
-      justifyContent='center'
-      direction={{ base: 'column', md: 'row' }}
-    >
-      {label.length > 0 && (
-        <>
-          <Image src={folder} height='50px' />
-          <Text fontFamily='Oswald' fontSize='2xl' textAlign='center'>
-            {label}
-          </Text>
-        </>
+  return (
+    <>
+      {!screenshot ? (
+        <Stack
+          gap="24px"
+          alignItems="center"
+          justifyContent="center"
+          direction={{ base: "column", md: "row" }}
+        >
+          {label.length > 0 && (
+            <>
+              <Image src={folder} height="50px" />
+              <Text fontFamily="Oswald" fontSize="2xl" textAlign="center">
+                {label}
+              </Text>
+            </>
+          )}
+          <Button
+            size="lg"
+            bgColor="#ccc"
+            onClick={handleDownloadImage}
+            rightIcon={<DownloadIcon />}
+            fontFamily="Montserrat Medium"
+            _hover={{ bgColor: "green.700", color: "white" }}
+          >
+            Descargar
+          </Button>
+        </Stack>
+      ) : (
+        <></>
       )}
-      <Button
-        size='lg'
-        bgColor='#ccc'
-        onClick={handleDownloadImage}
-        rightIcon={<DownloadIcon />}
-        fontFamily='Montserrat Medium'
-        _hover={{ bgColor: 'green.700', color: 'white' }}
-      >
-        Descargar
-      </Button>
-    </Stack>
-  ) : (
-    <></>
+      <LoadSplash
+        title="Generando infografía..."
+        description="Espera un momento, se esta creando el documento para descargar."
+        open={loading}
+      />
+    </>
   );
 };
 
