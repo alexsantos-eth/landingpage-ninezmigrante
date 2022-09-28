@@ -7,6 +7,7 @@ import { Box, Stack, Text, Select, Image, Divider } from "@chakra-ui/react";
 
 // COMPONENTS
 import DownloadImage from "../../../../components/downloadImage";
+import MonthPicker from "../../../../components/monthPicker";
 import YearSelect from "../../../../components/yearSelect";
 
 // ASSETS
@@ -16,14 +17,14 @@ import MapaEEUU from "../../../../assets/MapaEEUU.png";
 import MapaGuatemala from "../../../../assets/MapaGuatemala.png";
 
 // HOOKS
-import useFetch, { quarterId } from "../../../../hooks/fetch";
+import useFetch, { monthNames } from "../../../../hooks/fetch";
 
 // UTILS
 import { year } from "../../../../utils/year";
 
 const Compare = () => {
   const [bordersData, setBordersData] = useState({ mx: [], usa: [] });
-  const [currentPeriod, setCurrentPeriod] = useState("");
+  const [currentPeriod, setCurrentPeriod] = useState([1, 1]);
   const [currentYear, setCurrentYear] = useState(year);
   const [total, setTotal] = useState(0);
 
@@ -32,23 +33,28 @@ const Compare = () => {
   const containerRef = useRef();
 
   const handleYear = (ev) => setCurrentYear(ev.target.value);
-  const handlePeriod = (ev) => setCurrentPeriod(ev.target.value);
 
   useFetch({
-    url: "/consultas/totalporpaisanioperiodo/country/year/quarter",
+    url: "/consultas/totalporpaisanioperiodo/country?anio=year&periodRange",
     year: currentYear,
     country: countryID,
-    period: currentPeriod,
+    periodStart: currentPeriod[0],
+    periodEnd: currentPeriod[1],
     resolve: (data) => {
-      const periodData = data?.data?.[0];
-      setTotal(periodData?.totalRegistros ?? 0);
+      const total = data?.data?.reduce(
+        (acc, item) => acc + (item?.total ?? 0),
+        0
+      );
+      setTotal(total);
     },
   });
 
   useFetch({
     url: "/consultas/detenidosenfronteradeestadosunidos/year/estados%20unidos",
     year: currentYear,
-    resolve: (data) => setBordersData((prev) => ({ ...prev, usa: data.data })),
+    resolve: (data) => {
+      setBordersData((prev) => ({ ...prev, usa: data.data }));
+    },
   });
 
   useFetch({
@@ -58,18 +64,26 @@ const Compare = () => {
   });
 
   const dataPerPeriod = {
-    mx:
-      bordersData.mx.find(
-        (item) =>
-          item.periodo === quarterId[currentPeriod]?.toUpperCase() &&
+    mx: bordersData.mx
+      .filter((item) => {
+        const monthIndex = monthNames.indexOf(item.mes);
+        return (
+          monthIndex >= currentPeriod[0] &&
+          monthIndex <= currentPeriod[1] &&
           item.paisLocal?.toUpperCase() === countryID.toUpperCase()
-      )?.granTotal ?? 0,
-    usa:
-      bordersData.usa.find(
-        (item) =>
-          item.periodo === quarterId[currentPeriod]?.toUpperCase() &&
+        );
+      })
+      .reduce((acc, item) => acc + item.totalMes, 0),
+    usa: bordersData.usa
+      .filter((item) => {
+        const monthIndex = monthNames.indexOf(item.mes);
+        return (
+          monthIndex >= currentPeriod[0] &&
+          monthIndex <= currentPeriod[1] &&
           item.paisLocal?.toUpperCase() === countryID.toUpperCase()
-      )?.granTotal ?? 0,
+        );
+      })
+      .reduce((acc, item) => acc + item.totalMes, 0),
   };
 
   return (
@@ -111,22 +125,7 @@ const Compare = () => {
             <YearSelect currentYear={currentYear} handleYear={handleYear} />
 
             {/* SELECT PERIOD */}
-            <Select
-              fontSize="2xl"
-              lineHeight="1.8"
-              fontWeight="600"
-              fontFamily="Times"
-              letterSpacing="1.2px"
-              value={currentPeriod}
-              onChange={handlePeriod}
-              bgColor="rgba(255,255,255,0.5)"
-              maxWidth={{ base: "100%", md: "40%" }}
-            >
-              <option value="">Elegir cuatrimestre</option>
-              <option value="q1">Enero - Abril</option>
-              <option value="q2">Mayo - Agosto</option>
-              <option value="q3">Septiembre - Diciembre</option>
-            </Select>
+            <MonthPicker onAccept={setCurrentPeriod} />
           </Stack>
         </Stack>
 
@@ -163,7 +162,6 @@ const Compare = () => {
                 fontWeight="600"
                 fontFamily="Times"
               >
-                Cuatrimestre {currentPeriod.substring(1)} -{" "}
                 {currentYear || "Año"}
               </Text>
               <Text
@@ -204,7 +202,6 @@ const Compare = () => {
                 fontWeight="600"
                 fontFamily="Times"
               >
-                Cuatrimestre {currentPeriod.substring(1)} -{" "}
                 {currentYear || "Año"}
               </Text>
               <Text
@@ -227,7 +224,6 @@ const Compare = () => {
                 fontWeight="600"
                 fontFamily="Times"
               >
-                Cuatrimestre {currentPeriod.substring(1)} -{" "}
                 {currentYear || "Año"}
               </Text>
               <Text

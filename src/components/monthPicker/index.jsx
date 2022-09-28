@@ -79,7 +79,9 @@ const MonthPicker = ({ onAccept }) => {
           minWidth={{ base: "100%", md: "40%" }}
         >
           <option selected disabled>
-            Elegir mes
+            {isFirstClick
+              ? "Elegir mes"
+              : `${months[ranges[0]]} - ${months[ranges[1]]}`}
           </option>
         </Select>
       </PopoverTrigger>

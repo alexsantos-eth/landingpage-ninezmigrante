@@ -12,13 +12,15 @@ import ReturnPath from "./components/returnPath";
 import AgeRanges from "./components/ageRanges";
 import Gender from "./components/gender";
 
-import useFetch, { quarters } from "../../../../hooks/fetch";
+import useFetch, { monthNames } from "../../../../hooks/fetch";
+
+import StatisticsContext from "./context";
 
 const Statistics = ({ period, year, satisticsRef }) => {
   // STATES
   const { countryID } = useParams();
   const [total, setTotal] = useState(0);
-
+  const [isScreenShotTime, setIsScreenShotTime] = useState(false);
   const [departments, setDepartments] = useState([]);
 
   // OBTENER TOTAL POR PERIODO
@@ -29,12 +31,33 @@ const Statistics = ({ period, year, satisticsRef }) => {
     periodEnd: period[1],
     country: countryID,
     resolve: (data) => {
-      console.log(data);
+      const total = data?.data?.reduce(
+        (acc, item) => acc + (item?.total ?? 0),
+        0
+      );
+      setTotal(total);
+    },
+  });
+
+  useFetch({
+    url: "/consultas/totalpordepartamento/country?anio=year&periodRange",
+    year,
+    periodStart: period[0],
+    periodEnd: period[1],
+    country: countryID,
+    resolve: (data) => {
+      const filteredData = data.data.map((department) => ({
+        ...department,
+        name: department._id.replace("Department", "").toUpperCase()?.trim(),
+      }));
+      setDepartments(filteredData.sort((a, b) => b.total - a.total));
     },
   });
 
   return (
-    <>
+    <StatisticsContext.Provider
+      value={{ isScreenShotTime, setIsScreenShotTime }}
+    >
       <Box
         ref={satisticsRef}
         padding={{ base: "40px 24px", md: "80px 40px" }}
@@ -73,7 +96,9 @@ const Statistics = ({ period, year, satisticsRef }) => {
               fontSize={{ base: "xl", md: "2xl" }}
               textAlign={{ base: "center", md: "left" }}
             >
-              {`${quarters[period] ?? ""} ${year ?? ""}`}
+              {`${monthNames[period[0]] ?? ""} - ${
+                monthNames[period[1]] ?? ""
+              } ${year ?? ""}`}
             </Text>
           </Stack>
           <Text
@@ -151,9 +176,14 @@ const Statistics = ({ period, year, satisticsRef }) => {
           </Stack>
         </Stack>
 
-        <GraphFooter countryID={countryID} />
+        {isScreenShotTime && <GraphFooter countryID={countryID} />}
+
+        <DownloadTable
+          periodId={`${monthNames[period[0]]}-${monthNames[period[1]]}`}
+          satisticsRef={satisticsRef}
+        />
       </Box>
-    </>
+    </StatisticsContext.Provider>
   );
 };
 

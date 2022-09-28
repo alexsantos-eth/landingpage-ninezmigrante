@@ -24,14 +24,14 @@ const countryImages = {
 };
 
 const Options = ({ id, onChange, satisticsRef }) => {
-  const [data, setData] = useState({ country: "", period: "", year: "" });
+  const [data, setData] = useState({ country: "", period: [1, 1], year: 0 });
 
   const handleChange = (ev) => {
     setData((prevData) => ({ ...prevData, [ev.target.name]: ev.target.value }));
   };
 
-  const handlePeriodChange = (ev) => {
-    setData((prevData) => ({ ...prevData, period: ev.target.value }));
+  const handlePeriodChange = (range) => {
+    setData((prevData) => ({ ...prevData, period: range }));
     if (id === "2") {
       scrollInto();
     }
@@ -80,10 +80,10 @@ const Options = ({ id, onChange, satisticsRef }) => {
       </Select>
 
       {/* SELECT YEAR */}
-      <YearSelect />
+      <YearSelect handleYear={handleChange} currentYear={data.year} />
 
       {/* SELECT PERIOD */}
-      <MonthPicker />
+      <MonthPicker onAccept={handlePeriodChange} />
 
       {/* MAP IMAGE */}
       <Stack

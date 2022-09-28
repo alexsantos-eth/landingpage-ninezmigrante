@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Text, Spinner, Stack } from "@chakra-ui/react";
 
-const LoadSplash = ({ title, description, open }) => {
+const LoadSplash = ({ title, description, open, setBlur }) => {
   return (
     <Box
       style={{
@@ -13,12 +13,10 @@ const LoadSplash = ({ title, description, open }) => {
         display: "flex",
         position: "fixed",
         alignItems: "center",
-        opacity: open ? 1 : 0,
+        opacity: setBlur ? 1 : 0,
         justifyContent: "center",
-        backdropFilter: "blur(5px)",
-        transition: "opacity 0.5s ease",
-        backgroundColor: "rgba(0,0,0,0.5)",
-        pointerEvents: open ? "all" : "none",
+        backdropFilter: "blur(30px)",
+        pointerEvents: setBlur ? "all" : "none",
       }}
     >
       <Stack
@@ -28,6 +26,10 @@ const LoadSplash = ({ title, description, open }) => {
         borderRadius={12}
         direction="column"
         alignItems="center"
+        style={{
+          opacity: open ? 1 : 0,
+          transition: "opacity 0.2s ease",
+        }}
       >
         <Box mb={5}>
           <Text fontSize="1.5em" fontFamily="Oswald">

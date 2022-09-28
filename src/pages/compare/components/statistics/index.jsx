@@ -15,13 +15,17 @@ const Statistics = ({ data }) => {
   const [total, setTotal] = useState(0);
 
   useFetch({
-    url: "/consultas/totalporpaisanioperiodo/country/year/quarter",
+    url: "/consultas/totalporpaisanioperiodo/country?anio=year&periodRange",
     year: data.year,
+    periodStart: data.period[0],
+    periodEnd: data.period[1],
     country: data.country,
-    period: data.period,
-    resolve: (data) => {
-      const periodData = data?.data?.[0];
-      setTotal(periodData?.totalRegistros ?? 0);
+    resolve: (resData) => {
+      const total = resData?.data?.reduce(
+        (acc, item) => acc + (item?.total ?? 0),
+        0
+      );
+      setTotal(total);
     },
   });
 

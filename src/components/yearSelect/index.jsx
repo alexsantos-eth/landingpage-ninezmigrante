@@ -10,6 +10,7 @@ const YearSelect = ({ currentYear, handleYear }) => {
   return (
     <>
       <Select
+        name="year"
         fontSize="2xl"
         lineHeight="1.8"
         fontWeight="600"

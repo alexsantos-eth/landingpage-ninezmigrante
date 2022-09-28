@@ -9,6 +9,7 @@ const DownloadImage = ({ label, containerRef, onSS = (screenshot) => {} }) => {
   // STATE
   const [screenshot, setScreenshot] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [blur, setBlur] = useState(false);
   const handleDownloadImage = async () => setScreenshot(true);
 
   // TAKE SCREEN SHOOT
@@ -16,6 +17,8 @@ const DownloadImage = ({ label, containerRef, onSS = (screenshot) => {} }) => {
     onSS(screenshot);
     if (screenshot) {
       const take = async () => {
+        setBlur(true);
+
         const element = containerRef.current;
         const html2canvas = (await import("html2canvas")).default;
         const canvas = await html2canvas(element);
@@ -24,7 +27,9 @@ const DownloadImage = ({ label, containerRef, onSS = (screenshot) => {} }) => {
         setLoading(true);
 
         const jsPDF = (await import("jspdf")).default;
-        const pdf = new jsPDF();
+        const pdf = new jsPDF({
+          format: [canvas.width, canvas.height],
+        });
         const imgProps = pdf.getImageProperties(data);
         const pdfWidth = pdf.internal.pageSize.getWidth();
         const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
@@ -33,6 +38,7 @@ const DownloadImage = ({ label, containerRef, onSS = (screenshot) => {} }) => {
         await pdf.save("download.pdf", { returnPromise: true });
         setLoading(false);
         setScreenshot(false);
+        setBlur(false);
       };
       take();
     }
@@ -72,6 +78,7 @@ const DownloadImage = ({ label, containerRef, onSS = (screenshot) => {} }) => {
       <LoadSplash
         title="Generando infografía..."
         description="Espera un momento, se esta creando el documento para descargar."
+        setBlur={blur}
         open={loading}
       />
     </>

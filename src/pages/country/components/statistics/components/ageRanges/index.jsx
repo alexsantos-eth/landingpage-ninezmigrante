@@ -32,7 +32,7 @@ const AgeRanges = ({
   disableFirstAge = false,
   defData: { f1 = undefined, f2 = undefined, f3 = undefined },
 }) => {
-  let labels = ["0-6 años", "7-12 años", "13-17 años", "NR"];
+  let labels = ["P. INF", "NIÑEZ", "ADOL", "NR"];
   let chartColors = [
     colors.yellow[700],
     colors.blue[700],
@@ -50,9 +50,10 @@ const AgeRanges = ({
   const [total, setTotal] = useState({ f1: f1 ?? 0, f2: f2 ?? 0, f3: f3 ?? 0 });
 
   useFetch({
-    url: "/consultas/totalporrangoetario/country/year/quarter",
+    url: "/consultas/totalporrangoetario/country?anio=year&periodRange",
     year,
-    period,
+    periodStart: period[0],
+    periodEnd: period[1],
     country: countryID,
     disableFetch: f1 !== undefined || f2 !== undefined || f3 !== undefined,
     resolve: (data) => {
@@ -106,20 +107,6 @@ const AgeRanges = ({
             </Stack>
           ))}
         </Grid>
-        <Stack direction="column">
-          <Text fontSize="0.9em">
-            <b>Primera infancia</b> en Guatemala se registra entre los 0 y 6
-            años y en Honduras entre 0 y 5 años.
-          </Text>
-          <Text fontSize="0.9em">
-            <b>Niñez</b> en Guatemala se registra entre 7 y 12 años y en
-            Honduras entre los 6 y 12 años.
-          </Text>
-          <Text fontSize="0.9em">
-            <b>Adolescencia</b> en ambos países el registro es entre los 13 y 17
-            años.
-          </Text>
-        </Stack>
       </Stack>
     </Box>
   );
