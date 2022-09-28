@@ -5,6 +5,8 @@ import { Stack, Select, Image, Text } from "@chakra-ui/react";
 import LogoNinezMigrante from "../../../../../../assets/LogoNinezMigrante.png";
 import MapaGuatemala from "../../../../../../assets/MapaGuatemala.svg";
 import MapaHonduras from "../../../../../../assets/MapaHonduras.svg";
+import YearSelect from "../../../../../../components/yearSelect";
+import MonthPicker from "../../../../../../components/monthPicker";
 
 const countryImages = {
   default: {
@@ -78,38 +80,10 @@ const Options = ({ id, onChange, satisticsRef }) => {
       </Select>
 
       {/* SELECT YEAR */}
-      <Select
-        name="year"
-        fontSize="2xl"
-        lineHeight="1.8"
-        fontWeight="600"
-        fontFamily="Times"
-        letterSpacing="1.2px"
-        onChange={handleChange}
-        bgColor="rgba(255,255,255,0.5)"
-      >
-        <option value="default">Elegir año</option>
-        <option value="2020">2020</option>
-        <option value="2021">2021</option>
-        <option value="2022">2022</option>
-      </Select>
+      <YearSelect />
 
       {/* SELECT PERIOD */}
-      <Select
-        name="period"
-        fontSize="2xl"
-        lineHeight="1.8"
-        fontWeight="600"
-        fontFamily="Times"
-        letterSpacing="1.2px"
-        onChange={handlePeriodChange}
-        bgColor="rgba(255,255,255,0.5)"
-      >
-        <option value="default">Elegir cuatrimestre</option>
-        <option value="q1">Enero - Abril</option>
-        <option value="q2">Mayo - Agosto</option>
-        <option value="q3">Septiembre - Diciembre</option>
-      </Select>
+      <MonthPicker />
 
       {/* MAP IMAGE */}
       <Stack

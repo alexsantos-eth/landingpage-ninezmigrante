@@ -20,7 +20,8 @@ export const quarterId = {
 const useFetch = ({
   url = '',
   year = '',
-  period = '',
+  periodStart = 0,
+  periodEnd = 0,
   country = '',
   department = '',
   disableFetch = false,
@@ -33,7 +34,8 @@ const useFetch = ({
   useEffect(() => {
     if (!disableFetch) {
       if (year.length === 0 && url.includes('year')) return;
-      if (period.length === 0 && url.includes('period')) return;
+      if (periodStart === 0 && url.includes('periodRange')) return;
+      if (periodEnd === 0 && url.includes('periodRange')) return;
       if (country.length === 0 && url.includes('country')) return;
       if (department.length === 0 && url.includes('department')) return;
 
@@ -50,7 +52,7 @@ const useFetch = ({
                 .replaceAll('country', country)
                 .replaceAll('year', year)
                 .replaceAll('department', encodeURI(department))
-                .replaceAll('quarter', encodeURI(quarterId[period]))
+                .replaceAll('periodRange', encodeURI(`inicio=${periodStart}&fin=${periodEnd}`))
             );
             const json = await response.json();
             resolve(json);
@@ -66,7 +68,7 @@ const useFetch = ({
 
       getData();
     }
-  }, [url, year, period, country, department, disableFetch]);
+  }, [url, year, periodStart, periodEnd, country, department, disableFetch]);
 
   return { loading, error };
 };

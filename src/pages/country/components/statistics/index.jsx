@@ -18,34 +18,18 @@ const Statistics = ({ period, year, satisticsRef }) => {
   // STATES
   const { countryID } = useParams();
   const [total, setTotal] = useState(0);
-  const [periodId, setPeriodId] = useState("");
+
   const [departments, setDepartments] = useState([]);
 
   // OBTENER TOTAL POR PERIODO
   useFetch({
-    url: "/consultas/totalporpaisanioperiodo/country/year/quarter",
+    url: "/consultas/totalporpaisanioperiodo/country?anio=year&periodRange",
     year,
-    period,
+    periodStart: period[0],
+    periodEnd: period[1],
     country: countryID,
     resolve: (data) => {
-      const periodData = data?.data?.[0];
-      setPeriodId(periodData?._id ?? "");
-      setTotal(periodData?.totalRegistros ?? 0);
-    },
-  });
-
-  // OBTENER TOTAL POR DEPARTAMENTO
-  useFetch({
-    url: "/consultas/totalpordepartamento/country/year/quarter",
-    year,
-    period,
-    country: countryID,
-    resolve: (data) => {
-      const filteredData = data.data.map((department) => ({
-        ...department,
-        name: department._id.replace("Department", "").toUpperCase(),
-      }));
-      setDepartments(filteredData.sort((a, b) => b.total - a.total));
+      console.log(data);
     },
   });
 
@@ -168,12 +152,6 @@ const Statistics = ({ period, year, satisticsRef }) => {
         </Stack>
 
         <GraphFooter countryID={countryID} />
-
-        <DownloadTable
-          satisticsRef={satisticsRef}
-          periodId={periodId}
-          tableState
-        />
       </Box>
     </>
   );

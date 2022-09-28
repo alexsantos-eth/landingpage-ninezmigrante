@@ -1,23 +1,23 @@
 // REACT
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 
 // REACT ROUTER DOM
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
 // COMPONENTS
-import Period from './components/period';
-import Statistics from './components/statistics';
+import Period from "./components/period";
+import Statistics from "./components/statistics";
 
 const CountryPage = () => {
   // PERIOD
-  const [period, setPeriod] = useState('');
-  const [year, setYear] = useState('');
+  const [period, setPeriod] = useState([1, 1]);
+  const [year, setYear] = useState("");
   const satisticsRef = useRef(null);
 
   const { countryID } = useParams();
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, [countryID]);
 
   return (

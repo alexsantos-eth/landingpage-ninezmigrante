@@ -5,6 +5,8 @@ import { Box, Stack, Text, Select, Image } from "@chakra-ui/react";
 
 import MapaGuatemala from "../../../../assets/MapaGuatemala.svg";
 import MapaHonduras from "../../../../assets/MapaHonduras.svg";
+import YearSelect from "../../../../components/yearSelect";
+import MonthPicker from "../../../../components/monthPicker";
 
 const Period = ({ period, setPeriod, year, setYear, satisticsRef }) => {
   const { countryID } = useParams();
@@ -22,8 +24,8 @@ const Period = ({ period, setPeriod, year, setYear, satisticsRef }) => {
   };
 
   // PERIOD
-  const handlePeriod = (ev) => {
-    setPeriod(ev.target.value);
+  const handlePeriod = (ranges) => {
+    setPeriod(ranges);
     scrollInto();
   };
 
@@ -57,38 +59,10 @@ const Period = ({ period, setPeriod, year, setYear, satisticsRef }) => {
           </Text>
 
           {/* SELECT YEAR */}
-          <Select
-            value={year || "default"}
-            fontSize="2xl"
-            lineHeight="1.8"
-            fontWeight="600"
-            fontFamily="Times"
-            letterSpacing="1.2px"
-            onChange={handleYear}
-            bgColor="rgba(255,255,255,0.5)"
-          >
-            <option value="default">Elegir año</option>
-            <option value="2020">2020</option>
-            <option value="2021">2021</option>
-            <option value="2022">2022</option>
-          </Select>
+          <YearSelect currentYear={year} handleYear={handleYear} />
 
           {/* SELECT PERIOD */}
-          <Select
-            value={period || "default"}
-            fontSize="2xl"
-            lineHeight="1.8"
-            fontWeight="600"
-            fontFamily="Times"
-            letterSpacing="1.2px"
-            onChange={handlePeriod}
-            bgColor="rgba(255,255,255,0.5)"
-          >
-            <option value="default">Elegir cuatrimestre</option>
-            <option value="q1">Enero - Abril</option>
-            <option value="q2">Mayo - Agosto</option>
-            <option value="q3">Septiembre - Diciembre</option>
-          </Select>
+          <MonthPicker onAccept={handlePeriod} />
         </Stack>
 
         {/* COUNTRY MAP */}
