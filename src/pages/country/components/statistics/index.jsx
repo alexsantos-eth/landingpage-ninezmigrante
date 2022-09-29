@@ -61,7 +61,7 @@ const Statistics = ({ period, year, satisticsRef }) => {
       <Box
         ref={satisticsRef}
         padding={{ base: "40px 24px", md: "80px 40px" }}
-        bgColor="#eee"
+        bgColor={isScreenShotTime ? "#fff" : "#eee"}
       >
         <Stack
           margin="auto"
@@ -158,11 +158,11 @@ const Statistics = ({ period, year, satisticsRef }) => {
         >
           <HeatMap period={period} year={year} />
           <Stack direction="column" spacing={4}>
-            {departments.map((department) => (
+            {departments.map((department, depIndex) => (
               <Stack
                 spacing={8}
                 direction="row"
-                key={department._id}
+                key={`${department._id}_${depIndex}`}
                 justifyContent="space-between"
               >
                 <Text fontFamily="Montserrat Medium" key={department.name}>
@@ -174,6 +174,21 @@ const Statistics = ({ period, year, satisticsRef }) => {
               </Stack>
             ))}
           </Stack>
+        </Stack>
+
+        <Stack direction="column" margin="auto" maxWidth="800px">
+          <Text fontSize="0.9em" textAlign="center" lineHeight={1}>
+            <b>Primera infancia (P. INF)*</b> en Guatemala se registra entre los
+            0 y 6 años y en Honduras entre 0 y 5 años.
+          </Text>
+          <Text fontSize="0.9em" textAlign="center" lineHeight={1}>
+            <b>Niñez*</b> en Guatemala se registra entre 7 y 12 años y en
+            Honduras entre los 6 y 12 años.
+          </Text>
+          <Text fontSize="0.9em" textAlign="center" lineHeight={1}>
+            <b>Adolescencia (ADOL)*</b> en ambos países el registro es entre los
+            13 y 17 años.
+          </Text>
         </Stack>
 
         {isScreenShotTime && <GraphFooter countryID={countryID} />}

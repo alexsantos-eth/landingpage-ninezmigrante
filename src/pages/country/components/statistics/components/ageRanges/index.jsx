@@ -96,13 +96,21 @@ const AgeRanges = ({
 
         <Grid templateColumns="1fr 1fr" templateRows="1fr 1fr" gridGap={2}>
           {chartColors.map((color, index) => (
-            <Stack direction="row" alignItems="center" key={`age_${color}`}>
-              <Box bgColor={color} width="18px" height="18px" />
-              <Text fontFamily="Oswald" fontSize="md">
-                {agesLabels[index]}
-              </Text>
+            <Stack
+              direction="row"
+              alignItems="center"
+              justifyContent="space-between"
+              key={`age_${color}`}
+              minWidth={160}
+            >
+              <Stack direction="row" alignItems="center">
+                <Box bgColor={color} width="18px" height="18px" />
+                <Text fontFamily="Oswald" fontSize="md">
+                  {agesLabels[index]}
+                </Text>
+              </Stack>
               <Text fontFamily="Oswald" fontSize="2xl">
-                {totals[index]}
+                {totals[index] || 0}
               </Text>
             </Stack>
           ))}

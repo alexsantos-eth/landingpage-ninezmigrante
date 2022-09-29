@@ -18,22 +18,8 @@ const GraphFooter = ({ countryID }) => {
       direction="column"
       alignItems="center"
       justifyContent="center"
-      mb={10}
+      mt={10}
     >
-      <Stack direction="column" mb={10}>
-        <Text fontSize="0.9em">
-          <b>Primera infancia (P. INF)*</b> en Guatemala se registra entre los 0
-          y 6 años y en Honduras entre 0 y 5 años.
-        </Text>
-        <Text fontSize="0.9em">
-          <b>Niñez*</b> en Guatemala se registra entre 7 y 12 años y en Honduras
-          entre los 6 y 12 años.
-        </Text>
-        <Text fontSize="0.9em">
-          <b>Adolescencia (ADOL)*</b> en ambos países el registro es entre los
-          13 y 17 años.
-        </Text>
-      </Stack>
       <Stack direction="row" justifyContent="center">
         <Stack
           pr={4}

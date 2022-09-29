@@ -1,10 +1,10 @@
 // REACT
-import { useContext, useEffect } from 'react';
-import HeatMapContext from '../context';
-import { quarterId } from '../../../../../../../hooks/fetch';
+import { useContext, useEffect } from "react";
+import HeatMapContext from "../context";
+import { quarterId } from "../../../../../../../hooks/fetch";
 
 // COLORS
-import { colors } from '../../../../../../../utils/theme';
+import { colors } from "../../../../../../../utils/theme";
 
 /**
  * Devuelve un objeto de mapa de calor con un color y una función onClick si la propiedad disabledHeat
@@ -37,7 +37,7 @@ const useHeatmap = (id, disableHeat) => {
  */
 export const useHeatColors = (setColorScales, countryID, period, year) => {
   const setColor = (countryID, escala) => {
-    if (countryID === 'guatemala') {
+    if (countryID === "guatemala") {
       return `rgba(146,189,87, ${escala})`;
     } else {
       return `rgba(221,184,65, ${escala})`;
@@ -48,9 +48,9 @@ export const useHeatColors = (setColorScales, countryID, period, year) => {
       fetch(
         `${
           import.meta.env.VITE_APP_API_URL
-        }/consultas/totalpordepartamento/${countryID}/${year}/${encodeURI(
-          quarterId[period]
-        )}`
+        }/consultas/totalpordepartamento/${countryID}?anio=${year}&inicio=${
+          period[0]
+        }&fin=${period[1]}`
       )
         .then((req) => req.json())
         .then((data) => {
@@ -63,10 +63,10 @@ export const useHeatColors = (setColorScales, countryID, period, year) => {
               ...department,
               id: department._id
                 .toLowerCase()
-                .replaceAll(' ', '')
-                .replaceAll('department', '')
-                .normalize('NFD')
-                .replace(/[\u0300-\u036f]/g, ''),
+                .replaceAll(" ", "")
+                .replaceAll("department", "")
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, ""),
             };
             return dep;
           });

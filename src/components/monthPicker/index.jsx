@@ -69,6 +69,7 @@ const MonthPicker = ({ onAccept }) => {
     <Popover isOpen={isOpen} onOpen={onOpen} onClose={onClose}>
       <PopoverTrigger>
         <Select
+          default="Elegir mes"
           textAlign="left"
           fontSize="2xl"
           lineHeight="1.8"
@@ -78,7 +79,7 @@ const MonthPicker = ({ onAccept }) => {
           bgColor="rgba(255,255,255,0.5)"
           minWidth={{ base: "100%", md: "40%" }}
         >
-          <option selected disabled>
+          <option value="Elegir mes">
             {isFirstClick
               ? "Elegir mes"
               : `${months[ranges[0]]} - ${months[ranges[1]]}`}
@@ -86,7 +87,6 @@ const MonthPicker = ({ onAccept }) => {
         </Select>
       </PopoverTrigger>
       <PopoverContent
-        position="absolute"
         direction="column"
         borderRadius="8px"
         bgColor="gray.100"
@@ -126,6 +126,7 @@ const MonthPicker = ({ onAccept }) => {
           })}
         </Grid>
         <Button
+          mt={2}
           size="md"
           color="white"
           bgColor="blue.700"

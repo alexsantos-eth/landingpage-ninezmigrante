@@ -32,6 +32,7 @@ const DownloadTable = ({ satisticsRef, periodId }) => {
         direction="column"
         alignItems="center"
         justifyContent="center"
+        mt={10}
       >
         <Divider
           data-html2canvas-ignore="true"

@@ -10,21 +10,17 @@ import EEUU from "./components/polygons/eeuu";
 import Mexico from "./components/polygons/mexico";
 import Guatemala from "./components/polygons/guatemala";
 import ElSalvador from "./components/polygons/elsalvador";
-import America from "../../../../../../assets/america.svg";
+import AmericaMap from "./components/polygons/america";
 
 import useFetch from "../../../../../../hooks/fetch";
+import { colors } from "../../../../../../utils/theme";
 
 const countryImages = {
-  eu: { color: "", image: <EEUU key={`eeuu_1`} /> },
-  mx: { color: "", image: <Mexico key={`mexico_2`} /> },
-  nextCountryG: { color: "", image: <Guatemala key={`guatemala_4`} /> },
-  nextCountryH: { color: "", image: <ElSalvador key={`guatemala_4`} /> },
-  others: {
-    color: "",
-    image: (
-      <Image height={"60px"} key={`america_4`} src={America} alt="america" />
-    ),
-  },
+  eu: { Image: EEUU },
+  mx: { Image: Mexico },
+  nextCountryG: { Image: Guatemala },
+  nextCountryH: { Image: ElSalvador },
+  others: { Image: AmericaMap },
 };
 
 const defaultTotals = {
@@ -65,9 +61,9 @@ const ReturnCountry = ({ period, year, country }) => {
           (countryID === "guatemala" && stats._id?.nombre === "Honduras") ||
           (countryID === "honduras" && stats._id?.nombre === "Guatemala")
         ) {
-          totals[`${nextCountry}${stats._id?.nombre.charAt(0)}`].name =
+          totals[`nextCountry${stats._id?.nombre.charAt(0)}`].name =
             stats._id?.nombre;
-          totals[`${nextCountry}${stats._id?.nombre.charAt(0)}`].total =
+          totals[`nextCountry${stats._id?.nombre.charAt(0)}`].total =
             stats.total;
         } else totals.others.total = stats.total;
       });
@@ -92,8 +88,10 @@ const ReturnCountry = ({ period, year, country }) => {
       >
         {Object.entries(total)
           .sort((a, b) => b[1].total - a[1].total)
-          .map((country, index) =>
-            country[1].total > 0 ? (
+          .map((country, index) => {
+            const Map = countryImages[country[0]].Image;
+
+            return country[1].total > 0 ? (
               <Stack
                 gap="24px"
                 direction="column"
@@ -101,7 +99,7 @@ const ReturnCountry = ({ period, year, country }) => {
                 alignItems="center"
                 justifyContent="center"
               >
-                {countryImages[country[0]].image}
+                {<Map color={colors.heat[countryID][900 - index * 100]} />}
 
                 <Stack
                   spacing="8px"
@@ -117,8 +115,8 @@ const ReturnCountry = ({ period, year, country }) => {
                   </Text>
                 </Stack>
               </Stack>
-            ) : null
-          )}
+            ) : null;
+          })}
       </Stack>
     </Box>
   );
