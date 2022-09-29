@@ -27,6 +27,7 @@ const LoadSplash = ({ title, description, open, setBlur }) => {
         direction="column"
         alignItems="center"
         style={{
+          boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.3)",
           opacity: open ? 1 : 0,
           transition: "opacity 0.2s ease",
         }}

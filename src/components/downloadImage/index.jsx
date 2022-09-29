@@ -18,11 +18,10 @@ const DownloadImage = ({ label, containerRef, onSS = (screenshot) => {} }) => {
     if (screenshot) {
       const take = async () => {
         setBlur(true);
-
         const element = containerRef.current;
         const html2canvas = (await import("html2canvas")).default;
         const canvas = await html2canvas(element);
-        const data = canvas.toDataURL("image/png");
+        const data = canvas.toDataURL("image/jpeg");
 
         setLoading(true);
 
@@ -34,7 +33,7 @@ const DownloadImage = ({ label, containerRef, onSS = (screenshot) => {} }) => {
         const pdfWidth = pdf.internal.pageSize.getWidth();
         const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
-        pdf.addImage(data, "PNG", 0, 0, pdfWidth, pdfHeight);
+        pdf.addImage(data, "PNG", 0, 0, pdfWidth, pdfHeight, undefined, "FAST");
         await pdf.save("download.pdf", { returnPromise: true });
         setLoading(false);
         setScreenshot(false);
