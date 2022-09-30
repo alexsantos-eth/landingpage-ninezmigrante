@@ -9,18 +9,29 @@ import ReturnPath from "../../../country/components/statistics/components/return
 import ReturnCountry from "../../../country/components/statistics/components/returnCountry";
 import HeatMap from "../../../country/components/statistics/components/heatMap";
 
-import useFetch, { quarters } from "../../../../hooks/fetch";
+import useFetch, { monthNames } from "../../../../hooks/fetch";
 
-const Statistics = ({ data }) => {
+const Statistics = ({ data, setUpdateDate, setPeriodId }) => {
   const [total, setTotal] = useState(0);
 
   useFetch({
-    url: "/consultas/totalporpaisanioperiodo/country?anio=year&periodRange",
+    url: "/consultas/totalporpaisanioperiodo/country?anio=selectedYear&periodRange",
     year: data.year,
     periodStart: data.period[0],
     periodEnd: data.period[1],
     country: data.country,
     resolve: (resData) => {
+      const lastData = resData?.data?.[resData?.data?.length - 1];
+      const lastDate = lastData?._id["Fecha de actualización"];
+      const uDate = new Date(lastDate);
+
+      setPeriodId(lastData?._id?._id);
+      setUpdateDate(
+        `${uDate.getDate() + 1} de ${monthNames[
+          uDate.getMonth() + 1
+        ]?.toLowerCase()} del ${uDate.getFullYear()}`
+      );
+
       const total = resData?.data?.reduce(
         (acc, item) => acc + (item?.total ?? 0),
         0
@@ -61,7 +72,9 @@ const Statistics = ({ data }) => {
           fontFamily="Times"
           textAlign={{ base: "center", md: "left" }}
         >
-          {`${quarters[data.period] ?? ""} ${data.year ?? ""}`}
+          {`${monthNames[data.period[0]]} - ${monthNames[data.period[1]]} - ${
+            data.year ?? ""
+          }`}
         </Text>
         <Text
           fontFamily="Oswald"

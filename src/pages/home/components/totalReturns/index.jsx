@@ -17,7 +17,7 @@ const TotalReturns = () => {
   const [total, setTotal] = useState({ gt: 0, hn: 0 });
 
   useFetch({
-    url: "/consultas/totalnnaporpaisyanio",
+    url: "/consultas/totalnnaporpaiscurrentyear",
     resolve: (data) => {
       let totals = { gt: 0, hn: 0 };
       data?.data.forEach((stats) => {

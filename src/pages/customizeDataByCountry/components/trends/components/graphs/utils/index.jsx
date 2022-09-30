@@ -1,18 +1,18 @@
-import { Stack, Image } from '@chakra-ui/react';
-import React from 'react';
-import { colors } from '../../../../../../../utils/theme';
+import { Stack, Image } from "@chakra-ui/react";
+import React from "react";
+import { colors } from "../../../../../../../utils/theme";
 
 // ASSETS
 
-import GroupedChartIcon from '../../../../../../../assets/chart-stacked.svg';
-import AreaChartIcon from '../../../../../../../assets/area-chart.svg';
-import BarChartIcon from '../../../../../../../assets/bar-chart.svg';
+import GroupedChartIcon from "../../../../../../../assets/chart-stacked.svg";
+import AreaChartIcon from "../../../../../../../assets/area-chart.svg";
+import BarChartIcon from "../../../../../../../assets/bar-chart.svg";
 
-import ConditionIcon from '../../../../../../../assets/charts/condicion.svg';
-import AgeGroupIcon from '../../../../../../../assets/charts/edad.svg';
-import GenderIcon from '../../../../../../../assets/charts/genero.svg';
-import CountryIcon from '../../../../../../../assets/charts/pais.svg';
-import ViaIcon from '../../../../../../../assets/charts/via.svg';
+import ConditionIcon from "../../../../../../../assets/charts/condicion.svg";
+import AgeGroupIcon from "../../../../../../../assets/charts/edad.svg";
+import GenderIcon from "../../../../../../../assets/charts/genero.svg";
+import CountryIcon from "../../../../../../../assets/charts/pais.svg";
+import ViaIcon from "../../../../../../../assets/charts/via.svg";
 
 export const itemColors = [
   colors.blue[700],
@@ -21,96 +21,96 @@ export const itemColors = [
 ];
 
 export const graphDataTypes = {
-  condition: 'Condicion de Viaje',
-  return: 'Pais de Retorno',
-  via: 'Via de Retorno',
-  age: 'Rango Etario',
-  gender: 'Sexo',
+  condition: "Condicion de Viaje",
+  return: "Pais de Retorno",
+  via: "Via de Retorno",
+  age: "Rango Etario",
+  gender: "Sexo",
 };
 
 export const customPeriods = [
-  'Año en curso',
-  'Ultimos 4 periodos',
-  'Ultimos 3 años',
+  "Año en curso",
+  "Ultimos 4 meses",
+  "Ultimos 3 años",
 ];
 export const customDataTypes = [
   {
-    id: 'gender',
-    name: 'Sexo',
+    id: "gender",
+    name: "Sexo",
     Content: (
       <Stack
-        height='100%'
-        direction='column'
-        alignItems='center'
-        justifyContent='center'
-        transition='transform 0.2s ease-in-out'
-        _hover={{ transform: 'scale(1.1)' }}
+        height="100%"
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+        transition="transform 0.2s ease-in-out"
+        _hover={{ transform: "scale(1.1)" }}
       >
-        <Image src={GenderIcon} height='55px' />
+        <Image src={GenderIcon} height="55px" />
       </Stack>
     ),
   },
   {
-    id: 'via',
-    name: 'Via de retorno',
+    id: "via",
+    name: "Via de retorno",
     Content: (
       <Stack
-        height='100%'
-        direction='column'
-        alignItems='center'
-        justifyContent='center'
-        transition='transform 0.2s ease-in-out'
-        _hover={{ transform: 'scale(1.1)' }}
+        height="100%"
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+        transition="transform 0.2s ease-in-out"
+        _hover={{ transform: "scale(1.1)" }}
       >
-        <Image src={ViaIcon} height='55px' />
+        <Image src={ViaIcon} height="55px" />
       </Stack>
     ),
   },
   {
-    id: 'condition',
-    name: 'Condicion de viaje',
+    id: "condition",
+    name: "Condicion de viaje",
     Content: (
       <Stack
-        height='100%'
-        direction='column'
-        alignItems='center'
-        justifyContent='center'
-        transition='transform 0.2s ease-in-out'
-        _hover={{ transform: 'scale(1.1)' }}
+        height="100%"
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+        transition="transform 0.2s ease-in-out"
+        _hover={{ transform: "scale(1.1)" }}
       >
-        <Image src={ConditionIcon} height='55px' />
+        <Image src={ConditionIcon} height="55px" />
       </Stack>
     ),
   },
   {
-    id: 'return',
-    name: 'Pais de retorno',
+    id: "return",
+    name: "Pais de retorno",
     Content: (
       <Stack
-        height='100%'
-        direction='column'
-        alignItems='center'
-        justifyContent='center'
-        transition='transform 0.2s ease-in-out'
-        _hover={{ transform: 'scale(1.1)' }}
+        height="100%"
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+        transition="transform 0.2s ease-in-out"
+        _hover={{ transform: "scale(1.1)" }}
       >
-        <Image src={CountryIcon} height='55px' />
+        <Image src={CountryIcon} height="55px" />
       </Stack>
     ),
   },
   {
-    id: 'age',
-    name: 'Rango etario',
+    id: "age",
+    name: "Rango etario",
     Content: (
       <Stack
-        height='100%'
-        direction='column'
-        alignItems='center'
-        justifyContent='center'
-        transition='transform 0.2s ease-in-out'
-        _hover={{ transform: 'scale(1.1)' }}
+        height="100%"
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+        transition="transform 0.2s ease-in-out"
+        _hover={{ transform: "scale(1.1)" }}
       >
-        <Image src={AgeGroupIcon} height='55px' />
+        <Image src={AgeGroupIcon} height="55px" />
       </Stack>
     ),
   },
@@ -118,47 +118,47 @@ export const customDataTypes = [
 
 export const customDataChart = [
   {
-    id: 'bar',
-    name: 'Barras',
+    id: "bar",
+    name: "Barras",
     Content: (
       <Image
-        transition='transform 0.2s ease-in-out'
-        _hover={{ transform: 'scale(1.1)' }}
+        transition="transform 0.2s ease-in-out"
+        _hover={{ transform: "scale(1.1)" }}
         src={BarChartIcon}
-        height='55px'
+        height="55px"
       />
     ),
   },
   {
-    id: 'area',
-    name: 'Área',
+    id: "area",
+    name: "Área",
     Content: (
       <Image
-        transition='transform 0.2s ease-in-out'
-        _hover={{ transform: 'scale(1.1)' }}
+        transition="transform 0.2s ease-in-out"
+        _hover={{ transform: "scale(1.1)" }}
         src={AreaChartIcon}
-        height='55px'
+        height="55px"
       />
     ),
   },
   {
-    id: 'group',
-    name: 'Agrupado',
+    id: "group",
+    name: "Agrupado",
     Content: (
       <Image
-        transition='transform 0.2s ease-in-out'
-        _hover={{ transform: 'scale(1.1)' }}
+        transition="transform 0.2s ease-in-out"
+        _hover={{ transform: "scale(1.1)" }}
         src={GroupedChartIcon}
-        height='55px'
+        height="55px"
       />
     ),
   },
 ];
 
 export const datasetLabels = {
-  gender: ['Femenino', 'Masculino'],
-  age: ['Primera infancia', 'Niñez', 'Adolescencia'],
-  via: ['Terrestre', 'Aérea'],
-  condition: ['Acompañado', 'No acompañado'],
-  return: ['Estados Unidos', 'México', 'Canada'],
+  gender: ["Femenino", "Masculino"],
+  age: ["Primera infancia", "Niñez", "Adolescencia"],
+  via: ["Terrestre", "Aérea"],
+  condition: ["Acompañado", "No acompañado"],
+  return: ["Estados Unidos", "México", "Canada"],
 };

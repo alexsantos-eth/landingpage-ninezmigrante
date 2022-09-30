@@ -1,6 +1,5 @@
 // TOOLS
 import depName from "../../../../../../country/components/statistics/components/heatMap/components/modal/utils";
-import { quarterId } from "../../../../../../../hooks/fetch";
 import { reorder } from "../../../../../../../utils/tools";
 import { colors } from "../../../../../../../utils/theme";
 import countryDeps, { depColors } from "../utils";
@@ -45,18 +44,20 @@ export const updateSection = ({
 }) => {
   // OBTENER TOTALES
   fetch(
-    `${import.meta.env.VITE_APP_API_URL}/consultas/totalpordepartamento/${
+    `${
+      import.meta.env.VITE_APP_API_URL
+    }/consultas/totalpordepartamento/${countryID}?anio=${
       currentYear ?? year
-    }/${quarterId[period]}/${countryID}/${depName[dep]}`
+    }&inicio=${period[0]}&fin=${period[1]}`
   )
     .then((res) => res.json())
     .then((totalData) => {
       fetch(
         `${
           import.meta.env.VITE_APP_API_URL
-        }/consultas/totalgeneropordepartamento/${currentYear ?? year}/${
-          quarterId[period]
-        }/${countryID}/${depName[dep]}`
+        }/consultas/totalgeneropordepartamento/${countryID}/${
+          depName[dep]
+        }?anio=${currentYear ?? year}&inicio=${period[0]}&fin=${period[1]}`
       )
         .then((res) => res.json())
         .then((genderData) => {

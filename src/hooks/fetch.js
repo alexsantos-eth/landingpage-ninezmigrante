@@ -49,7 +49,7 @@ const useFetch = ({
   // EJECUTAR FETCH CUANDO EL COMPONENTE SE CARGA
   useEffect(() => {
     if (!disableFetch) {
-      if (year.length === 0 && url.includes("year")) return;
+      if (year.length === 0 && url.includes("selectedYear")) return;
       if (periodStart === 0 && url.includes("periodRange")) return;
       if (periodEnd === 0 && url.includes("periodRange")) return;
       if (country.length === 0 && url.includes("country")) return;
@@ -66,7 +66,7 @@ const useFetch = ({
             const response = await fetch(
               `${import.meta.env.VITE_APP_API_URL}${url}`
                 .replaceAll("country", country)
-                .replaceAll("year", year)
+                .replaceAll("selectedYear", year)
                 .replaceAll("department", encodeURI(department))
                 .replaceAll(
                   "periodRange",

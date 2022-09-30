@@ -1,7 +1,6 @@
 // REACT
 import { useContext, useEffect } from "react";
 import HeatMapContext from "../context";
-import { quarterId } from "../../../../../../../hooks/fetch";
 
 // COLORS
 import { colors } from "../../../../../../../utils/theme";

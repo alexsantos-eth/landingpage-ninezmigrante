@@ -21,7 +21,7 @@ const Gender = ({
   const [total, setTotal] = useState({ male: male ?? 0, female: female ?? 0 });
 
   useFetch({
-    url: "/consultas/totalporgenero/country?anio=year&periodRange",
+    url: "/consultas/totalporgenero/country?anio=selectedYear&periodRange",
     year,
     periodStart: period[0],
     periodEnd: period[1],

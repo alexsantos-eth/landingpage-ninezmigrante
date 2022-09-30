@@ -27,7 +27,7 @@ const months = [
   "Dic",
 ];
 
-const MonthPicker = ({ onAccept }) => {
+const MonthPicker = ({ onAccept, minWidth }) => {
   // RANGE 0 - 11 (0  undefined)
   const [ranges, setRanges] = useState([0, 0]);
   const [isFirstClick, setIsFirstClick] = useState(true);
@@ -77,7 +77,7 @@ const MonthPicker = ({ onAccept }) => {
           fontFamily="Times"
           letterSpacing="1.2px"
           bgColor="rgba(255,255,255,0.5)"
-          minWidth={{ base: "100%", md: "40%" }}
+          minWidth={minWidth ?? { base: "100%", md: "40%" }}
         >
           <option value="Elegir mes">
             {isFirstClick

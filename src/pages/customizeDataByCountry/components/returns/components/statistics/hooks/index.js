@@ -1,6 +1,5 @@
 // REACT
 import { useEffect } from "react";
-import { quarterId } from "../../../../../../../hooks/fetch";
 
 /**
  * Obtiene datos de una API, los filtra, los ordena y los establece en un estado
@@ -22,9 +21,9 @@ export const useSortedDepartments = (
       fetch(
         `${
           import.meta.env.VITE_APP_API_URL
-        }/consultas/totalpordepartamento/${countryID}/${year}/${encodeURI(
-          quarterId[period]
-        )}`
+        }/consultas/totalpordepartamento/${countryID}?anio=${year}&inicio=${
+          period[0]
+        }&fin=${period[1]}`
       )
         .then((req) => req.json())
         .then((data) => {

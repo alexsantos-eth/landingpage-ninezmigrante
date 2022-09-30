@@ -12,7 +12,7 @@ import LogoCoiproden from "../../assets/LogoCoiproden.png";
 import LogoPAMI from "../../assets/LogoPAMI.png";
 import LogoKnh from "../../assets/LogoKnh.png";
 
-const GraphFooter = ({ countryID }) => {
+const GraphFooter = ({ sources }) => {
   return (
     <Stack
       direction="column"
@@ -35,7 +35,12 @@ const GraphFooter = ({ countryID }) => {
             justifyContent={["space-between", "center"]}
           >
             <Link to="/">
-              <Image src={LogoNinezMigrante} w="80px" />
+              <Image
+                src={LogoNinezMigrante}
+                w="80px"
+                minW={"80px"}
+                mb={"-25px"}
+              />
             </Link>
             <Stack direction="column" spacing="0px">
               <Stack>
@@ -44,17 +49,16 @@ const GraphFooter = ({ countryID }) => {
                 </Text>
               </Stack>
 
-              <Stack
-                direction="row"
-                alignItems="center"
-                display={{ base: "none", md: "flex" }}
-              >
-                <Icon as={ViewIcon} boxSize="3em" />
+              <Stack direction="row" alignItems="center">
+                <Box mb={"-25px"}>
+                  <Icon as={ViewIcon} boxSize="3em" style={{ margin: 0 }} />
+                </Box>
                 <Text
                   fontSize="2.5em"
                   lineHeight={1}
                   fontWeight="400"
                   fontFamily="Oswald"
+                  display={"inline"}
                 >
                   MOBINIM
                 </Text>
@@ -68,7 +72,6 @@ const GraphFooter = ({ countryID }) => {
             fontFamily="Times"
             textAlign="center"
             lineHeight={1.2}
-            display={{ base: "none", md: "block" }}
           >
             Monitoreo binacional de niñez migrante retornada Guatemala-Honduras
           </Text>
@@ -80,39 +83,7 @@ const GraphFooter = ({ countryID }) => {
           marginBottom="40px"
           justifyContent="center"
         >
-          {countryID === "guatemala" ? (
-            <>
-              <Text
-                lineHeight={1}
-                textAlign="center"
-                fontFamily="Oswald"
-                fontSize={{ base: "xl", md: "md" }}
-                maxWidth={{ base: "300px", md: "800px" }}
-              >
-                Fuente: Departamento de Centros de Atención Migratoria.
-              </Text>
-              <Text
-                lineHeight={1}
-                textAlign="center"
-                fontFamily="Oswald"
-                fontSize={{ base: "xl", md: "md" }}
-                maxWidth={{ base: "300px", md: "800px" }}
-              >
-                Elaborado por: el Departamento de Estadística y Archivos.
-                Instituto Guatemalteco de Migración -IGM-
-              </Text>
-            </>
-          ) : (
-            <Text
-              lineHeight={1}
-              textAlign="center"
-              fontFamily="Oswald"
-              fontSize={{ base: "xl", md: "md" }}
-              maxWidth={{ base: "300px", md: "800px" }}
-            >
-              Fuente: Dirección de Niñez, Adolescencia y Familia (DINAF)
-            </Text>
-          )}
+          {sources}
 
           <Stack
             gap="0px"

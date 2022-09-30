@@ -50,7 +50,7 @@ const AgeRanges = ({
   const [total, setTotal] = useState({ f1: f1 ?? 0, f2: f2 ?? 0, f3: f3 ?? 0 });
 
   useFetch({
-    url: "/consultas/totalporrangoetario/country?anio=year&periodRange",
+    url: "/consultas/totalporrangoetario/country?anio=selectedYear&periodRange",
     year,
     periodStart: period[0],
     periodEnd: period[1],

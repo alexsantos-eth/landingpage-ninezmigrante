@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { Box, Stack, Text, Divider } from "@chakra-ui/react";
 
 import GraphFooter from "../../../../components/graphFooter";
+import LastDate from "../../../../components/lastUpdate";
 import TravelCondition from "./components/travelCondition";
 import ReturnCountry from "./components/returnCountry";
 import DownloadTable from "./components/downloadTable";
@@ -22,15 +23,28 @@ const Statistics = ({ period, year, satisticsRef }) => {
   const [total, setTotal] = useState(0);
   const [isScreenShotTime, setIsScreenShotTime] = useState(false);
   const [departments, setDepartments] = useState([]);
+  const [updateDate, setUpdateDate] = useState("");
+  const [periodId, setPeriodId] = useState("");
 
   // OBTENER TOTAL POR PERIODO
   useFetch({
-    url: "/consultas/totalporpaisanioperiodo/country?anio=year&periodRange",
+    url: "/consultas/totalporpaisanioperiodo/country?anio=selectedYear&periodRange",
     year,
     periodStart: period[0],
     periodEnd: period[1],
     country: countryID,
     resolve: (data) => {
+      const lastData = data?.data?.[data?.data?.length - 1];
+      const lastDate = lastData?._id["Fecha de actualización"];
+      const uDate = new Date(lastDate);
+
+      setPeriodId(lastData?._id?._id);
+      setUpdateDate(
+        `${uDate.getDate() + 1} de ${monthNames[
+          uDate.getMonth() + 1
+        ]?.toLowerCase()} del ${uDate.getFullYear()}`
+      );
+
       const total = data?.data?.reduce(
         (acc, item) => acc + (item?.total ?? 0),
         0
@@ -40,7 +54,7 @@ const Statistics = ({ period, year, satisticsRef }) => {
   });
 
   useFetch({
-    url: "/consultas/totalpordepartamento/country?anio=year&periodRange",
+    url: "/consultas/totalpordepartamento/country?anio=selectedYear&periodRange",
     year,
     periodStart: period[0],
     periodEnd: period[1],
@@ -53,6 +67,44 @@ const Statistics = ({ period, year, satisticsRef }) => {
       setDepartments(filteredData.sort((a, b) => b.total - a.total));
     },
   });
+
+  const sources = (
+    <Box direction="column" margin="auto" maxWidth="800px" mt={10}>
+      {countryID === "guatemala" ? (
+        <>
+          <Text
+            lineHeight={1}
+            textAlign="center"
+            fontFamily="Oswald"
+            fontSize={{ base: "xl", md: "md" }}
+            maxWidth={"800px"}
+          >
+            Fuente: Departamento de Centros de Atención Migratoria.
+          </Text>
+          <Text
+            lineHeight={1}
+            textAlign="center"
+            fontFamily="Oswald"
+            fontSize={{ base: "xl", md: "md" }}
+            maxWidth={"800px"}
+          >
+            Elaborado por: el Departamento de Estadística y Archivos. Instituto
+            Guatemalteco de Migración -IGM-
+          </Text>
+        </>
+      ) : (
+        <Text
+          lineHeight={1}
+          textAlign="center"
+          fontFamily="Oswald"
+          fontSize={{ base: "xl", md: "md" }}
+          maxWidth={"800px"}
+        >
+          Fuente: Dirección de Niñez, Adolescencia y Familia (DINAF)
+        </Text>
+      )}
+    </Box>
+  );
 
   return (
     <StatisticsContext.Provider
@@ -191,12 +243,13 @@ const Statistics = ({ period, year, satisticsRef }) => {
           </Text>
         </Stack>
 
-        {isScreenShotTime && <GraphFooter countryID={countryID} />}
+        {!isScreenShotTime && sources}
 
-        <DownloadTable
-          periodId={`${monthNames[period[0]]}-${monthNames[period[1]]}`}
-          satisticsRef={satisticsRef}
-        />
+        <LastDate updateDate={updateDate} />
+
+        {isScreenShotTime && <GraphFooter />}
+
+        <DownloadTable periodId={periodId} satisticsRef={satisticsRef} />
       </Box>
     </StatisticsContext.Provider>
   );

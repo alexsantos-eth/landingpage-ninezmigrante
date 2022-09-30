@@ -34,13 +34,6 @@ const DownloadTable = ({ satisticsRef, periodId }) => {
         justifyContent="center"
         mt={10}
       >
-        <Divider
-          data-html2canvas-ignore="true"
-          orientation="horizontal"
-          borderColor="black"
-          borderWidth="1px"
-        />
-
         <Stack
           data-html2canvas-ignore="true"
           gap="24px"

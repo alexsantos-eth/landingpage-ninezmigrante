@@ -36,7 +36,7 @@ const ReturnCountry = ({ period, year, country }) => {
   const [total, setTotal] = useState(() => ({ ...defaultTotals }));
 
   useFetch({
-    url: "/consultas/totalporpaisdeproveniencia/country?anio=year&periodRange",
+    url: "/consultas/totalporpaisdeproveniencia/country?anio=selectedYear&periodRange",
     year,
     periodStart: period[0],
     periodEnd: period[1],

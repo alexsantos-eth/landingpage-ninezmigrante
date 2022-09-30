@@ -4,7 +4,7 @@ import React from "react";
 import { Select } from "@chakra-ui/react";
 import { year } from "../../utils/year";
 
-const YearSelect = ({ currentYear, handleYear }) => {
+const YearSelect = ({ currentYear, handleYear, minWidth }) => {
   const years = Array.from({ length: year - 2019 }, (v, k) => k + 2020);
 
   return (
@@ -18,7 +18,7 @@ const YearSelect = ({ currentYear, handleYear }) => {
         onChange={handleYear}
         letterSpacing="1.2px"
         bgColor="rgba(255,255,255,0.5)"
-        minWidth={{ base: "100%", md: "40%" }}
+        minWidth={minWidth ?? { base: "100%", md: "40%" }}
         value={currentYear?.toString() || ""}
       >
         <option value="">Elegir año</option>

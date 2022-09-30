@@ -15,6 +15,7 @@ const DownloadImage = ({ label, containerRef, onSS = (screenshot) => {} }) => {
   // TAKE SCREEN SHOOT
   useEffect(() => {
     onSS(screenshot);
+
     if (screenshot) {
       const take = async () => {
         setBlur(true);

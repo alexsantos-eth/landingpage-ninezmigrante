@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 //UTILS
-import { getCurrentQuarter, year } from "../../../../../../../utils/year";
-import { quarterId } from "../../../../../../../hooks/fetch";
+import { month, year } from "../../../../../../../utils/year";
+import { monthNames } from "../../../../../../../hooks/fetch";
 import { itemColors } from "../utils";
 
 const endpoints = {
@@ -46,54 +46,67 @@ const useGraphData = (period, graphType, chartType) => {
       let currentYear = year;
       let localData = [];
 
+      // UTIMO AÑO
       if (period === "0") {
         barLengths = 3;
-        for (let i = 0; i < barLengths; i++) {
-          localData.push({
-            id: `q${i + 1}`,
-            year,
-            name: `Cuatrimestre ${i + 1} - ${year}`,
-          });
-        }
+        localData.push({
+          ranges: [1, 12],
+          year,
+          name: `Enero - Diciembre - ${year}`,
+        });
       }
+
+      // ULTIMOS 4 MESES
       if (period === "1") {
         barLengths = 4;
-        let currentQuarter = getCurrentQuarter();
 
-        while (currentQuarter > 0 && localData.length < 4) {
+        if (month >= 5) {
           localData.push({
-            id: `q${currentQuarter}`,
+            ranges: [month - 4, month - 1],
             year: currentYear,
-            name: `Cuatrimestre ${currentQuarter} - ${currentYear}`,
+            name: `${monthNames[month - 4]} - ${
+              monthNames[month - 1]
+            } - ${currentYear}`,
+          });
+        } else {
+          const startDiff = 5 - month;
+
+          localData.push({
+            ranges: [1, month],
+            year: currentYear,
+            name: `${monthNames[1]} - ${monthNames[month]} - ${currentYear}`,
           });
 
-          currentQuarter--;
-          if (currentQuarter === 0 && currentYear !== year - 1) {
-            currentQuarter = 3;
-            currentYear--;
+          if (startDiff > 1) {
+            localData.push({
+              ranges: [12 - startDiff, 12],
+              year: currentYear - 1,
+              name: `${monthNames[12 - startDiff]} - ${monthNames[12]} - ${
+                currentYear - 1
+              }`,
+            });
           }
         }
       }
+
+      // ULTIMOS 3 AÑOS
       if (period === "2") {
         barLengths = 3;
-        while (currentYear > year - 3) {
-          localData.push({
-            id: `q1`,
-            year: currentYear,
-            name: `Cuatrimestre 1`,
-          });
-          localData.push({
-            id: `q2`,
-            year: currentYear,
-            name: `Cuatrimestre 2`,
-          });
-          localData.push({
-            id: `q3`,
-            year: currentYear,
-            name: `Cuatrimestre 3`,
-          });
-          currentYear--;
-        }
+        localData.push({
+          ranges: [1, 12],
+          year: currentYear,
+          name: `${currentYear}`,
+        });
+        localData.push({
+          ranges: [1, 12],
+          year: currentYear - 1,
+          name: `${currentYear - 1}`,
+        });
+        localData.push({
+          ranges: [1, 12],
+          year: currentYear - 2,
+          name: `${currentYear - 2}`,
+        });
       }
 
       // PETICIONES
@@ -101,7 +114,9 @@ const useGraphData = (period, graphType, chartType) => {
         const req = await fetch(
           `${import.meta.env.VITE_APP_API_URL}/consultas/${
             endpoints[graphType]
-          }/${countryID}/${label.year}/${quarterId[label.id]}`
+          }/${countryID}?anio=${label.year}&inicio=${label.ranges[0]}&fin=${
+            label.ranges[1]
+          }`
         );
         const data = await req.json();
         let totals = { total1: 0, total2: 0, total3: 0 };
@@ -148,35 +163,6 @@ const useGraphData = (period, graphType, chartType) => {
 
           // REVERSE PARA PERIODO 1
           if (period === "1") data = data.reverse();
-
-          // AGRUPAR POR AÑOS
-          if (period === "2") {
-            let currentYear = year;
-
-            data.forEach((totals) => {
-              const nextTotal1 = totals.total1;
-              const nextTotal2 = totals.total2;
-              const nextTotal3 = totals.total3;
-
-              if (totals.year === currentYear) {
-                if (totals.id === "q1") {
-                  data[year - currentYear].total1 = 0;
-                  data[year - currentYear].total2 = 0;
-                  data[year - currentYear].total3 = 0;
-                }
-                data[year - currentYear].total1 += nextTotal1;
-                data[year - currentYear].total2 += nextTotal2;
-                data[year - currentYear].total3 += nextTotal3;
-                data[year - currentYear].year = currentYear;
-                data[year - currentYear].name = `Año ${currentYear}`;
-              }
-
-              if (totals.id === "q3") currentYear--;
-            });
-
-            data.length = 3;
-            data = data.reverse();
-          }
 
           const newGraphData = {
             labels: data.map((totals) => totals.name),

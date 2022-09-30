@@ -9,6 +9,7 @@ import { Box, Stack, Text, Select, Image, Divider } from "@chakra-ui/react";
 import DownloadImage from "../../../../components/downloadImage";
 import MonthPicker from "../../../../components/monthPicker";
 import YearSelect from "../../../../components/yearSelect";
+import GraphFooter from "../../../../components/graphFooter";
 
 // ASSETS
 import MapaHonduras from "../../../.../../../assets/MapaHonduras.svg";
@@ -21,12 +22,15 @@ import useFetch, { monthNames } from "../../../../hooks/fetch";
 
 // UTILS
 import { year } from "../../../../utils/year";
+import LastDate from "../../../../components/lastUpdate";
 
 const Compare = () => {
   const [bordersData, setBordersData] = useState({ mx: [], usa: [] });
   const [currentPeriod, setCurrentPeriod] = useState([1, 1]);
   const [currentYear, setCurrentYear] = useState(year);
   const [total, setTotal] = useState(0);
+  const [isScreenShotTime, setIsScreenShotTime] = useState(false);
+  const [updateDate, setUpdateDate] = useState("");
 
   const { countryID } = useParams();
 
@@ -35,12 +39,22 @@ const Compare = () => {
   const handleYear = (ev) => setCurrentYear(ev.target.value);
 
   useFetch({
-    url: "/consultas/totalporpaisanioperiodo/country?anio=year&periodRange",
+    url: "/consultas/totalporpaisanioperiodo/country?anio=selectedYear&periodRange",
     year: currentYear,
     country: countryID,
     periodStart: currentPeriod[0],
     periodEnd: currentPeriod[1],
     resolve: (data) => {
+      const lastDate =
+        data?.data?.[data?.data?.length - 1]?._id["Fecha de actualización"];
+      const uDate = new Date(lastDate);
+
+      setUpdateDate(
+        `${uDate.getDate() + 1} de ${monthNames[
+          uDate.getMonth() + 1
+        ]?.toLowerCase()} del ${uDate.getFullYear()}`
+      );
+
       const total = data?.data?.reduce(
         (acc, item) => acc + (item?.total ?? 0),
         0
@@ -50,7 +64,7 @@ const Compare = () => {
   });
 
   useFetch({
-    url: "/consultas/detenidosenfronteradeestadosunidos/year/estados%20unidos",
+    url: "/consultas/detenidosenfronteradeestadosunidos/selectedYear/estados%20unidos",
     year: currentYear,
     resolve: (data) => {
       setBordersData((prev) => ({ ...prev, usa: data.data }));
@@ -58,7 +72,7 @@ const Compare = () => {
   });
 
   useFetch({
-    url: "/consultas/detenidosenfrontera/year/m%C3%A9xico",
+    url: "/consultas/detenidosenfrontera/selectedYear/m%C3%A9xico",
     year: currentYear,
     resolve: (data) => setBordersData((prev) => ({ ...prev, mx: data.data })),
   });
@@ -85,6 +99,40 @@ const Compare = () => {
       })
       .reduce((acc, item) => acc + item.totalMes, 0),
   };
+
+  const sources = (
+    <Stack
+      width="100%"
+      margin="auto"
+      direction="column"
+      alignItems="center"
+      marginBottom="40px"
+      paddingTop="40px"
+      justifyContent="center"
+      maxWidth="800px"
+    >
+      <Text
+        textAlign="center"
+        fontFamily="Oswald"
+        fontSize={{ base: "xl", md: "xl" }}
+        maxWidth="800px"
+      >
+        Fuente:
+        http://www.politicamigratoria.gob.mx/es/PoliticaMigratoria/Boletines_Estadisticos
+      </Text>
+
+      <Text
+        textAlign="center"
+        fontFamily="Montserrat Medium"
+        fontSize={{ base: "xs", md: "sm" }}
+      >
+        Esta información ha sido procesada por: MOBINM, monitoreo binacional de
+        niñez migrante Guatemala-Honduras, en el marco del Proyecto Binacional
+        Honduras-Guatemala a favor de los derechos de la niñez y adolescencia
+        migrante. Implementado por: PAMI y COIPRODEN, con fondos de KNH y BMZ.
+      </Text>
+    </Stack>
+  );
 
   return (
     <Box width="100%" bgColor="#d9e8e8" padding="40px 40px 80px 40px">
@@ -235,41 +283,17 @@ const Compare = () => {
               </Text>
             </Stack>
           </Stack>
-          <Stack
-            width="100%"
-            margin="auto"
-            direction="column"
-            alignItems="center"
-            marginBottom="40px"
-            paddingTop="40px"
-            justifyContent="center"
-            maxWidth={{ base: "300px", md: "800px" }}
-          >
-            <Text
-              textAlign="center"
-              fontFamily="Oswald"
-              fontSize={{ base: "xl", md: "2xl" }}
-              maxWidth={{ base: "300px", md: "800px" }}
-            >
-              Fuente:
-              http://www.politicamigratoria.gob.mx/es/PoliticaMigratoria/Boletines_Estadisticos
-            </Text>
 
-            <Text
-              textAlign="center"
-              fontFamily="Montserrat Medium"
-              fontSize={{ base: "xs", md: "sm" }}
-            >
-              Esta información ha sido procesada por: MOBINM, monitoreo
-              binacional de niñez migrante Guatemala-Honduras, en el marco del
-              Proyecto Binacional Honduras-Guatemala a favor de los derechos de
-              la niñez y adolescencia migrante. Implementado por: PAMI y
-              COIPRODEN, con fondos de KNH y BMZ.
-            </Text>
-          </Stack>
+          {!isScreenShotTime && sources}
+
+          <LastDate updateDate={updateDate} />
+
+          {isScreenShotTime && <GraphFooter sources={sources} />}
+
           <DownloadImage
             label="Descargar imagen de la comparación"
             containerRef={containerRef}
+            onSS={setIsScreenShotTime}
           />
         </Box>
       </Stack>
