@@ -31,9 +31,10 @@ const TravelCondition = ({
   const [total, setTotal] = useState({ acd: acd ?? 0, noAcd: noAcd ?? 0 });
 
   useFetch({
-    url: "/consultas/totalporcondiciondeviaje/country/year/quarter",
+    url: "/consultas/totalporcondiciondeviaje/country?anio=selectedYear&periodRange",
     year,
-    period,
+    periodStart: period[0],
+    periodEnd: period[1],
     country: countryID,
     disableFetch: acd !== undefined || noAcd !== undefined,
     resolve: (data) => {

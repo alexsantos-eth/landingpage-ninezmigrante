@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import { Box } from '@chakra-ui/react';
+import { Box } from "@chakra-ui/react";
 
-import Header from './components/header';
-import Statistics from './components/statistics';
+import Header from "./components/header";
+import Statistics from "./components/statistics";
 
 const Returns = () => {
   const [returns, setReturns] = useState({});
@@ -15,9 +15,20 @@ const Returns = () => {
     }));
   };
 
+  const handleMonts = (ranges) => {
+    setReturns((prevState) => ({
+      ...prevState,
+      period: ranges,
+    }));
+  };
+
   return (
-    <Box bgColor='#d9e8e8'>
-      <Header returns={returns} handleChange={handleChange} />
+    <Box bgColor="#d9e8e8">
+      <Header
+        returns={returns}
+        handleChange={handleChange}
+        handleMonts={handleMonts}
+      />
       <Statistics returns={returns} />
     </Box>
   );

@@ -1,97 +1,76 @@
 // REACT
-import React from 'react';
+import React from "react";
 
 // CHAKRA UI COMONENTS
-import { Box, Stack, Text, Select } from '@chakra-ui/react';
+import { Box, Stack, Text, Select } from "@chakra-ui/react";
+import YearSelect from "../../../../../../components/yearSelect";
+import MonthPicker from "../../../../../../components/monthPicker";
 
-const Header = ({ returns, handleChange }) => {
+const Header = ({ returns, handleChange, handleMonts }) => {
   return (
-    <Box width='100%' padding='40px'>
+    <Box width="100%" padding="40px">
       {/* CONTAINER */}
       <Stack
-        margin='auto'
-        maxWidth='800px'
-        direction='row'
-        alignItems={{ base: 'flex-start', md: 'center' }}
-        justifyContent={{ base: 'flex-start', md: 'center' }}
+        margin="auto"
+        maxWidth="800px"
+        direction="row"
+        alignItems={{ base: "flex-start", md: "center" }}
+        justifyContent={{ base: "flex-start", md: "center" }}
       >
         {/* NUMBER */}
         <Stack>
           <Text
-            lineHeight='1'
-            fontFamily='Oswald'
-            fontSize={{ base: '4em', md: '8em' }}
+            lineHeight="1"
+            fontFamily="Oswald"
+            fontSize={{ base: "4em", md: "8em" }}
           >
             3
           </Text>
         </Stack>
 
         {/* TITLE AND SELECTS */}
-        <Stack spacing='16px'>
+        <Stack spacing="16px">
           <Text
-            fontFamily='Oswald'
-            fontSize={{ base: '2xl', md: '4xl' }}
-            lineHeight={{ base: '1.4', md: '1' }}
+            fontFamily="Oswald"
+            fontSize={{ base: "2xl", md: "4xl" }}
+            lineHeight={{ base: "1.4", md: "1" }}
           >
             DEPARTAMENTOS CON MÁS O MENOS RETORNADOS
           </Text>
 
           <Stack
-            alignItems='center'
-            justifyContent='space-between'
-            direction={{ base: 'column', md: 'row' }}
+            alignItems="center"
+            justifyContent="space-between"
+            direction={{ base: "column", md: "row" }}
           >
             {/* SELECT YEAR */}
-            <Select
-              name='year'
-              onChange={handleChange}
-              value={returns.year || 'default'}
-              fontSize='2xl'
-              lineHeight='1.8'
-              fontWeight='600'
-              fontFamily='Times'
-              letterSpacing='1.2px'
-              bgColor='#bcd6d6'
-            >
-              <option value='default'>Elegir año</option>
-              <option value='2020'>2020</option>
-              <option value='2021'>2021</option>
-              <option value='2022'>2022</option>
-            </Select>
+            <YearSelect
+              minWidth={{ base: "100%", md: "10%" }}
+              currentYear={returns.year}
+              handleYear={handleChange}
+            />
 
             {/* SELECT PERIOD */}
-            <Select
-              name='period'
-              onChange={handleChange}
-              value={returns.period || 'default'}
-              fontSize='2xl'
-              lineHeight='1.8'
-              fontWeight='600'
-              fontFamily='Times'
-              letterSpacing='1.2px'
-              bgColor='#bcd6d6'
-            >
-              <option value='default'>Elegir período</option>
-              <option value='q1'>Enero - Abril</option>
-              <option value='q2'>Mayo - Agosto</option>
-              <option value='q3'>Septiembre - Diciembre</option>
-            </Select>
+            <MonthPicker
+              onAccept={handleMonts}
+              minWidth={{ base: "100%", md: "10%" }}
+            />
 
             {/* SELECT LIST */}
             <Select
-              name='list'
+              name="list"
               onChange={handleChange}
-              value={returns.list || 'default'}
-              fontSize='2xl'
-              lineHeight='1.8'
-              fontWeight='600'
-              fontFamily='Times'
-              letterSpacing='1.2px'
-              bgColor='#bcd6d6'
+              value={returns.list || "default"}
+              fontSize="2xl"
+              lineHeight="1.8"
+              fontWeight="600"
+              fontFamily="Times"
+              letterSpacing="1.2px"
+              bgColor="#bcd6d6"
             >
-              <option value='default'>Elegir</option>
-              <option value='asc'>Más retornados</option>
-              <option value='desc'>Menos retornados</option>
+              <option value="default">Elegir</option>
+              <option value="asc">Más retornados</option>
+              <option value="desc">Menos retornados</option>
             </Select>
           </Stack>
         </Stack>

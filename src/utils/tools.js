@@ -11,3 +11,13 @@ export const reorder = (list, startIndex, endIndex) => {
   result.splice(endIndex, 0, removed);
   return result;
 };
+
+/**
+ * Toma una cadena, escribe en mayúscula la primera letra y devuelve la nueva cadena.
+ * @param text - El texto que desea escribir en mayúsculas.
+ * @returns El primer carácter de la cadena se escribe en mayúscula y luego se devuelve el resto de la
+ * cadena.
+ */
+export const capitalizeText = (text) => {
+  return text.charAt(0).toUpperCase() + text.slice(1);
+};

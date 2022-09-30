@@ -15,7 +15,7 @@ const TotalByTravelCondition = () => {
   const [total, setTotal] = useState({ acm: 0, noAcm: 0 });
 
   useFetch({
-    url: "/consultas/totalnnaporcondiciondeviajeporanioactual",
+    url: "/consultas/totalnnaporcondiciondeviajecurrentyear",
     resolve: (data) => {
       let totals = { noAcm: 0, acm: 0 };
       data?.data.forEach((stats) => {

@@ -16,15 +16,16 @@ const ReturnPath = ({ period, year, country }) => {
   const [total, setTotal] = useState({ air: 0, tr: 0 });
 
   useFetch({
-    url: "/consultas/totalporviaderetorno/country/year/quarter",
+    url: "/consultas/totalporviaderetorno/country?anio=selectedYear&periodRange",
     year,
-    period,
+    periodStart: period[0],
+    periodEnd: period[1],
     country: countryID,
     resolve: (data) => {
       let totals = { tr: 0, air: 0 };
       data?.data?.forEach((stats) => {
-        if (stats._id.startsWith("Terrestre")) totals.tr += stats.total;
-        if (stats._id.startsWith("Aérea")) totals.air += stats.total;
+        if (stats._id.nombre.startsWith("Terrestre")) totals.tr += stats.total;
+        if (stats._id.nombre.startsWith("Aérea")) totals.air += stats.total;
       });
       setTotal(totals);
     },
