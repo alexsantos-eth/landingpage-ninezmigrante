@@ -30,7 +30,7 @@ const AgeRanges = ({
   year,
   country,
   disableFirstAge = false,
-  defData: { f1 = undefined, f2 = undefined, f3 = undefined },
+  defData: { f1 = undefined, f2 = undefined, f3 = undefined, f4 = undefined },
 }) => {
   let labels = ["P. INF", "NIÑEZ", "ADOL", "NR"];
   let chartColors = [
@@ -47,7 +47,12 @@ const AgeRanges = ({
   ];
 
   const countryID = useParams().countryID || country;
-  const [total, setTotal] = useState({ f1: f1 ?? 0, f2: f2 ?? 0, f3: f3 ?? 0 });
+  const [total, setTotal] = useState({
+    f1: f1 ?? 0,
+    f2: f2 ?? 0,
+    f3: f3 ?? 0,
+    f4: f4 ?? 0,
+  });
 
   useFetch({
     url: "/consultas/totalporrangoetario/country?anio=selectedYear&periodRange",
@@ -55,19 +60,25 @@ const AgeRanges = ({
     periodStart: period[0],
     periodEnd: period[1],
     country: countryID,
-    disableFetch: f1 !== undefined || f2 !== undefined || f3 !== undefined,
+    disableFetch:
+      f1 !== undefined ||
+      f2 !== undefined ||
+      f3 !== undefined ||
+      f4 !== undefined,
     resolve: (data) => {
-      let totals = { f1: 0, f2: 0, f3: 0 };
+      console.log("ages", data);
+      let totals = { f1: 0, f2: 0, f3: 0, f4: 0 };
       data?.data?.forEach((stats) => {
-        if (stats._id === "0-6 años") totals.f1 += stats.total;
-        if (stats._id === "7-12 años") totals.f2 += stats.total;
-        if (stats._id === "13-17 años") totals.f3 += stats.total;
+        if (stats._id === "Primera infancia") totals.f1 += stats.total;
+        if (stats._id === "Niñez") totals.f2 += stats.total;
+        if (stats._id === "Adolescencia") totals.f3 += stats.total;
+        if (stats._id === "No registrados") totals.f4 += stats.total;
       });
       setTotal(totals);
     },
   });
 
-  let totals = [f1 ?? total.f1, f2 ?? total.f2, f3 ?? total.f3];
+  let totals = [f1 ?? total.f1, f2 ?? total.f2, f3 ?? total.f3, f4 ?? total.f4];
   if (disableFirstAge) {
     chartColors = chartColors.slice(1);
     agesLabels = agesLabels.slice(1);
@@ -127,7 +138,7 @@ const AgeRanges = ({
 
 AgeRanges.defaultProps = {
   disableFirstAge: false,
-  defData: { f1: undefined, f2: undefined, f3: undefined },
+  defData: { f1: undefined, f2: undefined, f3: undefined, f4: undefined },
 };
 
 export default AgeRanges;
