@@ -16,6 +16,7 @@ import Gender from "./components/gender";
 import useFetch, { monthNames } from "../../../../hooks/fetch";
 
 import StatisticsContext from "./context";
+import { capitalizeText } from "../../../../utils/tools";
 
 const Statistics = ({ period, year, satisticsRef }) => {
   // STATES
@@ -208,7 +209,7 @@ const Statistics = ({ period, year, satisticsRef }) => {
           justifyContent="center"
           direction={{ base: "column", md: "row" }}
         >
-          <HeatMap period={period} year={year} />
+          <HeatMap period={period} year={year} periodId={periodId} />
           <Stack direction="column" spacing={4}>
             {departments.map((department, depIndex) => (
               <Stack
@@ -217,12 +218,10 @@ const Statistics = ({ period, year, satisticsRef }) => {
                 key={`${department._id}_${depIndex}`}
                 justifyContent="space-between"
               >
-                <Text fontFamily="Montserrat Medium" key={department.name}>
-                  {department.name}
+                <Text fontFamily="Montserrat Medium">
+                  {capitalizeText(department.name?.toLowerCase())}
                 </Text>
-                <Text fontFamily="Montserrat Medium" key={department.name}>
-                  {department.total}
-                </Text>
+                <Text fontFamily="Montserrat Medium">{department.total}</Text>
               </Stack>
             ))}
           </Stack>
@@ -245,9 +244,9 @@ const Statistics = ({ period, year, satisticsRef }) => {
 
         {!isScreenShotTime && sources}
 
-        <LastDate updateDate={updateDate} />
+        <LastDate updateDate={updateDate} isScreenShotTime={isScreenShotTime} />
 
-        {isScreenShotTime && <GraphFooter />}
+        {isScreenShotTime && <GraphFooter sources={sources} />}
 
         <DownloadTable periodId={periodId} satisticsRef={satisticsRef} />
       </Box>

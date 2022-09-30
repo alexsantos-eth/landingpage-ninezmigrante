@@ -28,13 +28,14 @@ const DownloadImage = ({ label, containerRef, onSS = (screenshot) => {} }) => {
 
         const jsPDF = (await import("jspdf")).default;
         const pdf = new jsPDF({
+          unit: "pt",
           format: [canvas.width, canvas.height],
         });
         const imgProps = pdf.getImageProperties(data);
         const pdfWidth = pdf.internal.pageSize.getWidth();
         const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
-        pdf.addImage(data, "PNG", 0, 0, pdfWidth, pdfHeight, undefined, "FAST");
+        pdf.addImage(data, "PNG", 0, 0, pdfWidth, pdfHeight);
         await pdf.save("download.pdf", { returnPromise: true });
         setLoading(false);
         setScreenshot(false);

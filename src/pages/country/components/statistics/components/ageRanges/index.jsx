@@ -94,7 +94,12 @@ const AgeRanges = ({
           <Bar options={options} data={data} />
         </Box>
 
-        <Grid templateColumns="1fr 1fr" templateRows="1fr 1fr" gridGap={2}>
+        <Grid
+          templateColumns="1fr 1fr"
+          templateRows="1fr 1fr"
+          columnGap={2}
+          rowGap={0}
+        >
           {chartColors.map((color, index) => (
             <Stack
               direction="row"

@@ -259,7 +259,10 @@ const Mexico = () => {
 
           {/* SOURCES */}
           {!isScreenShotTime && sources}
-          <LastDate updateDate={updateDate} />
+          <LastDate
+            updateDate={updateDate}
+            isScreenShotTime={isScreenShotTime}
+          />
           {isScreenShotTime && <GraphFooter sources={sources} />}
 
           <DownloadImage

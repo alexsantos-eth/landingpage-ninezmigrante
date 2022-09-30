@@ -41,26 +41,28 @@ const ComparePage = () => {
         fontSize={{ base: "xl", md: "md" }}
         maxWidth={{ base: "300px", md: "800px" }}
       >
-        {options[1].country === "guatemala"
-          ? `Fuentes Guatemala: Departamento de Centros de Atención Migratoria.
+        {options[1].country === "guatemala" &&
+          `Fuentes Guatemala: Departamento de Centros de Atención Migratoria.
                 Elaborado por: el Departamento de Estadística y Archivos. Instituto Guatemalteco de Migración -IGM-
-                `
-          : options[2].country === "honduras"
-          ? "Fuente Honduras: DINAF"
-          : `Fuente Honduras: DINAF - Fuentes Guatemala: Departamento de Centros de Atención Migratoria.
-                Elaborado por: el Departamento de Estadística y Archivos. Instituto Guatemalteco de Migración -IGM-`}
+                `}
+      </Text>
+      <Text
+        textAlign="center"
+        fontFamily="Oswald"
+        fontSize={{ base: "xl", md: "md" }}
+        maxWidth={{ base: "300px", md: "800px" }}
+      >
+        {options[2].country === "honduras" && "Fuente Honduras: DINAF"}
       </Text>
 
-      {!isScreenShotTime && (
-        <Text
-          textAlign="center"
-          fontFamily="Montserrat Medium"
-          fontSize={{ base: "xs", md: "sm" }}
-        >
-          Esta información ha sido procesada por: MOBINIM -Monitoreo Binacional
-          de Niñez Migrante Guatemala-Honduras-.
-        </Text>
-      )}
+      <Text
+        textAlign="center"
+        fontFamily="Montserrat Medium"
+        fontSize={{ base: "xs", md: "sm" }}
+      >
+        Esta información ha sido procesada por: MOBINIM -Monitoreo Binacional de
+        Niñez Migrante Guatemala-Honduras-.
+      </Text>
     </Stack>
   );
 
@@ -101,7 +103,10 @@ const ComparePage = () => {
           </Stack>
 
           {!isScreenShotTime && sources}
-          <LastDate updateDate={updateDate} />
+          <LastDate
+            updateDate={updateDate}
+            isScreenShotTime={isScreenShotTime}
+          />
           {isScreenShotTime && <GraphFooter sources={sources} />}
           <DownloadTable satisticsRef={satisticsRef} periodId={periodId} />
         </Box>
