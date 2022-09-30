@@ -20,7 +20,7 @@ const GraphFooter = ({ sources }) => {
       justifyContent="center"
       mt={10}
     >
-      <Stack direction="row" justifyContent="center">
+      <Stack direction={{ base: "column", md: "row" }} justifyContent="center">
         <Stack
           pr={4}
           direction="column"
@@ -28,8 +28,17 @@ const GraphFooter = ({ sources }) => {
           justifyContent="center"
           borderRight="1px solid #333"
         >
-          <Stack
+          <Text
+            width="100%"
+            lineHeight={1}
+            fontFamily="Montserrat"
+            fontSize="0.8em"
+            fontWeight="600"
             mb={2}
+          >
+            Esta información ha sido procesada por:
+          </Text>
+          <Stack
             direction="row"
             alignItems="center"
             justifyContent={["space-between", "center"]}
@@ -42,12 +51,11 @@ const GraphFooter = ({ sources }) => {
                 mb={"-25px"}
               />
             </Link>
+
             <Stack direction="column" spacing="0px">
-              <Stack>
-                <Text lineHeight={1} fontFamily="Oswald" fontSize="1.2em">
-                  NiñezMigrante.org
-                </Text>
-              </Stack>
+              <Text lineHeight={1} fontFamily="Oswald" fontSize="1.2em">
+                NiñezMigrante.org
+              </Text>
 
               <Stack direction="row" alignItems="center">
                 <Box mb={"-25px"}>
@@ -66,6 +74,7 @@ const GraphFooter = ({ sources }) => {
             </Stack>
           </Stack>
           <Text
+            paddingTop={6}
             maxW={260}
             fontSize="1em"
             fontWeight="600"
@@ -80,14 +89,14 @@ const GraphFooter = ({ sources }) => {
           pl={4}
           direction="column"
           alignItems="center"
-          marginBottom="40px"
           justifyContent="center"
+          marginBottom="40px"
         >
           {sources}
 
           <Stack
             gap="0px"
-            alignItems={{ base: "flex-start", md: "center" }}
+            alignItems={"center"}
             direction={{ base: "column", md: "row" }}
           >
             <a href="https://redcoiproden.org/" target="_blank">
