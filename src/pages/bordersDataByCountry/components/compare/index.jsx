@@ -106,8 +106,6 @@ const Compare = () => {
       margin="auto"
       direction="column"
       alignItems="center"
-      marginBottom="40px"
-      paddingTop="40px"
       justifyContent="center"
       maxWidth="800px"
     >
@@ -278,14 +276,13 @@ const Compare = () => {
             </Stack>
           </Stack>
 
-          {!isScreenShotTime && sources}
-
           <LastDate
+            sources={sources}
             updateDate={updateDate}
             isScreenShotTime={isScreenShotTime}
           />
 
-          {isScreenShotTime && <GraphFooter sources={sources} />}
+          {isScreenShotTime && <GraphFooter />}
 
           <DownloadImage
             label="Descargar imagen de la comparación"

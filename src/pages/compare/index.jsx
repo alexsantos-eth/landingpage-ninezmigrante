@@ -102,12 +102,12 @@ const ComparePage = () => {
             />
           </Stack>
 
-          {!isScreenShotTime && sources}
           <LastDate
+            sources={sources}
             updateDate={updateDate}
             isScreenShotTime={isScreenShotTime}
           />
-          {isScreenShotTime && <GraphFooter sources={sources} />}
+          {isScreenShotTime && <GraphFooter />}
           <DownloadTable satisticsRef={satisticsRef} periodId={periodId} />
         </Box>
       )}

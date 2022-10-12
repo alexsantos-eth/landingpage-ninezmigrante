@@ -74,8 +74,6 @@ const Mexico = () => {
       margin="auto"
       direction="column"
       alignItems="center"
-      marginBottom="40px"
-      paddingTop="20px"
       justifyContent="center"
       maxWidth={"800px"}
     >
@@ -252,12 +250,12 @@ const Mexico = () => {
           </Stack>
 
           {/* SOURCES */}
-          {!isScreenShotTime && sources}
           <LastDate
+            sources={sources}
             updateDate={updateDate}
             isScreenShotTime={isScreenShotTime}
           />
-          {isScreenShotTime && <GraphFooter sources={sources} />}
+          {isScreenShotTime && <GraphFooter />}
 
           <DownloadImage
             label=""

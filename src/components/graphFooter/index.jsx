@@ -12,7 +12,7 @@ import LogoCoiproden from "../../assets/LogoCoiproden.png";
 import LogoPAMI from "../../assets/LogoPAMI.png";
 import LogoKnh from "../../assets/LogoKnh.png";
 
-const GraphFooter = ({ sources }) => {
+const GraphFooter = () => {
   return (
     <Stack
       direction="column"
@@ -92,8 +92,6 @@ const GraphFooter = ({ sources }) => {
           justifyContent="center"
           marginBottom="40px"
         >
-          {sources}
-
           <Stack
             gap="0px"
             alignItems={"center"}

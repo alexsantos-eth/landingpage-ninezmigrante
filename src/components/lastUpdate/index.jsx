@@ -1,7 +1,7 @@
 import React from "react";
 import { Stack, Text, Divider } from "@chakra-ui/react";
 
-const LastDate = ({ updateDate, isScreenShotTime }) => {
+const LastDate = ({ updateDate, isScreenShotTime, sources = <></> }) => {
   return (
     <Stack
       direction="column"
@@ -15,6 +15,7 @@ const LastDate = ({ updateDate, isScreenShotTime }) => {
         borderTop: "2px solid #222",
       }}
     >
+      {sources}
       <Text
         fontFamily="Oswald"
         fontSize="1.4em"

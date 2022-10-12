@@ -70,7 +70,7 @@ const Statistics = ({ period, year, satisticsRef }) => {
   });
 
   const sources = (
-    <Box direction="column" margin="24px auto" maxWidth="800px" mt={10}>
+    <Box direction="column" margin="auto" maxWidth="800px">
       {countryID === "guatemala" ? (
         <>
           <Text
@@ -242,11 +242,13 @@ const Statistics = ({ period, year, satisticsRef }) => {
           </Text>
         </Stack>
 
-        {!isScreenShotTime && sources}
+        <LastDate
+          sources={sources}
+          updateDate={updateDate}
+          isScreenShotTime={isScreenShotTime}
+        />
 
-        <LastDate updateDate={updateDate} isScreenShotTime={isScreenShotTime} />
-
-        {isScreenShotTime && <GraphFooter sources={sources} />}
+        {isScreenShotTime && <GraphFooter />}
 
         <DownloadTable periodId={periodId} satisticsRef={satisticsRef} />
       </Box>
