@@ -98,11 +98,18 @@ const Footer = () => {
 
           {/* LOGOS */}
           <Stack
-            gap="24px"
+            gap="8px"
             alignItems={{ base: "flex-start", md: "center" }}
             direction={{ base: "column", md: "row" }}
           >
-            <a href="https://ninezmigrante.org/" target="_blank">
+            <a href="https://www.kindernothilfe.org/" target="_blank">
+              <Image src={LogoKnh} maxHeight="100px" />
+            </a>
+
+            <a
+              href="http://pami-guatemala.org/proyectobinacionalmigracion/"
+              target="_blank"
+            >
               <Image src={LogoProyectoBinacional} maxHeight="160px" />
             </a>
 
@@ -112,9 +119,6 @@ const Footer = () => {
 
             <a href="https://pami-guatemala.org/" target="_blank">
               <Image src={LogoPAMI} maxWidth="100px" />
-            </a>
-            <a href="https://www.kindernothilfe.org/" target="_blank">
-              <Image src={LogoKnh} maxHeight="100px" />
             </a>
           </Stack>
         </Stack>
