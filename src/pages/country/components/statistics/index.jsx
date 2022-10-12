@@ -70,14 +70,14 @@ const Statistics = ({ period, year, satisticsRef }) => {
   });
 
   const sources = (
-    <Box direction="column" margin="auto" maxWidth="800px" mt={10}>
+    <Box direction="column" margin="24px auto" maxWidth="800px" mt={10}>
       {countryID === "guatemala" ? (
         <>
           <Text
             lineHeight={1}
             textAlign="center"
             fontFamily="Oswald"
-            fontSize={{ base: "xl", md: "md" }}
+            fontSize={{ base: "xl", md: "2xl" }}
             maxWidth={"800px"}
           >
             Fuente: Departamento de Centros de Atención Migratoria.
@@ -86,7 +86,7 @@ const Statistics = ({ period, year, satisticsRef }) => {
             lineHeight={1}
             textAlign="center"
             fontFamily="Oswald"
-            fontSize={{ base: "xl", md: "md" }}
+            fontSize={{ base: "xl", md: "2xl" }}
             maxWidth={"800px"}
           >
             Elaborado por: el Departamento de Estadística y Archivos. Instituto
@@ -98,7 +98,7 @@ const Statistics = ({ period, year, satisticsRef }) => {
           lineHeight={1}
           textAlign="center"
           fontFamily="Oswald"
-          fontSize={{ base: "xl", md: "md" }}
+          fontSize={{ base: "xl", md: "2xl" }}
           maxWidth={"800px"}
         >
           Fuente: Dirección de Niñez, Adolescencia y Familia (DINAF)

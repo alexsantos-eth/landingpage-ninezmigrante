@@ -17,9 +17,9 @@ const LastDate = ({ updateDate, isScreenShotTime }) => {
     >
       <Text
         fontFamily="Oswald"
-        fontSize="1.2em"
+        fontSize="1.4em"
         textAlign="center"
-      >{`Fecha de ultima actualización: ${updateDate}`}</Text>
+      >{`Fecha de última actualización: ${updateDate}`}</Text>
     </Stack>
   );
 };

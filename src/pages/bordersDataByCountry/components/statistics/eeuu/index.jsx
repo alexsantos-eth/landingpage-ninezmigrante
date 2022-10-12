@@ -84,25 +84,19 @@ const EEUU = () => {
       justifyContent="center"
       maxWidth="800px"
     >
-      <Text
-        textAlign="center"
-        fontFamily="Oswald"
-        fontSize={{ base: "xl", md: "xl" }}
-        maxWidth="800px"
+      <a
+        href="https://www.cbp.gov/newsroom/stats/southwest-land-border-encounters-by-component"
+        target="_blank"
       >
-        Fuente: https://www.cbp.gov/newsroom/stats/nationwide-encounters
-      </Text>
-
-      <Text
-        textAlign="center"
-        fontFamily="Montserrat Medium"
-        fontSize={{ base: "xs", md: "sm" }}
-      >
-        Esta información ha sido procesada por: MOBINM, monitoreo binacional de
-        niñez migrante Guatemala-Honduras, en el marco del Proyecto Binacional
-        Honduras-Guatemala a favor de los derechos de la niñez y adolescencia
-        migrante. Implementado por: PAMI y COIPRODEN, con fondos de KNH y BMZ.
-      </Text>
+        <Text
+          textAlign="center"
+          fontFamily="Oswald"
+          fontSize={{ base: "xl", md: "2xl" }}
+          maxWidth="800px"
+        >
+          Fuente: U.S. CUSTOMS AND BORDER PATROL
+        </Text>
+      </a>
     </Stack>
   );
 
