@@ -80,17 +80,7 @@ const Statistics = ({ period, year, satisticsRef }) => {
             fontSize={{ base: "xl", md: "2xl" }}
             maxWidth={"800px"}
           >
-            Fuente: Departamento de Centros de Atención Migratoria.
-          </Text>
-          <Text
-            lineHeight={1}
-            textAlign="center"
-            fontFamily="Oswald"
-            fontSize={{ base: "xl", md: "2xl" }}
-            maxWidth={"800px"}
-          >
-            Elaborado por: el Departamento de Estadística y Archivos. Instituto
-            Guatemalteco de Migración -IGM-
+            Fuente: Instituto Guatemalteco de Migración
           </Text>
         </>
       ) : (
