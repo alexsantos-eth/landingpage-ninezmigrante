@@ -19,6 +19,8 @@ const GraphFooter = () => {
       alignItems="center"
       justifyContent="center"
       mt={10}
+      paddingRight="100px"
+      paddingLeft="100px"
     >
       <Stack direction={{ base: "column", md: "row" }} justifyContent="center">
         <Stack
@@ -27,6 +29,7 @@ const GraphFooter = () => {
           alignItems="center"
           justifyContent="center"
           borderRight="1px solid #333"
+          minWidth="300px"
         >
           <Text
             width="100%"
@@ -93,21 +96,21 @@ const GraphFooter = () => {
           marginBottom="40px"
         >
           <Stack
-            gap="0px"
+            gap="10px"
             alignItems={"center"}
             direction={{ base: "column", md: "row" }}
           >
             <a href="https://www.kindernothilfe.org/" target="_blank">
-              <Image src={LogoKnh} maxHeight="80px" />
+              <Image src={LogoKnh} minWidth="250px" />
             </a>
             <a href="https://redcoiproden.org/" target="_blank">
-              <Image src={LogoProyectoBinacional} maxHeight="100px" />
+              <Image src={LogoProyectoBinacional} minWidth="350px" />
             </a>
             <a href="https://redcoiproden.org/" target="_blank">
-              <Image src={LogoCoiproden} maxHeight="80px" />
+              <Image src={LogoCoiproden} minWidth="200px" />
             </a>
             <a href="https://pami-guatemala.org/" target="_blank">
-              <Image src={LogoPAMI} maxHeight="80px" />
+              <Image src={LogoPAMI} minWidth="80px" />
             </a>
           </Stack>
         </Stack>
