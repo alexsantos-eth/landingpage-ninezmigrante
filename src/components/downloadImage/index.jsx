@@ -35,6 +35,8 @@ const DownloadImage = ({ label, containerRef, onSS = (screenshot) => {} }) => {
         const pdfWidth = pdf.internal.pageSize.getWidth();
         const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
+        console.log(pdfHeight);
+
         pdf.addImage(data, "JPEG", 0, 0, pdfWidth, pdfHeight);
         await pdf.save("download.pdf", { returnPromise: true });
         setLoading(false);
