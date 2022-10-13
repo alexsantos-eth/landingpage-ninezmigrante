@@ -53,16 +53,16 @@ const GraphFooter = () => {
             </Link>
 
             <Stack direction="column" spacing="0px">
-              <Text lineHeight={1} fontFamily="Oswald" fontSize="1.2em">
+              <Text lineHeight={1} fontFamily="Oswald" fontSize="1em">
                 NiñezMigrante.org
               </Text>
 
               <Stack direction="row" alignItems="center">
                 <Box mb={"-25px"}>
-                  <Icon as={ViewIcon} boxSize="3em" style={{ margin: 0 }} />
+                  <Icon as={ViewIcon} boxSize="2.5em" style={{ margin: 0 }} />
                 </Box>
                 <Text
-                  fontSize="2.5em"
+                  fontSize="2.1em"
                   lineHeight={1}
                   fontWeight="400"
                   fontFamily="Oswald"
@@ -97,6 +97,9 @@ const GraphFooter = () => {
             alignItems={"center"}
             direction={{ base: "column", md: "row" }}
           >
+            <a href="https://www.kindernothilfe.org/" target="_blank">
+              <Image src={LogoKnh} maxHeight="80px" />
+            </a>
             <a href="https://redcoiproden.org/" target="_blank">
               <Image src={LogoProyectoBinacional} maxHeight="100px" />
             </a>
@@ -105,9 +108,6 @@ const GraphFooter = () => {
             </a>
             <a href="https://pami-guatemala.org/" target="_blank">
               <Image src={LogoPAMI} maxHeight="80px" />
-            </a>
-            <a href="https://www.kindernothilfe.org/" target="_blank">
-              <Image src={LogoKnh} maxHeight="80px" />
             </a>
           </Stack>
         </Stack>
