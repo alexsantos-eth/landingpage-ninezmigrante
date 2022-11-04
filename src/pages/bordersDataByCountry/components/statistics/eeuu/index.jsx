@@ -54,7 +54,7 @@ const EEUU = () => {
       const uDate = new Date(lastDate);
 
       setUpdateDate(
-        `${uDate.getDate() + 1} de ${monthNames[
+        `${uDate.getDate()} de ${monthNames[
           uDate.getMonth() + 1
         ]?.toLowerCase()} del ${uDate.getFullYear()}`
       );
