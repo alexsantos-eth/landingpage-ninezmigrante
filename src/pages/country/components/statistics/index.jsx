@@ -41,7 +41,7 @@ const Statistics = ({ period, year, satisticsRef }) => {
 
       setPeriodId(lastData?._id?._id);
       setUpdateDate(
-        `${uDate.getDate() + 1} de ${monthNames[
+        `${uDate.getDate()} de ${monthNames[
           uDate.getMonth() + 1
         ]?.toLowerCase()} del ${uDate.getFullYear()}`
       );
