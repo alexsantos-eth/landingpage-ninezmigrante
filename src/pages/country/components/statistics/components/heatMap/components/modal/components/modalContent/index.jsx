@@ -70,28 +70,33 @@ const ModalContent = ({ period, year, dep, country }) => {
         </Text>
 
         <Stack direction="column" spacing="0px">
-          <Stack
-            gap="8px"
-            direction="row"
-            alignItems="center"
-            justifyContent="center"
-          >
-            <Image src={Femenine} height="32px" />
-            <Text fontFamily="Oswald" fontSize="3xl" color="green.700">
-              {genders.female}
-            </Text>
-          </Stack>
-          <Stack
-            gap="8px"
-            direction="row"
-            alignItems="center"
-            justifyContent="center"
-          >
-            <Image src={Male} height="32px" />
-            <Text color="yellow.700" fontFamily="Oswald" fontSize="3xl">
-              {genders.male}
-            </Text>
-          </Stack>
+          {genders.female > 0 && (
+            <Stack
+              gap="8px"
+              direction="row"
+              alignItems="center"
+              justifyContent="center"
+            >
+              <Image src={Femenine} height="32px" />
+              <Text fontFamily="Oswald" fontSize="3xl" color="green.700">
+                {genders.female}
+              </Text>
+            </Stack>
+          )}
+
+          {genders.male > 0 && (
+            <Stack
+              gap="8px"
+              direction="row"
+              alignItems="center"
+              justifyContent="center"
+            >
+              <Image src={Male} height="32px" />
+              <Text color="yellow.700" fontFamily="Oswald" fontSize="3xl">
+                {genders.male}
+              </Text>
+            </Stack>
+          )}
         </Stack>
       </Stack>
     </Stack>
