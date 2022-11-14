@@ -62,7 +62,7 @@ const Footer = () => {
               </Text>
             </Link>
 
-            <Link to="/compare">
+            <Link to="/borders">
               <Text fontFamily="Montserrat Medium" color="gray.600">
                 Detenidos
               </Text>
