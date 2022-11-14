@@ -52,10 +52,10 @@ const ReturnCountry = ({ period, year, country }) => {
 
       data?.data?.forEach((stats) => {
         if (stats._id?.nombre === "Estados Unidos") {
-          totals.eu.total = stats.total;
+          totals.eu.total += stats.total;
           totals.eu.name = "EE.UU.";
         } else if (stats._id?.nombre === "México") {
-          totals.mx.total = stats.total;
+          totals.mx.total += stats.total;
           totals.mx.name = stats._id?.nombre;
         } else if (
           (countryID === "guatemala" && stats._id?.nombre === "Honduras") ||
@@ -63,9 +63,9 @@ const ReturnCountry = ({ period, year, country }) => {
         ) {
           totals[`nextCountry${stats._id?.nombre.charAt(0)}`].name =
             stats._id?.nombre;
-          totals[`nextCountry${stats._id?.nombre.charAt(0)}`].total =
+          totals[`nextCountry${stats._id?.nombre.charAt(0)}`].total +=
             stats.total;
-        } else totals.others.total = stats.total;
+        } else totals.others.total += stats.total;
       });
 
       setTotal(totals);
