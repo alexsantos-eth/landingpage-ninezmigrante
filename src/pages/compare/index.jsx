@@ -42,9 +42,7 @@ const ComparePage = () => {
         maxWidth={{ base: "300px", md: "800px" }}
       >
         {options[1].country === "guatemala" &&
-          `Fuentes Guatemala: Departamento de Centros de Atención Migratoria.
-                Elaborado por: el Departamento de Estadística y Archivos. Instituto Guatemalteco de Migración -IGM-
-                `}
+          `Fuente Guatemala: Instituto Guatemalteco de Migración -IGM-`}
       </Text>
       <Text
         textAlign="center"

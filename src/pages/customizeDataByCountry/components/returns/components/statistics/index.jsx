@@ -47,9 +47,7 @@ const Statistics = ({ returns }) => {
         maxWidth={"800px"}
       >
         {countryID === "guatemala"
-          ? `Fuentes: Departamento de Centros de Atención Migratoria.
-Elaborado por: el Departamento de Estadística y Archivos. Instituto Guatemalteco de Migración -IGM-
-`
+          ? `Fuente Guatemala: Instituto Guatemalteco de Migración -IGM-`
           : "Fuente: DINAF"}
       </Text>
 
