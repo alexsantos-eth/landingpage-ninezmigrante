@@ -90,8 +90,7 @@ const DnDDepartment = ({ country = "guatemala" }) => {
         maxWidth={"800px"}
       >
         {countryID === "guatemala"
-          ? `Fuente: Instituto Guatemalteco de Migración -IGM-
-`
+          ? `Fuente: Instituto Guatemalteco de Migración -IGM-`
           : "Fuente: DINAF"}
       </Text>
 
