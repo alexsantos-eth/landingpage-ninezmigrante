@@ -12,15 +12,15 @@ import LogoCoiproden from "../../assets/LogoCoiproden.png";
 import LogoPAMI from "../../assets/LogoPAMI.png";
 import LogoKnh from "../../assets/LogoKnh.png";
 
-const GraphFooter = () => {
+const GraphFooter = ({ responsive }) => {
   return (
     <Stack
+      mt={10}
       direction="column"
       alignItems="center"
-      justifyContent="center"
-      mt={10}
-      paddingRight="100px"
       paddingLeft="100px"
+      paddingRight="100px"
+      justifyContent="center"
     >
       <Stack direction={{ base: "column", md: "row" }} justifyContent="center">
         <Stack
@@ -29,15 +29,15 @@ const GraphFooter = () => {
           alignItems="center"
           justifyContent="center"
           borderRight="1px solid #333"
-          minWidth="300px"
+          minWidth={responsive ? "unset" : "300px"}
         >
           <Text
+            mb={2}
             width="100%"
             lineHeight={1}
-            fontFamily="Montserrat"
-            fontSize="0.8em"
             fontWeight="600"
-            mb={2}
+            fontFamily="Montserrat"
+            fontSize={responsive ? "0.5em" : "0.8em"}
           >
             Esta información ha sido procesada por:
           </Text>
@@ -48,28 +48,36 @@ const GraphFooter = () => {
           >
             <Link to="/">
               <Image
-                src={LogoNinezMigrante}
                 w="80px"
-                minW={"80px"}
                 mb={"-25px"}
+                src={LogoNinezMigrante}
+                minW={responsive ? "40px" : "80px"}
               />
             </Link>
 
             <Stack direction="column" spacing="0px">
-              <Text lineHeight={1} fontFamily="Oswald" fontSize="1em">
+              <Text
+                lineHeight={1}
+                fontFamily="Oswald"
+                fontSize={responsive ? "0.8em" : "1em"}
+              >
                 NiñezMigrante.org
               </Text>
 
               <Stack direction="row" alignItems="center">
                 <Box mb={"-25px"}>
-                  <Icon as={ViewIcon} boxSize="2.5em" style={{ margin: 0 }} />
+                  <Icon
+                    as={ViewIcon}
+                    boxSize={responsive ? "1.5em" : "2.5em"}
+                    style={{ margin: 0 }}
+                  />
                 </Box>
                 <Text
-                  fontSize="2.1em"
                   lineHeight={1}
                   fontWeight="400"
-                  fontFamily="Oswald"
                   display={"inline"}
+                  fontFamily="Oswald"
+                  fontSize={responsive ? "0.9em" : "2.1em"}
                 >
                   MOBINIM
                 </Text>
@@ -77,13 +85,13 @@ const GraphFooter = () => {
             </Stack>
           </Stack>
           <Text
-            paddingTop={6}
             maxW={260}
-            fontSize="1em"
+            paddingTop={6}
+            fontSize={responsive ? "0.5em" : "1em"}
             fontWeight="600"
             fontFamily="Times"
-            textAlign="center"
             lineHeight={1.2}
+            textAlign="center"
           >
             Monitoreo binacional de niñez migrante retornada Guatemala-Honduras
           </Text>
@@ -101,16 +109,22 @@ const GraphFooter = () => {
             direction={{ base: "column", md: "row" }}
           >
             <a href="https://www.kindernothilfe.org/" target="_blank">
-              <Image src={LogoKnh} minWidth="250px" />
+              <Image src={LogoKnh} minWidth={responsive ? "100px" : "250px"} />
             </a>
             <a href="https://redcoiproden.org/" target="_blank">
-              <Image src={LogoProyectoBinacional} minWidth="350px" />
+              <Image
+                src={LogoProyectoBinacional}
+                minWidth={responsive ? "100px" : "350px"}
+              />
             </a>
             <a href="https://redcoiproden.org/" target="_blank">
-              <Image src={LogoCoiproden} minWidth="200px" />
+              <Image
+                src={LogoCoiproden}
+                minWidth={responsive ? "100px" : "200px"}
+              />
             </a>
             <a href="https://pami-guatemala.org/" target="_blank">
-              <Image src={LogoPAMI} minWidth="80px" />
+              <Image src={LogoPAMI} minWidth={responsive ? "50px" : "80px"} />
             </a>
           </Stack>
         </Stack>
