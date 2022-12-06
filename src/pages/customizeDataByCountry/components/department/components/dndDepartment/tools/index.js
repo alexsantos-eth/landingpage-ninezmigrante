@@ -65,10 +65,10 @@ export const updateSection = ({
           let depGenderTotals = { male: 0, female: 0 };
 
           genderData?.data?.forEach((stats) => {
-            if (stats._id === "Femenino") depGenderTotals.female += stats.total;
-            if (stats._id === "Masculino") depGenderTotals.male += stats.total;
+            if (stats._id === "FEMENINO") depGenderTotals.female += stats.total;
+            if (stats._id === "MASCULINO") depGenderTotals.male += stats.total;
           });
-
+          
           setDepDataList((prev) => {
             const tmp = [...prev];
             tmp[id] = {
