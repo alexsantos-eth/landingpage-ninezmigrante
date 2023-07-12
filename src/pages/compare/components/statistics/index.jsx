@@ -22,7 +22,7 @@ const Statistics = ({ data, setUpdateDate, setPeriodId }) => {
     country: data.country,
     resolve: (resData) => {
       const lastData = resData?.data?.[resData?.data?.length - 1];
-      const dates = data?.data
+      const dates = resData?.data
         ?.map((reg) => new Date(reg?._id["Fecha de actualización"]))
         .sort((a, b) => b - a);
 
