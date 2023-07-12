@@ -18,6 +18,7 @@ import useFetch, { monthNames } from "../../../../../hooks/fetch";
 import { year } from "../../../../../utils/year";
 import GraphFooter from "../../../../../components/graphFooter";
 import LastDate from "../../../../../components/lastUpdate";
+import YearSelect from "../../../../../components/yearSelect";
 
 const excludeFields = [
   "_id",
@@ -140,21 +141,7 @@ const EEUU = () => {
             direction={{ base: "column", md: "row" }}
           >
             {/* SELECT YEAR */}
-            <Select
-              fontSize="2xl"
-              lineHeight="1.8"
-              fontWeight="600"
-              fontFamily="Times"
-              onChange={handleYear}
-              letterSpacing="1.2px"
-              bgColor="rgba(255,255,255,0.5)"
-              value={currentYear?.toString() || ""}
-            >
-              <option value="">Elegir año</option>
-              <option value="2020">2020</option>
-              <option value="2021">2021</option>
-              <option value="2022">2022</option>
-            </Select>
+            <YearSelect handleYear={handleYear} currentYear={currentYear} />
 
             {/* SELECT MONTH */}
             <Select

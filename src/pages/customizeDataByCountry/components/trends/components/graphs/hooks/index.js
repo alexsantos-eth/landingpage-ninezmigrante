@@ -128,14 +128,24 @@ const useGraphData = (period, graphType, chartType) => {
           }
 
           if (graphType === "via") {
-            if (stats._id.startsWith("Terrestre")) totals.total1 += stats.total;
-            if (stats._id.startsWith("Aérea")) totals.total2 += stats.total;
+            if (
+              stats?._id?.toString().includes("Terrestre") ||
+              stats?._id?.nombre?.includes("Terrestre")
+            )
+            totals.total1 += stats.total;
+
+            if (
+              stats?._id?.toString().includes("Aérea") ||
+              stats?._id?.nombre?.includes("Aérea")
+            ) {
+              totals.total2 += stats.total;
+            }
           }
 
           if (graphType === "condition") {
-            if (stats._id.condicion === "Acompañado")
+            if (stats?._id?.condicion === "Acompañado")
               totals.total1 += stats.total;
-            if (stats._id.condicion === "No acompañado")
+            if (stats?._id?.condicion === "No acompañado")
               totals.total2 += stats.total;
           }
 
@@ -147,9 +157,12 @@ const useGraphData = (period, graphType, chartType) => {
           }
 
           if (graphType === "age") {
-            if (stats._id === "0-6 años") totals.total1 += stats.total;
-            if (stats._id === "7-12 años") totals.total2 += stats.total;
-            if (stats._id === "13-17 años") totals.total3 += stats.total;
+            if (stats._id === "0-6 años" || stats._id === "Primera infancia")
+              totals.total1 += stats.total;
+            if (stats._id === "7-12 años" || stats._id === "Niñez")
+              totals.total2 += stats.total;
+            if (stats._id === "13-17 años" || stats._id === "Adolescencia")
+              totals.total3 += stats.total;
           }
         });
 
@@ -159,30 +172,30 @@ const useGraphData = (period, graphType, chartType) => {
       // RESOLVER
       Promise.allSettled(requests)
         .then((res) => {
-          let data = res.map((r) => r.value);
+          let data = res?.map((r) => r.value) ?? [];
 
           // REVERSE PARA PERIODO 1
           if (period === "1") data = data.reverse();
 
           const newGraphData = {
-            labels: data.map((totals) => totals.name),
+            labels: data.map((totals) => totals?.name),
             datasets: [
               {
                 fill: true,
                 label: datasetLabels[graphType][0],
-                data: data.map((totals) => totals.total1),
+                data: data.map((totals) => totals?.total1),
                 backgroundColor: itemColors[0],
               },
               {
                 fill: true,
                 label: datasetLabels[graphType][1],
-                data: data.map((totals) => totals.total2),
+                data: data.map((totals) => totals?.total2),
                 backgroundColor: itemColors[1],
               },
               {
                 fill: true,
                 label: datasetLabels[graphType][2],
-                data: data.map((totals) => totals.total3),
+                data: data.map((totals) => totals?.total3),
                 backgroundColor: itemColors[2],
               },
             ].flat(Boolean),

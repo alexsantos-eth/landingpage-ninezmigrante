@@ -53,7 +53,7 @@ const Header = ({ returns, handleChange, handleMonts }) => {
             {/* SELECT PERIOD */}
             <MonthPicker
               onAccept={handleMonts}
-              minWidth={{ base: "100%", md: "10%" }}
+              minWidth={{ base: "100%", md: "30%" }}
             />
 
             {/* SELECT LIST */}
