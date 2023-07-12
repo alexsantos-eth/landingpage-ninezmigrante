@@ -22,8 +22,11 @@ const Statistics = ({ data, setUpdateDate, setPeriodId }) => {
     country: data.country,
     resolve: (resData) => {
       const lastData = resData?.data?.[resData?.data?.length - 1];
-      const lastDate = lastData?._id["Fecha de actualización"];
-      const uDate = new Date(lastDate);
+      const dates = data?.data
+        ?.map((reg) => new Date(reg?._id["Fecha de actualización"]))
+        .sort((a, b) => b - a);
+
+      const uDate = dates[0];
 
       setPeriodId(lastData?._id?._id);
       setUpdateDate(
