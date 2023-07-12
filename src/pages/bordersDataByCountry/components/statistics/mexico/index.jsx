@@ -28,6 +28,7 @@ import useFetch, { monthNames } from "../../../../../hooks/fetch";
 // UTILS
 import { year } from "../../../../../utils/year";
 import LastDate from "../../../../../components/lastUpdate";
+import YearSelect from "../../../../../components/yearSelect";
 
 const Mexico = () => {
   const [currentMonth, setCurrentMonth] = useState("");
@@ -133,21 +134,7 @@ const Mexico = () => {
             direction={{ base: "column", md: "row" }}
           >
             {/* SELECT YEAR */}
-            <Select
-              fontSize="2xl"
-              lineHeight="1.8"
-              fontWeight="600"
-              fontFamily="Times"
-              letterSpacing="1.2px"
-              onChange={handleYear}
-              bgColor="rgba(255,255,255,0.5)"
-              value={currentYear?.toString() || "default"}
-            >
-              <option value="default">Elegir año</option>
-              <option value="2020">2020</option>
-              <option value="2021">2021</option>
-              <option value="2022">2022</option>
-            </Select>
+            <YearSelect handleYear={handleYear} currentYear={currentYear} />
 
             {/* SELECT MONTH */}
             <Select

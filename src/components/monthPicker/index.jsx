@@ -8,9 +8,12 @@ import {
   PopoverTrigger,
   PopoverContent,
   useDisclosure,
+  Box,
+  Text,
+  HStack,
 } from "@chakra-ui/react";
 
-import { SearchIcon } from "@chakra-ui/icons";
+import { ChevronDownIcon, SearchIcon } from "@chakra-ui/icons";
 
 const months = [
   "Ene",
@@ -68,23 +71,30 @@ const MonthPicker = ({ onAccept, minWidth }) => {
   return (
     <Popover isOpen={isOpen} onOpen={onOpen} onClose={onClose}>
       <PopoverTrigger>
-        <Select
-          default="Elegir mes"
-          textAlign="left"
-          fontSize="2xl"
-          lineHeight="1.8"
-          fontWeight="600"
-          fontFamily="Times"
-          letterSpacing="1.2px"
+        <HStack
+          rounded="md"
+          paddingLeft="4"
+          paddingRight="3"
+          justifyContent="space-between"
           bgColor="rgba(255,255,255,0.5)"
           minWidth={minWidth ?? { base: "100%", md: "40%" }}
         >
-          <option value="Elegir mes">
+          <Text
+            fontSize="2xl"
+            lineHeight="1.8"
+            fontWeight="600"
+            vtextAlign="left"
+            fontFamily="Times"
+            pointerEvents="none"
+            letterSpacing="1.2px"
+          >
             {isFirstClick
               ? "Elegir mes"
               : `${months[ranges[0]]} - ${months[ranges[1]]}`}
-          </option>
-        </Select>
+          </Text>
+
+          <ChevronDownIcon fontSize="lg" />
+        </HStack>
       </PopoverTrigger>
       <PopoverContent
         direction="column"
