@@ -242,7 +242,7 @@ const Mexico = () => {
             updateDate={updateDate}
             isScreenShotTime={isScreenShotTime}
           />
-          {isScreenShotTime && <GraphFooter />}
+          {isScreenShotTime && <GraphFooter responsive />}
 
           <DownloadImage
             label=""
