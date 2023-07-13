@@ -225,7 +225,7 @@ const EEUU = () => {
             updateDate={updateDate}
             isScreenShotTime={isScreenShotTime}
           />
-          {isScreenShotTime && <GraphFooter />}
+          {isScreenShotTime && <GraphFooter responsive />}
 
           <DownloadImage
             label=""

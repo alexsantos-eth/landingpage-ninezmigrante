@@ -157,7 +157,7 @@ const Statistics = ({ returns }) => {
 
         {/* SOURCES */}
         {!isScreenShotTime && sources}
-        {isScreenShotTime && <GraphFooter sources={sources} />}
+        {isScreenShotTime && <GraphFooter sources={sources} responsive />}
 
         <DownloadImage
           containerRef={containerRef}

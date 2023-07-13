@@ -45,9 +45,11 @@ const Compare = () => {
     periodStart: currentPeriod[0],
     periodEnd: currentPeriod[1],
     resolve: (data) => {
-      const lastDate =
-        data?.data?.[data?.data?.length - 1]?._id["Fecha de actualización"];
-      const uDate = new Date(lastDate);
+      const dates = data?.data
+        ?.map((reg) => new Date(reg?._id["Fecha de actualización"]))
+        .sort((a, b) => b - a);
+
+      const uDate = dates[0];
 
       setUpdateDate(
         `${uDate.getDate() + 1} de ${monthNames[
@@ -282,7 +284,7 @@ const Compare = () => {
             isScreenShotTime={isScreenShotTime}
           />
 
-          {isScreenShotTime && <GraphFooter />}
+          {isScreenShotTime && <GraphFooter responsive />}
 
           <DownloadImage
             label="Descargar imagen de la comparación"

@@ -144,7 +144,7 @@ const MapModal = ({
               </Stack>
             </Stack>
 
-            {isScreenShotTime && <GraphFooter />}
+            {isScreenShotTime && <GraphFooter responsive />}
 
             <DownloadTable satisticsRef={satisticsRef} periodId={periodId} />
           </ModalBody>

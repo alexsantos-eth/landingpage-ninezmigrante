@@ -35,15 +35,18 @@ const Statistics = ({ period, year, satisticsRef }) => {
     periodEnd: period[1],
     country: countryID,
     resolve: (data) => {
+      const dates = data?.data
+        ?.map((reg) => new Date(reg?._id["Fecha de actualización"]))
+        .sort((a, b) => b - a);
+
       const lastData = data?.data?.[data?.data?.length - 1];
-      const lastDate = lastData?._id["Fecha de actualización"];
-      const uDate = new Date(lastDate);
+      const lastDate = dates[0];
 
       setPeriodId(lastData?._id?._id);
       setUpdateDate(
-        `${uDate.getDate()} de ${monthNames[
-          uDate.getMonth() + 1
-        ]?.toLowerCase()} del ${uDate.getFullYear()}`
+        `${lastDate.getDate()} de ${monthNames[
+          lastDate.getMonth() + 1
+        ]?.toLowerCase()} del ${lastDate.getFullYear()}`
       );
 
       const total = data?.data?.reduce(
@@ -238,7 +241,7 @@ const Statistics = ({ period, year, satisticsRef }) => {
           isScreenShotTime={isScreenShotTime}
         />
 
-        {isScreenShotTime && <GraphFooter />}
+        {isScreenShotTime && <GraphFooter responsive />}
 
         <DownloadTable periodId={periodId} satisticsRef={satisticsRef} />
       </Box>

@@ -297,7 +297,7 @@ const DnDDepartment = ({ country = "guatemala" }) => {
 
           {/* SOURCES */}
           {!isScreenShotTime && sources}
-          {isScreenShotTime && <GraphFooter sources={sources} />}
+          {isScreenShotTime && <GraphFooter sources={sources} responsive />}
 
           <DownloadImage
             containerRef={containerRef}
