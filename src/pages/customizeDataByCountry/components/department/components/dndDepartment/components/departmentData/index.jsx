@@ -94,7 +94,6 @@ const DepartmentData = ({
         <Stack direction="row" alignItems="center">
           <Image src={FemaleIcon} height={5} />
           <Text fontFamily="Oswald" fontWeight="500">
-            {" "}
             {item.female} Femenino
           </Text>
         </Stack>

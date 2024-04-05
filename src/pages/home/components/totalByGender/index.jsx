@@ -20,8 +20,9 @@ const TotalByGender = () => {
     resolve: (data) => {
       let totals = { female: 0, male: 0 };
       data?.data.forEach((stats) => {
-        if (stats._id === "Femenino") totals.female += stats.total;
-        if (stats._id === "Masculino") totals.male += stats.total;
+        const id = stats._id?.toLowerCase();
+        if (id === "femenino" || id === "f") totals.female += stats.total;
+        if (id === "masculino" || id === "m") totals.male += stats.total;
       });
       setTotal(totals);
     },
