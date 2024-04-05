@@ -24,8 +24,9 @@ const ModalContent = ({ period, year, dep, country }) => {
     resolve: (data) => {
       let depGenderTotals = { male: 0, female: 0 };
       data?.data.forEach((stats) => {
-        if (stats._id === "FEMENINO") depGenderTotals.female += stats.total;
-        if (stats._id === "MASCULINO") depGenderTotals.male += stats.total;
+        const id = stats._id?.toLowerCase();
+        if (id === "femenino" || id === 'f') depGenderTotals.female += stats.total;
+        if (id === "masculino" || id === 'm') depGenderTotals.male += stats.total;
       });
       setGenders(depGenderTotals);
     },

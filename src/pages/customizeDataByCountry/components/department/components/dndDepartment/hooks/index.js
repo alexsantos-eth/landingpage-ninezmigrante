@@ -12,6 +12,8 @@ export const usePeriodReload = ({
   setDepDataList,
   currentYear,
 }) => {
+  const depIds = depDataList.map((dep) => dep?.id);
+
   useEffect(() => {
     depDataList.forEach((data, index) => {
       if (data.name?.length) {
@@ -26,5 +28,5 @@ export const usePeriodReload = ({
         });
       }
     });
-  }, [period, currentYear]);
+  }, [depIds[0], depIds[1], depIds[2], period[0], period[1], currentYear]);
 };
