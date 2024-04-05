@@ -43,66 +43,60 @@ export const updateSection = ({
   currentYear,
 }) => {
   // OBTENER TOTALES
-  fetch(
-    `${
-      import.meta.env.VITE_APP_API_URL
-    }/consultas/totalpordepartamento/${countryID}?anio=${
-      currentYear ?? year
-    }&inicio=${period[0]}&fin=${period[1]}`
-  )
+  const url = `${
+    import.meta.env.VITE_APP_API_URL
+  }/consultas/totalgeneropordepartamento/${countryID}/${depName[dep]}?anio=${
+    currentYear ?? year
+  }&inicio=${period[0]}&fin=${period[1]}`;
+  
+  fetch(url)
     .then((res) => res.json())
-    .then((totalData) => {
-      fetch(
-        `${
-          import.meta.env.VITE_APP_API_URL
-        }/consultas/totalgeneropordepartamento/${countryID}/${
-          depName[dep]
-        }?anio=${currentYear ?? year}&inicio=${period[0]}&fin=${period[1]}`
-      )
-        .then((res) => res.json())
-        .then((genderData) => {
-          const total = totalData?.data?.[0]?.total ?? 0;
-          let depGenderTotals = { male: 0, female: 0 };
+    .then((genderData) => {
+      let depGenderTotals = { male: 0, female: 0 };
 
-          genderData?.data?.forEach((stats) => {
-            if (stats._id === "FEMENINO") depGenderTotals.female += stats.total;
-            if (stats._id === "MASCULINO") depGenderTotals.male += stats.total;
+      genderData?.data?.forEach((stats) => {
+        const id = stats._id?.toLowerCase()?.trim();
+
+        if (id === "femenino" || id === "f")
+          depGenderTotals.female += stats.total;
+        if (id === "masculino" || id === "m")
+          depGenderTotals.male += stats.total;
+      });
+
+      const total = depGenderTotals.female + depGenderTotals.male;
+
+      setDepDataList((prev) => {
+        const tmp = [...prev];
+        tmp[id] = {
+          ...depGenderTotals,
+          name: depName[dep],
+          id: dep,
+          Content: countryDeps[countryID].find((depPath) => depPath.id === dep)
+            .Content,
+          total,
+          reload: false,
+        };
+
+        // COLORES
+        setDepList((prevDeps) => {
+          const tmpDeps = [...prevDeps].map((depPath) => ({
+            ...depPath,
+            color: colors.heatMin[100],
+          }));
+          tmp.forEach((data, index) => {
+            if (data.name?.length) {
+              const depIndex = tmpDeps.findIndex(
+                (depInfo) => depInfo.id === data.id
+              );
+              tmpDeps[depIndex].color = depColors[index];
+            }
           });
-          
-          setDepDataList((prev) => {
-            const tmp = [...prev];
-            tmp[id] = {
-              ...depGenderTotals,
-              name: depName[dep],
-              id: dep,
-              Content: countryDeps[countryID].find(
-                (depPath) => depPath.id === dep
-              ).Content,
-              total,
-              reload: false,
-            };
 
-            // COLORES
-            setDepList((prevDeps) => {
-              const tmpDeps = [...prevDeps].map((depPath) => ({
-                ...depPath,
-                color: colors.heatMin[100],
-              }));
-              tmp.forEach((data, index) => {
-                if (data.name?.length) {
-                  const depIndex = tmpDeps.findIndex(
-                    (depInfo) => depInfo.id === data.id
-                  );
-                  tmpDeps[depIndex].color = depColors[index];
-                }
-              });
-
-              return tmpDeps;
-            });
-
-            return tmp;
-          });
+          return tmpDeps;
         });
+
+        return tmp;
+      });
     });
 };
 
