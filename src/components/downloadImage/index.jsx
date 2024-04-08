@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import { Stack, Text, Button, Image } from "@chakra-ui/react";
-import { DownloadIcon } from "@chakra-ui/icons";
-import folder from "../../assets/folder.png";
-import LoadSplash from "../loadSplash";
+import { Stack, Text, Button, Image } from '@chakra-ui/react';
+import { DownloadIcon } from '@chakra-ui/icons';
+import folder from '../../assets/folder.png';
+import LoadSplash from '../loadSplash';
 
 const DownloadImage = ({ label, containerRef, onSS = (screenshot) => {} }) => {
   // STATE
@@ -20,23 +20,24 @@ const DownloadImage = ({ label, containerRef, onSS = (screenshot) => {} }) => {
       const take = async () => {
         setBlur(true);
         const element = containerRef.current;
-        const html2canvas = (await import("html2canvas")).default;
+        element.height = 2000;
+        const html2canvas = (await import('html2canvas')).default;
         const canvas = await html2canvas(element);
-        const data = canvas.toDataURL("image/jpeg", 1.0);
+        const data = canvas.toDataURL('image/jpeg', 1.0);
 
         setLoading(true);
 
-        const jsPDF = (await import("jspdf")).default;
+        const jsPDF = (await import('jspdf')).default;
         const pdf = new jsPDF({
-          unit: "pt",
+          unit: 'pt',
           format: [canvas.width, canvas.height],
         });
         const imgProps = pdf.getImageProperties(data);
         const pdfWidth = pdf.internal.pageSize.getWidth();
         const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
-        pdf.addImage(data, "JPEG", 0, 0, pdfWidth, pdfHeight);
-        await pdf.save("download.pdf", { returnPromise: true });
+        pdf.addImage(data, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+        await pdf.save('download.pdf', { returnPromise: true });
         setLoading(false);
         setScreenshot(false);
         setBlur(false);
@@ -52,7 +53,7 @@ const DownloadImage = ({ label, containerRef, onSS = (screenshot) => {} }) => {
           gap="24px"
           alignItems="center"
           justifyContent="center"
-          direction={{ base: "column", md: "row" }}
+          direction={{ base: 'column', md: 'row' }}
         >
           {label.length > 0 && (
             <>
@@ -68,7 +69,7 @@ const DownloadImage = ({ label, containerRef, onSS = (screenshot) => {} }) => {
             onClick={handleDownloadImage}
             rightIcon={<DownloadIcon />}
             fontFamily="Montserrat Medium"
-            _hover={{ bgColor: "green.700", color: "white" }}
+            _hover={{ bgColor: 'green.700', color: 'white' }}
           >
             Descargar
           </Button>

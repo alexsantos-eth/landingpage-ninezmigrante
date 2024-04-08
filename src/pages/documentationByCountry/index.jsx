@@ -74,31 +74,31 @@ const DocumentationByCountry = () => {
   };
 
   return (
-    <Box width='100%' padding='40px'>
+    <Box width="100%" padding="40px">
       <Stack
         spacing={4}
-        width='100%'
-        margin='auto'
-        maxWidth='800px'
-        direction='column'
+        width="100%"
+        margin="auto"
+        maxWidth="800px"
+        direction="column"
       >
         <Heading
-          padding='10px 0px 10px 0px'
-          as='h1'
-          size='lg'
-          fontFamily='Oswald'
+          padding="10px 0px 10px 0px"
+          as="h1"
+          size="lg"
+          fontFamily="Oswald"
         >
           {`Listado de documentos de ${titulo}`}
         </Heading>
-        <Divider orientation='horizontal' />
+        <Divider orientation="horizontal" />
         <Stack>
           <InputGroup>
             <Input
-              type='text'
-              id='buscar'
+              type="text"
+              id="buscar"
               value={filter}
               onChange={searchText.bind(this)}
-              placeholder='Buscar...'
+              placeholder="Buscar..."
             />
             <InputRightElement
               sx={{ zIndex: -1 }}
@@ -114,34 +114,34 @@ const DocumentationByCountry = () => {
           whileInView={{ opacity: 1 }}
         >
           <Stack
-            w='100%'
-            padding='10px 0px 10px 0px'
-            display='flex'
-            mt='4'
-            alignItems='center'
-            justifyContent='space-around'
+            w="100%"
+            padding="10px 0px 10px 0px"
+            display="flex"
+            mt="4"
+            alignItems="center"
+            justifyContent="space-around"
           >
             {dataSearch.map((source) => (
               <HStack
-                shadow='md'
-                borderWidth='1px'
-                width='100%'
+                shadow="md"
+                borderWidth="1px"
+                width="100%"
                 spacing={8}
-                padding='8'
+                padding="8"
                 direction={{ base: 'column', md: 'row' }}
                 key={source.id}
-                alignItems='center'
-                justifyContent='space-between'
+                alignItems="center"
+                justifyContent="space-between"
               >
-                <Stack transition='ease-in' direction='column' spacing={0}>
-                  <Text fontFamily='Oswald' fontSize='2xl'>
+                <Stack transition="ease-in" direction="column" spacing={0}>
+                  <Text fontFamily="Oswald" fontSize="2xl">
                     {source.nombre}
                   </Text>
-                  <Text fontFamily='Montserrat Medium'>
+                  <Text fontFamily="Montserrat Medium">
                     {source.descripcion}
                   </Text>
-                  <Stack direction='row'>
-                    <Heading color='gray' as='h6' size='xs'>
+                  <Stack direction="row">
+                    <Heading color="gray" as="h6" size="xs">
                       Catalogado en:
                     </Heading>
                     <Badge color={colors.green[700]}>
@@ -151,10 +151,11 @@ const DocumentationByCountry = () => {
                 </Stack>
                 {source.archivos === '' ? null : (
                   <Button
-                    size='lg'
-                    bgColor='#ccc'
+                    size="xl"
+                    padding={4}
+                    bgColor="#ccc"
                     rightIcon={<DownloadIcon />}
-                    fontFamily='Montserrat Medium'
+                    fontFamily="Montserrat Medium"
                     onClick={downloadDocument(source.id)}
                     _hover={{ bgColor: 'green.700', color: 'white' }}
                   >
