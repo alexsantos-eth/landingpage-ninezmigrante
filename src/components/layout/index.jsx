@@ -1,10 +1,9 @@
 // REACT
-import React from "react";
+import React from 'react';
 
 // COMPONENTS
-import Navbar from "./components/navbar";
-import Footer from "./components/footer";
-import Popup from "./components/popup";
+import Navbar from './components/navbar';
+import Footer from './components/footer';
 
 const Layout = ({ children }) => {
   return (
@@ -12,7 +11,7 @@ const Layout = ({ children }) => {
       <Navbar />
       <main>{children}</main>
       <Footer />
-      <Popup />
+      {/* <Popup /> */}
     </>
   );
 };
