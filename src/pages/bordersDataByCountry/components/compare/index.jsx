@@ -256,7 +256,7 @@ const Compare = () => {
             </Stack>
 
             <Stack justifyContent="center" alignItems="center" lineHeight="1">
-              <Image src={MapaMexico} height="120px" objectFit="contain" />
+              <Image src={MapaMexico} height="160px" objectFit="contain" />
               <Text fontFamily="Oswald" fontSize="2xl">
                 México
               </Text>
