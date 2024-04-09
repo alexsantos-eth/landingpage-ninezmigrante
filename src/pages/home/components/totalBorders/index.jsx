@@ -21,14 +21,14 @@ const TotalBorders = () => {
     url: "/consultas/detenidosenfrontera/selectedYear/m%C3%A9xico",
     year,
     resolve: (data) =>
-      setTotal((prev) => ({ ...prev, mx: data.data?.[0]?.granTotal })),
+      setTotal((prev) => ({ ...prev, mx: data.data?.[0]?.granTotal ?? 0 })),
   });
 
   useFetch({
     url: "/consultas/detenidosenfronteradeestadosunidos/selectedYear/estados%20unidos",
     year,
     resolve: (data) =>
-      setTotal((prev) => ({ ...prev, usa: data.data?.[0]?.granTotal })),
+      setTotal((prev) => ({ ...prev, usa: data.data?.[0]?.granTotal ?? 0 })),
   });
 
   return (
@@ -80,7 +80,7 @@ const TotalBorders = () => {
             fontFamily="Oswald"
             fontSize={{ base: "5xl", md: "6xl" }}
           >
-            {total.mx + total.usa}
+            {Number(total.mx) + Number(total.usa)}
           </Text>
 
           {/* DATA PER COUNTRY */}
