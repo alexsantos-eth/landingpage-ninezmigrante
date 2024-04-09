@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 //UTILS
 import { month, year } from "../../../../../../../utils/year";
 import { monthNames } from "../../../../../../../hooks/fetch";
-import { itemColors } from "../utils";
+import { defaultItemColors, itemColors } from "../utils";
 
 const endpoints = {
   gender: "totalporgenero",
@@ -132,7 +132,7 @@ const useGraphData = (period, graphType, chartType) => {
               stats?._id?.toString().includes("Terrestre") ||
               stats?._id?.nombre?.includes("Terrestre")
             )
-            totals.total1 += stats.total;
+              totals.total1 += stats.total;
 
             if (
               stats?._id?.toString().includes("Aérea") ||
@@ -176,6 +176,7 @@ const useGraphData = (period, graphType, chartType) => {
 
           // REVERSE PARA PERIODO 1
           if (period === "1") data = data.reverse();
+          console.log();
 
           const newGraphData = {
             labels: data.map((totals) => totals?.name),
@@ -184,19 +185,22 @@ const useGraphData = (period, graphType, chartType) => {
                 fill: true,
                 label: datasetLabels[graphType][0],
                 data: data.map((totals) => totals?.total1),
-                backgroundColor: itemColors[0],
+                backgroundColor:
+                  chartType === "area" ? itemColors[0] : defaultItemColors[0],
               },
               {
                 fill: true,
                 label: datasetLabels[graphType][1],
                 data: data.map((totals) => totals?.total2),
-                backgroundColor: itemColors[1],
+                backgroundColor:
+                  chartType === "area" ? itemColors[1] : defaultItemColors[1],
               },
               {
                 fill: true,
                 label: datasetLabels[graphType][2],
                 data: data.map((totals) => totals?.total3),
-                backgroundColor: itemColors[2],
+                backgroundColor:
+                  chartType === "area" ? itemColors[2] : defaultItemColors[2],
               },
             ].flat(Boolean),
           };
