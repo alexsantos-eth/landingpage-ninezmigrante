@@ -234,7 +234,12 @@ const Compare = () => {
               <Text textAlign="center">
                 * Sólo se reportan niños, niñas y adolescentes NO ACOMPAÑADOS
               </Text>
-              <Image src={MapaEEUU} height="120px" objectFit="contain" />
+              <Image
+                src={MapaEEUU}
+                height="120px"
+                maxWidth="300px"
+                objectFit="contain"
+              />
               <Text fontFamily="Oswald" fontSize="2xl" lineHeight="1">
                 Estados Unidos
               </Text>
@@ -256,7 +261,12 @@ const Compare = () => {
             </Stack>
 
             <Stack justifyContent="center" alignItems="center" lineHeight="1">
-              <Image src={MapaMexico} height="160px" objectFit="contain" />
+              <Image
+                src={MapaMexico}
+                height="160px"
+                maxWidth="200px"
+                objectFit="contain"
+              />
               <Text fontFamily="Oswald" fontSize="2xl">
                 México
               </Text>
