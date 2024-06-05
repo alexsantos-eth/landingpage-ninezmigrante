@@ -1,5 +1,5 @@
-import React from "react";
-import { useDisclosure } from "@chakra-ui/react";
+import React from 'react';
+import { useDisclosure } from '@chakra-ui/react';
 
 import {
   Icon,
@@ -12,13 +12,13 @@ import {
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-import { HamburgerIcon, ChevronRightIcon } from "@chakra-ui/icons";
+import { HamburgerIcon, ChevronRightIcon } from '@chakra-ui/icons';
 
-import LogoNinezMigrante from "../../../../../../assets/LogoNinezMigrante.png";
+import LogoNinezMigrante from '../../../../../../assets/LogoNinezMigrante.png';
 
 const MobileNavbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -30,7 +30,7 @@ const MobileNavbar = () => {
         onClick={onOpen}
         colorScheme="white"
         icon={<HamburgerIcon fontSize="2xl" />}
-        display={{ base: "block", md: "none" }}
+        display={{ base: 'block', md: 'none' }}
       />
 
       <Drawer onClose={onClose} isOpen={isOpen}>
@@ -76,6 +76,33 @@ const MobileNavbar = () => {
                   <Icon as={ChevronRightIcon} color="gray.600" />
                   <Text fontFamily="Montserrat Medium" color="gray.600">
                     Honduras
+                  </Text>
+                </Stack>
+              </Link>
+
+              <Link to="/country/honduras">
+                <Stack direction="row" alignItems="center">
+                  <Icon as={ChevronRightIcon} color="gray.600" />
+                  <Text fontFamily="Montserrat Medium" color="gray.600">
+                    El Salvador
+                  </Text>
+                </Stack>
+              </Link>
+
+              <Link to="/country/honduras">
+                <Stack direction="row" alignItems="center">
+                  <Icon as={ChevronRightIcon} color="gray.600" />
+                  <Text fontFamily="Montserrat Medium" color="gray.600">
+                    Costa Rica
+                  </Text>
+                </Stack>
+              </Link>
+
+              <Link to="/country/honduras">
+                <Stack direction="row" alignItems="center">
+                  <Icon as={ChevronRightIcon} color="gray.600" />
+                  <Text fontFamily="Montserrat Medium" color="gray.600">
+                    Panamá
                   </Text>
                 </Stack>
               </Link>
