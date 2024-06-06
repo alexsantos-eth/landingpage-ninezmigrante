@@ -13,6 +13,7 @@ import { useHeatColors } from "./hooks";
 import "./style.css";
 import { colors } from "../../../../../../utils/theme";
 import HeatMapGT from "./components/gt";
+import HeatMapSV from "./components/sv";
 import HeatMapHN from "./components/hn";
 import getCountryContent from "../../../../../../utils/country";
 
@@ -116,6 +117,7 @@ const HeatMap = ({ period, year, country, periodId }) => {
           content: {
             guatemala: <HeatMapGT />,
             honduras: <HeatMapHN />,
+            elsalvador: <HeatMapSV />,
           },
         })}
 

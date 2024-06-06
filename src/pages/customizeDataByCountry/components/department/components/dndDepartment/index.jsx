@@ -22,6 +22,7 @@ import { usePeriodReload } from "./hooks";
 import countryDeps from "./utils";
 import ModalContentGT from "../../../../../../components/departments/components/gt";
 import ModalContentHN from "../../../../../../components/departments/components/hn";
+import ModalContentSV from "../../../../../../components/departments/components/sv";
 
 // CHACKRA
 import { Select, Text, Stack, Box } from "@chakra-ui/react";
@@ -188,6 +189,13 @@ const DnDDepartment = ({ country = "guatemala" }) => {
                                 ),
                                 honduras: (
                                   <ModalContentHN
+                                    customColor={item.color}
+                                    id={item.id}
+                                    disableHeat
+                                  />
+                                ),
+                                elsalvador: (
+                                  <ModalContentSV
                                     customColor={item.color}
                                     id={item.id}
                                     disableHeat
