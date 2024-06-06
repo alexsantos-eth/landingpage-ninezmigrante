@@ -11,15 +11,18 @@ import { theme } from "../../utils/theme";
 
 // COMPONENTS
 import Layout from "../layout";
+import ApolloProvider from "../../providers/apollo";
 
 const App = () => {
   return (
     <BrowserRouter>
-      <ChakraProvider theme={theme}>
-        <Layout>
-          <RouterProvider />
-        </Layout>
-      </ChakraProvider>
+      <ApolloProvider>
+        <ChakraProvider theme={theme}>
+          <Layout>
+            <RouterProvider />
+          </Layout>
+        </ChakraProvider>
+      </ApolloProvider>
     </BrowserRouter>
   );
 };

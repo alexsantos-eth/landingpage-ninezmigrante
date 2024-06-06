@@ -1,28 +1,29 @@
 // REACT
-import React, { useState, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useRef } from "react";
+import { useParams } from "react-router-dom";
 
 // CHAKRA UI COMPONENTS
-import { Box, Stack, Text, Select, Image, Divider } from '@chakra-ui/react';
+import { Box, Stack, Text, Select, Image, Divider } from "@chakra-ui/react";
 
 // COMPONENTS
-import DownloadImage from '../../../../components/downloadImage';
-import MonthPicker from '../../../../components/monthPicker';
-import YearSelect from '../../../../components/yearSelect';
-import GraphFooter from '../../../../components/graphFooter';
+import DownloadImage from "../../../../components/downloadImage";
+import MonthPicker from "../../../../components/monthPicker";
+import YearSelect from "../../../../components/yearSelect";
+import GraphFooter from "../../../../components/graphFooter";
 
 // ASSETS
-import MapaHonduras from '../../../.../../../assets/MapaHonduras.svg';
-import MapaMexico from '../../../../assets/MapaMexico.png';
-import MapaEEUU from '../../../../assets/MapaEEUU.png';
-import MapaGuatemala from '../../../../assets/MapaGuatemala.png';
+import MapaHonduras from "../../../.../../../assets/MapaHonduras.svg";
+import MapaMexico from "../../../../assets/MapaMexico.png";
+import MapaEEUU from "../../../../assets/MapaEEUU.png";
+import MapaGuatemala from "../../../../assets/MapaGuatemala.png";
 
 // HOOKS
-import useFetch, { monthNames } from '../../../../hooks/fetch';
+import useFetch, { monthNames } from "../../../../hooks/fetch";
 
 // UTILS
-import { year } from '../../../../utils/year';
-import LastDate from '../../../../components/lastUpdate';
+import { year } from "../../../../utils/year";
+import LastDate from "../../../../components/lastUpdate";
+import getCountryContent from "../../../../utils/country";
 
 const Compare = () => {
   const [bordersData, setBordersData] = useState({ mx: [], usa: [] });
@@ -30,7 +31,7 @@ const Compare = () => {
   const [currentYear, setCurrentYear] = useState(year);
   const [total, setTotal] = useState(0);
   const [isScreenShotTime, setIsScreenShotTime] = useState(false);
-  const [updateDate, setUpdateDate] = useState('');
+  const [updateDate, setUpdateDate] = useState("");
 
   const { countryID } = useParams();
 
@@ -39,14 +40,14 @@ const Compare = () => {
   const handleYear = (ev) => setCurrentYear(ev.target.value);
 
   useFetch({
-    url: '/consultas/totalporpaisanioperiodo/country?anio=selectedYear&periodRange',
+    url: "/consultas/totalporpaisanioperiodo/country?anio=selectedYear&periodRange",
     year: currentYear,
     country: countryID,
     periodStart: currentPeriod[0],
     periodEnd: currentPeriod[1],
     resolve: (data) => {
       const dates = data?.data
-        ?.map((reg) => new Date(reg?._id['Fecha de actualización']))
+        ?.map((reg) => new Date(reg?._id["Fecha de actualización"]))
         .sort((a, b) => b - a);
 
       const uDate = dates[0];
@@ -66,7 +67,7 @@ const Compare = () => {
   });
 
   useFetch({
-    url: '/consultas/detenidosenfronteradeestadosunidos/selectedYear/estados%20unidos',
+    url: "/consultas/detenidosenfronteradeestadosunidos/selectedYear/estados%20unidos",
     year: currentYear,
     resolve: (data) => {
       setBordersData((prev) => ({ ...prev, usa: data.data }));
@@ -74,7 +75,7 @@ const Compare = () => {
   });
 
   useFetch({
-    url: '/consultas/detenidosenfrontera/selectedYear/m%C3%A9xico',
+    url: "/consultas/detenidosenfrontera/selectedYear/m%C3%A9xico",
     year: currentYear,
     resolve: (data) => setBordersData((prev) => ({ ...prev, mx: data.data })),
   });
@@ -118,8 +119,8 @@ const Compare = () => {
         <Text
           textAlign="center"
           fontFamily="Oswald"
-          fontSize={{ base: 'xl', md: '2xl' }}
-          maxWidth={'800px'}
+          fontSize={{ base: "xl", md: "2xl" }}
+          maxWidth={"800px"}
         >
           Fuente: Secretaría de Gobernación/Unidad de Política Migratoria,
           Registro e Identidad de Personas. Gobierno de México.
@@ -144,7 +145,7 @@ const Compare = () => {
           borderWidth="1px"
           borderColor="black"
           orientation="horizontal"
-          display={{ base: 'none', md: 'block' }}
+          display={{ base: "none", md: "block" }}
         />
 
         <Stack justifyContent="center" alignItems="center" gap="8px">
@@ -161,7 +162,7 @@ const Compare = () => {
             width="100%"
             alignItems="center"
             justifyContent="center"
-            direction={{ base: 'column', md: 'row' }}
+            direction={{ base: "column", md: "row" }}
           >
             {/* SELECT YEAR */}
             <YearSelect currentYear={currentYear} handleYear={handleYear} />
@@ -176,27 +177,36 @@ const Compare = () => {
             gap="24px"
             width="100%"
             justifyContent="center"
-            direction={{ base: 'column', md: 'row' }}
-            alignItems={{ base: 'center', md: 'flex-end' }}
+            direction={{ base: "column", md: "row" }}
+            alignItems={{ base: "center", md: "flex-end" }}
           >
             <Stack
               maxWidth="210px"
               justifyContent="center"
-              alignItems={{ base: 'center', md: 'flex-end' }}
+              alignItems={{ base: "center", md: "flex-end" }}
             >
               <Image
                 height="200px"
-                maxWidth={{ base: '300px', md: '240px' }}
-                src={countryID === 'guatemala' ? MapaGuatemala : MapaHonduras}
+                maxWidth={{ base: "300px", md: "240px" }}
+                src={getCountryContent({
+                  countryID,
+                  content: {
+                    guatemala: MapaGuatemala,
+                    honduras: MapaHonduras,
+                  },
+                })}
               />
               <Text
                 fontSize="2xl"
                 lineHeight="1"
                 fontFamily="Oswald"
-                textAlign={{ base: 'center', md: 'right' }}
+                textAlign={{ base: "center", md: "right" }}
               >
-                TOTAL DE RETORNADOS A{' '}
-                {countryID === 'guatemala' ? 'GUATEMALA' : 'HONDURAS'}
+                TOTAL DE RETORNADOS A{" "}
+                {getCountryContent({
+                  countryID,
+                  capitalize: true,
+                }).toUpperCase()}
               </Text>
               <Text
                 fontSize="xl"
@@ -204,13 +214,13 @@ const Compare = () => {
                 fontWeight="600"
                 fontFamily="Times"
               >
-                {currentYear || 'Año'}
+                {currentYear || "Año"}
               </Text>
               <Text
                 lineHeight="1"
                 textAlign="right"
                 fontFamily="Oswald"
-                fontSize={{ base: '4xl', md: '6xl' }}
+                fontSize={{ base: "4xl", md: "6xl" }}
               >
                 {total}
               </Text>
@@ -222,7 +232,7 @@ const Compare = () => {
               borderWidth="1px"
               orientation="vertical"
               borderColor="#000"
-              display={{ base: 'none', md: 'block' }}
+              display={{ base: "none", md: "block" }}
             />
 
             <Stack
@@ -249,12 +259,12 @@ const Compare = () => {
                 fontWeight="600"
                 fontFamily="Times"
               >
-                {currentYear || 'Año'}
+                {currentYear || "Año"}
               </Text>
               <Text
                 lineHeight="1"
                 fontFamily="Oswald"
-                fontSize={{ base: '4xl', md: '6xl' }}
+                fontSize={{ base: "4xl", md: "6xl" }}
               >
                 {dataPerPeriod.usa}
               </Text>
@@ -276,12 +286,12 @@ const Compare = () => {
                 fontWeight="600"
                 fontFamily="Times"
               >
-                {currentYear || 'Año'}
+                {currentYear || "Año"}
               </Text>
               <Text
                 lineHeight="1"
                 fontFamily="Oswald"
-                fontSize={{ base: '4xl', md: '6xl' }}
+                fontSize={{ base: "4xl", md: "6xl" }}
               >
                 {dataPerPeriod.mx}
               </Text>

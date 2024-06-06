@@ -46,6 +46,23 @@ const countryDeps = {
     { id: "valle", color },
     { id: "yoro", color },
   ],
+
+  elsalvador: [
+    { id: "ahuachapan", color },
+    { id: "cabanas", color },
+    { id: "chalatenango", color },
+    { id: "cuscatlan", color },
+    { id: "la_libertad", color },
+    { id: "la_paz", color },
+    { id: "la_union", color },
+    { id: "morazan", color },
+    { id: "san_miguel", color },
+    { id: "san_salvador", color },
+    { id: "san_vicente", color },
+    { id: "santa_ana", color },
+    { id: "sonsonate", color },
+    { id: "usulutan", color },
+  ],
 };
 
 export const depColors = [

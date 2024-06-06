@@ -7,6 +7,7 @@ import MapaGuatemala from "../../../../assets/MapaGuatemala.svg";
 import MapaHonduras from "../../../../assets/MapaHonduras.svg";
 import YearSelect from "../../../../components/yearSelect";
 import MonthPicker from "../../../../components/monthPicker";
+import getCountryContent from "../../../../utils/country";
 
 const Period = ({ period, setPeriod, year, setYear, satisticsRef }) => {
   const { countryID } = useParams();
@@ -55,7 +56,7 @@ const Period = ({ period, setPeriod, year, setYear, satisticsRef }) => {
             fontFamily="Oswald"
             fontSize={{ base: "4xl", md: "6xl" }}
           >
-            {countryID === "guatemala" ? "Guatemala" : "Honduras"}
+            {getCountryContent({ countryID, capitalize: true })}
           </Text>
 
           {/* SELECT YEAR */}
@@ -69,7 +70,10 @@ const Period = ({ period, setPeriod, year, setYear, satisticsRef }) => {
         <Image
           height="400px"
           maxWidth={{ base: "300px", md: "400px" }}
-          src={countryID === "guatemala" ? MapaGuatemala : MapaHonduras}
+          src={getCountryContent({
+            countryID,
+            content: { guatemala: MapaGuatemala, honduras: MapaHonduras },
+          })}
         />
       </Stack>
     </Box>

@@ -11,6 +11,7 @@ import MaleIcon from "../../../../../../../../assets/male.png";
 import FemaleIcon from "../../../../../../../../assets/femenine.png";
 import ModalContentGT from "../../../../../../../../components/departments/components/gt";
 import ModalContentHN from "../../../../../../../../components/departments/components/hn";
+import getCountryContent from "../../../../../../../../utils/country";
 
 const DepartmentData = ({
   country = "guatemala",
@@ -65,19 +66,25 @@ const DepartmentData = ({
           xmlns="http://www.w3.org/2000/svg"
           xmlnsXlink="http://www.w3.org/1999/xlink"
         >
-          {countryID === "guatemala" ? (
-            <ModalContentGT
-              id={item.id}
-              customColor={depColors[index]}
-              disableHeat
-            />
-          ) : (
-            <ModalContentHN
-              id={item.id}
-              customColor={depColors[index]}
-              disableHeat
-            />
-          )}
+          {getCountryContent({
+            countryID,
+            content: {
+              guatemala: (
+                <ModalContentGT
+                  id={item.id}
+                  customColor={depColors[index]}
+                  disableHeat
+                />
+              ),
+              honduras: (
+                <ModalContentHN
+                  id={item.id}
+                  customColor={depColors[index]}
+                  disableHeat
+                />
+              ),
+            },
+          })}
         </svg>
 
         {/* NOMBRE */}
