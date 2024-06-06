@@ -5,6 +5,8 @@ import { Box, Stack, Text, Image } from "@chakra-ui/react";
 
 import MapaGuatemala from "../../../../assets/MapaGuatemala.svg";
 import MapaHonduras from "../../../../assets/MapaHonduras.svg";
+import MapaElSalvador from "../../../../assets/MapaElSalvador.svg";
+
 import getCountryContent from "../../../../utils/country";
 
 const Header = () => {
@@ -33,7 +35,11 @@ const Header = () => {
           maxWidth={{ base: "300px", md: "280px" }}
           src={getCountryContent({
             countryID,
-            content: { guatemala: MapaGuatemala, honduras: MapaHonduras },
+            content: {
+              guatemala: MapaGuatemala,
+              honduras: MapaHonduras,
+              elsalvador: MapaElSalvador,
+            },
           })}
         />
         <Stack

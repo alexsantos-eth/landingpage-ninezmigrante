@@ -5,6 +5,7 @@ import { Box, Stack, Text, Select, Image } from "@chakra-ui/react";
 
 import MapaGuatemala from "../../../../assets/MapaGuatemala.svg";
 import MapaHonduras from "../../../../assets/MapaHonduras.svg";
+import MapaElSalvador from "../../../../assets/MapaElSalvador.svg";
 import YearSelect from "../../../../components/yearSelect";
 import MonthPicker from "../../../../components/monthPicker";
 import getCountryContent from "../../../../utils/country";
@@ -72,7 +73,11 @@ const Period = ({ period, setPeriod, year, setYear, satisticsRef }) => {
           maxWidth={{ base: "300px", md: "400px" }}
           src={getCountryContent({
             countryID,
-            content: { guatemala: MapaGuatemala, honduras: MapaHonduras },
+            content: {
+              guatemala: MapaGuatemala,
+              honduras: MapaHonduras,
+              elsalvador: MapaElSalvador,
+            },
           })}
         />
       </Stack>
