@@ -11,6 +11,7 @@ import MaleIcon from "../../../../../../../../assets/male.png";
 import FemaleIcon from "../../../../../../../../assets/femenine.png";
 import ModalContentGT from "../../../../../../../../components/departments/components/gt";
 import ModalContentHN from "../../../../../../../../components/departments/components/hn";
+import ModalContentSV from "../../../../../../../../components/departments/components/sv";
 import getCountryContent from "../../../../../../../../utils/country";
 
 const DepartmentData = ({
@@ -78,6 +79,13 @@ const DepartmentData = ({
               ),
               honduras: (
                 <ModalContentHN
+                  id={item.id}
+                  customColor={depColors[index]}
+                  disableHeat
+                />
+              ),
+              elsalvador: (
+                <ModalContentSV
                   id={item.id}
                   customColor={depColors[index]}
                   disableHeat

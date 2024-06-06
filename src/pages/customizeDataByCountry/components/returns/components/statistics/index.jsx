@@ -147,6 +147,15 @@ const Statistics = ({ returns }) => {
                         customColor={[colors.heat.honduras[900 - index * 100]]}
                       />
                     ),
+                    elsalvador: (
+                      <ModalContentSV
+                        disableHeat
+                        id={department.id}
+                        customColor={[
+                          colors.heat.elsalvador[900 - index * 100],
+                        ]}
+                      />
+                    ),
                   },
                 })}
               </Stack>
