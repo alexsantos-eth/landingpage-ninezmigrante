@@ -26,6 +26,7 @@ const CountrySelect = () => {
       <Stack
         height="100%"
         alignItems="center"
+        justifyContent="center"
         gap={{ base: '40px', md: '40px' }}
         direction={{ base: 'column', md: 'row' }}
       >
