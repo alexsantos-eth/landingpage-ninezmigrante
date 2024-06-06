@@ -5,6 +5,7 @@ import { Box, Stack, Text, Image } from "@chakra-ui/react";
 
 import MapaGuatemala from "../../../../assets/MapaGuatemala.svg";
 import MapaHonduras from "../../../../assets/MapaHonduras.svg";
+import getCountryContent from "../../../../utils/country";
 
 const Header = () => {
   const { countryID } = useParams();
@@ -27,7 +28,13 @@ const Header = () => {
         <Image
           height="200px"
           maxWidth={{ base: "300px", md: "300px" }}
-          src={countryID === "guatemala" ? MapaGuatemala : MapaHonduras}
+          src={getCountryContent({
+            countryID,
+            content: {
+              guatemala: MapaGuatemala,
+              honduras: MapaHonduras,
+            },
+          })}
         />
         <Stack
           direction="column"
@@ -50,7 +57,7 @@ const Header = () => {
             fontFamily="Oswald"
             fontSize={{ base: "4xl", md: "5em" }}
           >
-            {countryID === "guatemala" ? "GUATEMALA" : "HONDURAS"}
+            {getCountryContent({ countryID, capitalize: true }).toUpperCase()}
           </Text>
           <Text
             lineHeight="1"

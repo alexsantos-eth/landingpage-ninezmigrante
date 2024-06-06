@@ -4,6 +4,7 @@ import HeatMapContext from "../context";
 
 // COLORS
 import { colors } from "../../../../../../../utils/theme";
+import getCountryContent from "../../../../../../../utils/country";
 
 /**
  * Devuelve un objeto de mapa de calor con un color y una función onClick si la propiedad disabledHeat
@@ -36,11 +37,13 @@ const useHeatmap = (id, disableHeat) => {
  */
 export const useHeatColors = (setColorScales, countryID, period, year) => {
   const setColor = (countryID, escala) => {
-    if (countryID === "guatemala") {
-      return `rgba(146,189,87, ${escala})`;
-    } else {
-      return `rgba(221,184,65, ${escala})`;
-    }
+    return getCountryContent({
+      countryID,
+      content: {
+        guatemala: `rgba(146,189,87, ${escala})`,
+        honduras: `rgba(221,184,65, ${escala})`,
+      },
+    });
   };
   useEffect(() => {
     if (period.length > 0 && year.length > 0) {

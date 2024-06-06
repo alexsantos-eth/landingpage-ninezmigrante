@@ -17,6 +17,7 @@ import useFetch, { monthNames } from "../../../../hooks/fetch";
 
 import StatisticsContext from "./context";
 import { capitalizeText } from "../../../../utils/tools";
+import getCountryContent from "../../../../utils/country";
 
 const Statistics = ({ period, year, satisticsRef }) => {
   // STATES
@@ -74,29 +75,33 @@ const Statistics = ({ period, year, satisticsRef }) => {
 
   const sources = (
     <Box direction="column" margin="auto" maxWidth="800px">
-      {countryID === "guatemala" ? (
-        <>
-          <Text
-            lineHeight={1}
-            textAlign="center"
-            fontFamily="Oswald"
-            fontSize={{ base: "xl", md: "2xl" }}
-            maxWidth={"800px"}
-          >
-            Fuente: Instituto Guatemalteco de Migración
-          </Text>
-        </>
-      ) : (
-        <Text
-          lineHeight={1}
-          textAlign="center"
-          fontFamily="Oswald"
-          fontSize={{ base: "xl", md: "2xl" }}
-          maxWidth={"800px"}
-        >
-          Fuente: Dirección de Niñez, Adolescencia y Familia (DINAF)
-        </Text>
-      )}
+      {getCountryContent({
+        countryID,
+        content: {
+          guatemala: (
+            <Text
+              lineHeight={1}
+              textAlign="center"
+              fontFamily="Oswald"
+              fontSize={{ base: "xl", md: "2xl" }}
+              maxWidth={"800px"}
+            >
+              Fuente: Instituto Guatemalteco de Migración
+            </Text>
+          ),
+          honduras: (
+            <Text
+              lineHeight={1}
+              textAlign="center"
+              fontFamily="Oswald"
+              fontSize={{ base: "xl", md: "2xl" }}
+              maxWidth={"800px"}
+            >
+              Fuente: Dirección de Niñez, Adolescencia y Familia (DINAF)
+            </Text>
+          ),
+        },
+      })}
     </Box>
   );
 
@@ -125,7 +130,7 @@ const Statistics = ({ period, year, satisticsRef }) => {
               fontSize={{ base: "4xl", md: "6xl" }}
               textAlign={{ base: "center", md: "left" }}
             >
-              {countryID === "guatemala" ? "GUATEMALA" : "HONDURAS"}
+              {getCountryContent({ countryID, capitalize: true }).toUpperCase()}
             </Text>
             <Text
               lineHeight="1"

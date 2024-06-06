@@ -32,6 +32,7 @@ import DownloadImage from "../../../../../../components/downloadImage";
 import YearSelect from "../../../../../../components/yearSelect";
 import MonthPicker from "../../../../../../components/monthPicker";
 import { monthNames } from "../../../../../../hooks/fetch";
+import getCountryContent from "../../../../../../utils/country";
 
 const DnDDepartment = ({ country = "guatemala" }) => {
   // PROPS DE DEPARTAMENTOS
@@ -89,9 +90,13 @@ const DnDDepartment = ({ country = "guatemala" }) => {
         fontSize={{ base: "xl", md: "md" }}
         maxWidth={"800px"}
       >
-        {countryID === "guatemala"
-          ? `Fuente: Instituto Guatemalteco de Migración -IGM-`
-          : "Fuente: DINAF"}
+        {getCountryContent({
+          countryID,
+          content: {
+            guatemala: "Instituto Guatemalteco de Migración -IGM-",
+            honduras: "DINAF",
+          },
+        })}
       </Text>
 
       <Text
@@ -171,19 +176,25 @@ const DnDDepartment = ({ country = "guatemala" }) => {
                             xmlns="http://www.w3.org/2000/svg"
                             xmlnsXlink="http://www.w3.org/1999/xlink"
                           >
-                            {countryID === "guatemala" ? (
-                              <ModalContentGT
-                                customColor={item.color}
-                                id={item.id}
-                                disableHeat
-                              />
-                            ) : (
-                              <ModalContentHN
-                                customColor={item.color}
-                                id={item.id}
-                                disableHeat
-                              />
-                            )}
+                            {getCountryContent({
+                              countryID,
+                              content: {
+                                guatemala: (
+                                  <ModalContentGT
+                                    customColor={item.color}
+                                    id={item.id}
+                                    disableHeat
+                                  />
+                                ),
+                                honduras: (
+                                  <ModalContentHN
+                                    customColor={item.color}
+                                    id={item.id}
+                                    disableHeat
+                                  />
+                                ),
+                              },
+                            })}
                           </svg>
                         </div>
                       )}

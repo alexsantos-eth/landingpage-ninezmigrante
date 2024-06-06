@@ -9,12 +9,14 @@
     "start": "vite preview"
   },
   "dependencies": {
+    "@apollo/client": "^3.10.4",
     "@chakra-ui/icons": "^2.0.2",
     "@chakra-ui/react": "^2.2.1",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "chart.js": "^3.8.0",
     "framer-motion": "^6.3.11",
+    "graphql": "^16.6.0",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
     "react": "^18.0.0",

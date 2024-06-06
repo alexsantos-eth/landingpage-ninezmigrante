@@ -7,10 +7,14 @@ import CountrySelect from './components/countrySelect';
 import TotalByGender from './components/totalByGender';
 import TotalReturns from './components/totalReturns';
 import TotalBorders from './components/totalBorders';
-import TotalTransit from './components/totalTransit';
+import { useQuery } from '@apollo/client';
+import { GET_COUNTRY } from '../../utils/query/country';
 
 const HomePage = () => {
   const emailExite = window.localStorage.getItem('popup');
+  const { loading, error, data } = useQuery(GET_COUNTRY);
+
+  console.log({error, data})
 
   const contadorVisita = async (email) => {
     // GAURDAR FORMULARIO
@@ -46,6 +50,7 @@ const HomePage = () => {
 
   return (
     <>
+  
       <CountrySelect />
       <TotalReturns />
       <TotalByGender />

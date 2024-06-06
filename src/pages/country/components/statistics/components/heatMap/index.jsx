@@ -14,22 +14,30 @@ import "./style.css";
 import { colors } from "../../../../../../utils/theme";
 import HeatMapGT from "./components/gt";
 import HeatMapHN from "./components/hn";
+import getCountryContent from "../../../../../../utils/country";
 
 const HeatMap = ({ period, year, country, periodId }) => {
   const countryID = useParams().countryID || country;
 
   //SCALE
   const [scale, setScale] = useState({
-    heat: {
-      guatemala: {
-        color: "rgba(146,189,87",
-        levelHeat: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+    heat: getCountryContent({
+      countryID,
+      content: {
+        guatemala: {
+          color: "rgba(146,189,87",
+          levelHeat: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+        },
+        honduras: {
+          color: "rgba(221,184,65",
+          levelHeat: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+        },
+        elsalvador: {
+          color: "rgba(221,184,65",
+          levelHeat: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+        },
       },
-      honduras: {
-        color: "rgba(221,184,65",
-        levelHeat: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
-      },
-    },
+    }),
   });
 
   // COLORES
@@ -80,16 +88,18 @@ const HeatMap = ({ period, year, country, periodId }) => {
         <Box>
           <HStack spacing={0}>
             <Box height="30px" width="30px" background={colors.heatMin[100]} />
-            {Object.values(scale.heat[countryID].levelHeat).map((color) => {
-              return (
-                <Box
-                  height="30px"
-                  width="30px"
-                  key={color}
-                  background={`${scale.heat[countryID].color}, ${color})`}
-                />
-              );
-            })}
+            {Object.values(scale?.heat?.[countryID]?.levelHeat ?? {}).map(
+              (color) => {
+                return (
+                  <Box
+                    height="30px"
+                    width="30px"
+                    key={color}
+                    background={`${scale.heat[countryID].color}, ${color})`}
+                  />
+                );
+              }
+            )}
           </HStack>
           <Flex justifyContent="space-between">
             <Text fontFamily="Oswald" fontSize="lg">
@@ -100,8 +110,15 @@ const HeatMap = ({ period, year, country, periodId }) => {
             </Text>
           </Flex>
         </Box>
-        {countryID === "guatemala" && <HeatMapGT />}
-        {countryID === "honduras" && <HeatMapHN />}
+
+        {getCountryContent({
+          countryID,
+          content: {
+            guatemala: <HeatMapGT />,
+            honduras: <HeatMapHN />,
+          },
+        })}
+
         <MapModal
           country={country}
           year={year}

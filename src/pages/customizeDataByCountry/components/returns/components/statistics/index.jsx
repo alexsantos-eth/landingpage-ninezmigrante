@@ -19,6 +19,7 @@ import ModalContentHN from "../../../../../../components/departments/components/
 import { colors } from "../../../../../../utils/theme";
 import { year as currentYear } from "../../../../../../utils/year";
 import { monthNames } from "../../../../../../hooks/fetch";
+import getCountryContent from "../../../../../../utils/country";
 
 const Statistics = ({ returns }) => {
   const { countryID } = useParams();
@@ -46,9 +47,13 @@ const Statistics = ({ returns }) => {
         fontSize={{ base: "xl", md: "md" }}
         maxWidth={"800px"}
       >
-        {countryID === "guatemala"
-          ? `Fuente Guatemala: Instituto Guatemalteco de Migración -IGM-`
-          : "Fuente: DINAF"}
+        {getCountryContent({
+          countryID,
+          content: {
+            guatemala: "Instituto Guatemalteco de Migración -IGM-",
+            honduras: "DINAF",
+          },
+        })}
       </Text>
 
       <Text
@@ -92,9 +97,10 @@ const Statistics = ({ returns }) => {
           >
             {`DEPARTAMENTOS CON ${
               list === "desc" ? "MENOS" : "MÁS"
-            } RETORNADOS - ${
-              countryID === "guatemala" ? "GUATEMALA" : "HONDURAS"
-            }`}
+            } RETORNADOS - ${getCountryContent({
+              countryID,
+              capitalize: true,
+            }).toUpperCase()}`}
           </Text>
           <Text
             fontSize="2xl"
@@ -124,19 +130,25 @@ const Statistics = ({ returns }) => {
               justifyContent="center"
             >
               <Stack height="80px">
-                {countryID === "guatemala" ? (
-                  <ModalContentGT
-                    disableHeat
-                    id={department.id}
-                    customColor={[colors.heat.guatemala[900 - index * 100]]}
-                  />
-                ) : (
-                  <ModalContentHN
-                    disableHeat
-                    id={department.id}
-                    customColor={[colors.heat.honduras[900 - index * 100]]}
-                  />
-                )}
+                {getCountryContent({
+                  countryID,
+                  content: {
+                    guatemala: (
+                      <ModalContentGT
+                        disableHeat
+                        id={department.id}
+                        customColor={[colors.heat.guatemala[900 - index * 100]]}
+                      />
+                    ),
+                    honduras: (
+                      <ModalContentHN
+                        disableHeat
+                        id={department.id}
+                        customColor={[colors.heat.honduras[900 - index * 100]]}
+                      />
+                    ),
+                  },
+                })}
               </Stack>
 
               <Stack
