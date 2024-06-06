@@ -7,6 +7,7 @@ import CountrySelect from './components/countrySelect';
 import TotalByGender from './components/totalByGender';
 import TotalReturns from './components/totalReturns';
 import TotalBorders from './components/totalBorders';
+import TotalTransit from './components/totalTransit';
 
 const HomePage = () => {
   const emailExite = window.localStorage.getItem('popup');
@@ -50,6 +51,7 @@ const HomePage = () => {
       <TotalByGender />
       <TotalByTravelCondition />
       <TotalBorders />
+      <TotalTransit />
     </>
   );
 };
