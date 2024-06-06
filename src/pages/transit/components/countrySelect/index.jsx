@@ -19,23 +19,49 @@ const CountrySelect = () => {
   return (
     <Box
       bgColor="blue.500"
-      height={{ base: '100%', md: '70vh' }}
-      padding={{ base: '40px 24px', md: '80px 120px' }}
+      height="100%"
+      padding={{ base: '40px 24px 80px 24px', md: '80px 40px 120px 40px' }}
     >
+      <Stack
+        justifyContent="center"
+        alignItems="center"
+        spacing="18px"
+        marginBottom={{ base: '40px', md: '60px' }}
+      >
+        <Text
+          lineHeight="1"
+          color="gray.700"
+          fontFamily="Oswald"
+          textAlign="center"
+          fontSize={{ base: '3xl', md: '5xl' }}
+        >
+          Niñez y adolescencia en tránsito
+        </Text>
+        <Text
+          lineHeight="1"
+          color="gray.600"
+          fontFamily="Montserrat Medium"
+          textAlign="center"
+          fontSize={{ base: 'xl', md: '2xl' }}
+        >
+          Selecciona un país:
+        </Text>
+      </Stack>
       {/* SELECT COUNTRY CONTAINER */}
       <Stack
         height="100%"
         alignItems="center"
-        gap={{ base: '40px', md: '40px' }}
+        justifyContent="center"
+        gap={{ base: '40px', md: '120px' }}
         direction={{ base: 'column', md: 'row' }}
       >
         {/* GUATEMALA OPTION */}
-        <Link to="/country/guatemala">
+        <Link to="/transit/guatemala">
           <VStack spacing="24px" alignItems="center" justifyContent="center">
             <Image
               maxWidth="500px"
               src={MapaGuatemala}
-              height={{ base: '200px', md: '280px' }}
+              height={{ base: '200px', md: '240px' }}
             />
 
             <Stack direction="row" alignItems="center" spacing="16px">
@@ -48,12 +74,12 @@ const CountrySelect = () => {
         </Link>
 
         {/* HONDURAS OPTION */}
-        <Link to="/country/honduras">
+        <Link to="/transit/honduras">
           <VStack spacing="24px" alignItems="center" justifyContent="center">
             <Image
               maxWidth="500px"
               src={MapaHonduras}
-              height={{ base: '160px', md: '260px' }}
+              height={{ base: '160px', md: '240px' }}
             />
 
             <Stack direction="row" alignItems="center" spacing="16px">
@@ -65,13 +91,12 @@ const CountrySelect = () => {
           </VStack>
         </Link>
 
-        {/* EL SALVADOR OPTION */}
-        <Link to="/country/elsalvador">
+        <Link to="/transit/elsalvador">
           <VStack spacing="24px" alignItems="center" justifyContent="center">
             <Image
               maxWidth="500px"
               src={MapaElSalvador}
-              height={{ base: '200px', md: '260px' }}
+              height={{ base: '160px', md: '240px' }}
             />
 
             <Stack direction="row" alignItems="center" spacing="16px">
