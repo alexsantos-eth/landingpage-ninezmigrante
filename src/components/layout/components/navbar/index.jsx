@@ -1,8 +1,8 @@
 // REACT
-import React from 'react';
+import React from "react";
 
 // ROUTER
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 // CHAKRA UI
 import {
@@ -18,16 +18,16 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 
 // ICONS
-import { ChevronRightIcon, ViewIcon } from '@chakra-ui/icons';
+import { ChevronRightIcon, ViewIcon } from "@chakra-ui/icons";
 
 // COMPONENTS
-import MobileNavbar from './components/mobileNavbar';
+import MobileNavbar from "./components/mobileNavbar";
 
 // ASSETS
-import LogoNinezMigrante from '../../../../assets/LogoNinezMigrante.png';
+import LogoNinezMigrante from "../../../../assets/LogoNinezMigrante.png";
 
 const Navbar = () => {
   return (
@@ -38,8 +38,8 @@ const Navbar = () => {
         id="menu"
         zIndex="1"
         width="100%"
-        position={{ base: 'sticky', md: 'relative' }}
-        boxShadow={{ base: '2px 2px 8px rgba(0, 0, 0, 0.1)', md: 'none' }}
+        position={{ base: "sticky", md: "relative" }}
+        boxShadow={{ base: "2px 2px 8px rgba(0, 0, 0, 0.1)", md: "none" }}
       >
         <Stack
           width="100%"
@@ -47,12 +47,12 @@ const Navbar = () => {
           direction="row"
           bgColor="blue.700"
           alignItems="center"
-          justifyContent={['space-between', 'start']}
-          padding={{ base: '16px 24px', md: '24px 40px', lg: '24px 160px' }}
+          justifyContent={["space-between", "start"]}
+          padding={{ base: "16px 24px", md: "24px 40px", lg: "24px 160px" }}
         >
           {/* LOGO */}
           <Link to="/">
-            <Image src={LogoNinezMigrante} w={{ base: '68px', md: '140px' }} />
+            <Image src={LogoNinezMigrante} w={{ base: "68px", md: "140px" }} />
           </Link>
 
           {/* TITLE AND SUBTITLE */}
@@ -60,12 +60,12 @@ const Navbar = () => {
             <Stack
               direction="row"
               alignItems="center"
-              gap={{ base: '0px', md: '4px' }}
-              display={{ base: 'none', md: 'flex' }}
+              gap={{ base: "0px", md: "4px" }}
+              display={{ base: "none", md: "flex" }}
             >
               <Heading
                 as="h1"
-                size={{ base: 'xl', md: '3xl' }}
+                size={{ base: "xl", md: "3xl" }}
                 color="white"
                 fontWeight="400"
                 fontFamily="Oswald"
@@ -77,8 +77,8 @@ const Navbar = () => {
               color="white"
               fontWeight="600"
               fontFamily="Times"
-              fontSize={{ md: 'md', lg: '1.4em' }}
-              display={{ base: 'none', md: 'block' }}
+              fontSize={{ md: "md", lg: "1.4em" }}
+              display={{ base: "none", md: "block" }}
             >
               Monitoreo centroamericano de niñez y adolescencia migrante
             </Text>
@@ -104,20 +104,20 @@ const Navbar = () => {
           bgColor="blue.500"
           alignItems="center"
           justifyContent="center"
-          display={{ base: 'none', md: 'flex' }}
-          spacing={{ md: '40px', lg: '60px' }}
-          padding={{ md: '16px 40px', lg: '16px 60px' }}
+          display={{ base: "none", md: "flex" }}
+          spacing={{ md: "40px", lg: "60px" }}
+          padding={{ md: "16px 40px", lg: "16px 60px" }}
         >
           {/* NAVBAR ITEM */}
-          <HStack spacing="4px" _hover={{ cursor: 'pointer' }}>
+          <HStack spacing="4px" _hover={{ cursor: "pointer" }}>
             <Icon as={ChevronRightIcon} color="gray.600" />
             <Menu>
               <MenuButton
                 as={Button}
                 padding="0px"
                 bgColor="transparent"
-                _hover={{ bg: 'transparent' }}
-                _active={{ bg: 'transparent' }}
+                _hover={{ bg: "transparent" }}
+                _active={{ bg: "transparent" }}
               >
                 <Text
                   color="gray.600"
@@ -132,7 +132,7 @@ const Navbar = () => {
                   <MenuItem
                     color="gray.600"
                     fontFamily="Montserrat Medium"
-                    _hover={{ bgColor: 'blue.700', color: 'white' }}
+                    _hover={{ bgColor: "blue.700", color: "white" }}
                   >
                     Guatemala
                   </MenuItem>
@@ -141,7 +141,7 @@ const Navbar = () => {
                   <MenuItem
                     color="gray.600"
                     fontFamily="Montserrat Medium"
-                    _hover={{ bgColor: 'blue.700', color: 'white' }}
+                    _hover={{ bgColor: "blue.700", color: "white" }}
                   >
                     Honduras
                   </MenuItem>
@@ -150,27 +150,9 @@ const Navbar = () => {
                   <MenuItem
                     color="gray.600"
                     fontFamily="Montserrat Medium"
-                    _hover={{ bgColor: 'blue.700', color: 'white' }}
+                    _hover={{ bgColor: "blue.700", color: "white" }}
                   >
                     El Salvador
-                  </MenuItem>
-                </Link>
-                <Link to="/compare">
-                  <MenuItem
-                    color="gray.600"
-                    fontFamily="Montserrat Medium"
-                    _hover={{ bgColor: 'blue.700', color: 'white' }}
-                  >
-                    Costa Rica
-                  </MenuItem>
-                </Link>
-                <Link to="/borders">
-                  <MenuItem
-                    color="gray.600"
-                    fontFamily="Montserrat Medium"
-                    _hover={{ bgColor: 'blue.700', color: 'white' }}
-                  >
-                    Panamá
                   </MenuItem>
                 </Link>
               </MenuList>
@@ -178,15 +160,15 @@ const Navbar = () => {
           </HStack>
 
           {/* NAVBAR ITEM */}
-          <HStack spacing="4px" _hover={{ cursor: 'pointer' }}>
+          <HStack spacing="4px" _hover={{ cursor: "pointer" }}>
             <Icon as={ChevronRightIcon} color="gray.600" />
             <Menu>
               <MenuButton
                 as={Button}
                 padding="0px"
                 bgColor="transparent"
-                _hover={{ bg: 'transparent' }}
-                _active={{ bg: 'transparent' }}
+                _hover={{ bg: "transparent" }}
+                _active={{ bg: "transparent" }}
               >
                 <Text
                   color="gray.600"
@@ -201,7 +183,7 @@ const Navbar = () => {
                   <MenuItem
                     color="gray.600"
                     fontFamily="Montserrat Medium"
-                    _hover={{ bgColor: 'blue.700', color: 'white' }}
+                    _hover={{ bgColor: "blue.700", color: "white" }}
                   >
                     Personalizar
                   </MenuItem>
@@ -210,7 +192,7 @@ const Navbar = () => {
                   <MenuItem
                     color="gray.600"
                     fontFamily="Montserrat Medium"
-                    _hover={{ bgColor: 'blue.700', color: 'white' }}
+                    _hover={{ bgColor: "blue.700", color: "white" }}
                   >
                     Comparar
                   </MenuItem>
@@ -219,7 +201,7 @@ const Navbar = () => {
                   <MenuItem
                     color="gray.600"
                     fontFamily="Montserrat Medium"
-                    _hover={{ bgColor: 'blue.700', color: 'white' }}
+                    _hover={{ bgColor: "blue.700", color: "white" }}
                   >
                     Detenidos en fronteras
                   </MenuItem>
@@ -230,7 +212,7 @@ const Navbar = () => {
 
           {/* NAVBAR ITEM */}
           <Link to="/observatory">
-            <HStack spacing="4px" _hover={{ cursor: 'pointer' }}>
+            <HStack spacing="4px" _hover={{ cursor: "pointer" }}>
               <Icon as={ChevronRightIcon} color="gray.600" />
               <Text fontFamily="Montserrat Medium" color="gray.600">
                 Monitoreo
@@ -240,7 +222,7 @@ const Navbar = () => {
 
           {/* NAVBAR ITEM */}
           <Link to="/organizations">
-            <HStack spacing="4px" _hover={{ cursor: 'pointer' }}>
+            <HStack spacing="4px" _hover={{ cursor: "pointer" }}>
               <Icon as={ChevronRightIcon} color="gray.600" />
               <Text fontFamily="Montserrat Medium" color="gray.600">
                 Organizaciones
@@ -250,7 +232,7 @@ const Navbar = () => {
 
           {/* NAVBAR ITEM */}
           <Link to="/documentation">
-            <HStack spacing="4px" _hover={{ cursor: 'pointer' }}>
+            <HStack spacing="4px" _hover={{ cursor: "pointer" }}>
               <Icon as={ChevronRightIcon} color="gray.600" />
               <Text fontFamily="Montserrat Medium" color="gray.600">
                 Documentación
@@ -260,7 +242,7 @@ const Navbar = () => {
 
           {/* NAVBAR ITEM */}
           <Link to="/contact">
-            <HStack spacing="4px" _hover={{ cursor: 'pointer' }}>
+            <HStack spacing="4px" _hover={{ cursor: "pointer" }}>
               <Icon as={ChevronRightIcon} color="gray.600" />
               <Text fontFamily="Montserrat Medium" color="gray.600">
                 Contacto

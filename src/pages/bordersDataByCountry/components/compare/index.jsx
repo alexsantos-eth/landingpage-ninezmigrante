@@ -13,6 +13,7 @@ import GraphFooter from "../../../../components/graphFooter";
 
 // ASSETS
 import MapaHonduras from "../../../.../../../assets/MapaHonduras.svg";
+import MapaElSalvador from "../../../../assets/MapaElSalvador.svg";
 import MapaMexico from "../../../../assets/MapaMexico.png";
 import MapaEEUU from "../../../../assets/MapaEEUU.png";
 import MapaGuatemala from "../../../../assets/MapaGuatemala.png";
@@ -193,6 +194,7 @@ const Compare = () => {
                   content: {
                     guatemala: MapaGuatemala,
                     honduras: MapaHonduras,
+                    elsalvador: MapaElSalvador,
                   },
                 })}
               />

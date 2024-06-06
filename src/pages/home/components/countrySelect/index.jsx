@@ -69,7 +69,7 @@ const CountrySelect = () => {
         </Link>
 
         {/* GUATEMALA OPTION */}
-        <Link to="/country/guatemala">
+        <Link to="/country/elsalvador">
           <VStack spacing="24px" alignItems="center" justifyContent="center">
             <Image
               maxWidth="500px"

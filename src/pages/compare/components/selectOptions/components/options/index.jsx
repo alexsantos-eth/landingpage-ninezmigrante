@@ -77,6 +77,7 @@ const Options = ({ id, onChange, satisticsRef }) => {
         <option value="default">Elegir país</option>
         <option value="guatemala">Guatemala</option>
         <option value="honduras">Honduras</option>
+        <option value="elsalvador">El Salvador</option>
       </Select>
 
       {/* SELECT YEAR */}

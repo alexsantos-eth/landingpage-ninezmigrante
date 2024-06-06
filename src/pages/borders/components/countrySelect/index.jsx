@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 // IMAGES
 import MapaGuatemala from "../../../../assets/MapaGuatemala.svg";
 import MapaHonduras from "../../../../assets/MapaHonduras.svg";
+import MapaElSalvador from "../../../../assets/MapaElSalvador.svg";
 
 const CountrySelect = () => {
   return (
@@ -85,6 +86,23 @@ const CountrySelect = () => {
               <ArrowRightIcon boxSize="24px" color="gray.700" />
               <Text fontSize="4xl" fontFamily="Oswald" color="gray.700">
                 Honduras
+              </Text>
+            </Stack>
+          </VStack>
+        </Link>
+
+        <Link to="/borders/elsalvador">
+          <VStack spacing="24px" alignItems="center" justifyContent="center">
+            <Image
+              maxWidth="500px"
+              src={MapaElSalvador}
+              height={{ base: "160px", md: "240px" }}
+            />
+
+            <Stack direction="row" alignItems="center" spacing="16px">
+              <ArrowRightIcon boxSize="24px" color="gray.700" />
+              <Text fontSize="4xl" fontFamily="Oswald" color="gray.700">
+                El Salvador
               </Text>
             </Stack>
           </VStack>
